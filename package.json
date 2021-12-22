@@ -1,0 +1,55 @@
+{
+  "name": "commercelayer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@commercelayer/js-auth": "^2.2.9",
+    "@commercelayer/sdk": "^2.3.13",
+    "@contentful/app-sdk": "^4.3.1",
+    "@contentful/forma-36-fcss": "^0.3.4",
+    "@contentful/forma-36-react-components": "^3.100.4",
+    "@contentful/forma-36-tokens": "^0.11.1",
+    "contentful-management": "^7.47.0",
+    "js-cookie": "^3.0.1",
+    "rapid-form": "^1.6.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3"
+  },
+  "scripts": {
+    "start": "cross-env BROWSER=none react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "upload": "contentful-app-scripts upload --bundle-dir ./build",
+    "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $CONTENTFUL_ORG_ID --definition-id $CONTENTFUL_APP_DEF_ID --token $CONTENTFUL_ACCESS_TOKEN"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@contentful/app-scripts": "^0.14.36",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.0.3",
+    "@types/js-cookie": "^3.0.1",
+    "@types/node": "^16.11.13",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "cross-env": "^7.0.3",
+    "typescript": "^4.5.4"
+  },
+  "homepage": "."
+}
