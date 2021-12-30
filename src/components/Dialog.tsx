@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
-import { Paragraph } from '@contentful/forma-36-react-components'
+import {
+  Paragraph,
+  SkeletonBodyText,
+  SkeletonContainer,
+} from '@contentful/forma-36-react-components'
 import { DialogExtensionSDK } from '@contentful/app-sdk'
-import sdk from '@commercelayer/sdk'
-import { getSalesChannelToken } from '@commercelayer/js-auth'
+import clSdk from '@commercelayer/sdk'
 import useGetToken from '../hooks/useGetToken'
+import { getOrganizationSlug, Resource } from '../utils'
+import ItemsList, { Item } from './ItemsList'
 
 interface DialogProps {
   sdk: DialogExtensionSDK
@@ -12,17 +17,30 @@ interface DialogProps {
 }
 
 const Dialog = ({ sdk }: DialogProps) => {
+  const [items, setItems] = useState<Item[]>([])
+  const [loading, setLoading] = useState(true)
   const credentials: any = sdk.parameters.installation
-  const token = useGetToken({ ...credentials })
-  const resource = sdk.parameters?.invocation
-  console.log(`props`, credentials, resource)
+  const accessToken = useGetToken({ ...credentials })
+  const invocation = sdk.parameters?.invocation as {
+    resource: Resource
+  }
+  const org = getOrganizationSlug(credentials?.endpoint)
   useEffect(() => {
-    if (token) {
-      console.log(`token`, token)
-      // const cl = sdk()
+    if (accessToken && items.length === 0) {
+      const cl = clSdk({ accessToken, ...org })
+      cl[invocation.resource].list().then((res) => {
+        setItems(res)
+        setLoading(false)
+      })
     }
-  }, [token])
-  return <Paragraph>Hello Dialog Component</Paragraph>
+  }, [accessToken, org, invocation.resource, items.length])
+  return loading ? (
+    <SkeletonContainer>
+      <SkeletonBodyText numberOfLines={5} />
+    </SkeletonContainer>
+  ) : (
+    <ItemsList items={items} />
+  )
 }
 
 export default Dialog

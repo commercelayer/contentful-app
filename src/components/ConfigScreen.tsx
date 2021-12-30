@@ -14,6 +14,7 @@ import { validateParameters } from '../utils'
 
 export interface AppInstallationParameters {
   clientId: string
+  clientSecret: string
   endpoint: string
 }
 
@@ -25,6 +26,7 @@ interface ConfigScreenProps {
 const ConfigScreen = (props: ConfigScreenProps) => {
   const [parameters, setParameters] = useState<AppInstallationParameters>({
     clientId: '',
+    clientSecret: '',
     endpoint: '',
   })
 
@@ -63,7 +65,6 @@ const ConfigScreen = (props: ConfigScreenProps) => {
       // If the app is not installed yet, `parameters` will be `null`.
       const currentParameters: AppInstallationParameters | null =
         await props.sdk.app.getParameters()
-      console.log(`currentParameters`, currentParameters)
       if (currentParameters) {
         setParameters(currentParameters)
       }
@@ -97,10 +98,21 @@ const ConfigScreen = (props: ConfigScreenProps) => {
             name="clientId"
             id="clientId"
             labelText="Client ID"
-            helpText="Provide your application client ID"
+            helpText="Provide your application Client ID"
             value={parameters?.clientId}
             onChange={(e) =>
               setParameters({ ...parameters, clientId: e.target.value })
+            }
+          />
+          <TextField
+            required
+            name="clientSecret"
+            id="clientSecret"
+            labelText="Client Secret"
+            helpText="Provide your application Client Secret"
+            value={parameters?.clientSecret}
+            onChange={(e) =>
+              setParameters({ ...parameters, clientSecret: e.target.value })
             }
           />
           <TextField

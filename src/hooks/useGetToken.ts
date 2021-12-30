@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getSalesChannelToken } from '@commercelayer/js-auth'
+import { getIntegrationToken } from '@commercelayer/js-auth'
 import Cookies from 'js-cookie'
 
 type Credentials = {
   clientId: string
+  clientSecret: string
   endpoint: string
   scope?: string
 }
@@ -11,28 +12,30 @@ type Credentials = {
 export default function useGetToken({
   clientId,
   endpoint,
+  clientSecret,
   scope = 'market:all',
 }: Credentials) {
   const [token, setToken] = useState('')
   useEffect(() => {
     const getCookieToken = Cookies.get(`clAccessToken`)
-    if (!getCookieToken && clientId && endpoint) {
+    if (!getCookieToken && clientId && clientSecret && endpoint) {
       const getToken = async () => {
-        const auth = await getSalesChannelToken({
+        const auth = await getIntegrationToken({
           clientId,
+          clientSecret,
           endpoint,
           scope,
         })
-        setToken(auth?.accessToken as string)
         Cookies.set(`clAccessToken`, auth?.accessToken as string, {
           // @ts-ignore
           expires: auth?.expires,
         })
+        setToken(auth?.accessToken as string)
       }
       getToken()
     } else {
       setToken(getCookieToken || '')
     }
-  }, [clientId, endpoint, scope])
+  }, [clientId, endpoint, scope, clientSecret])
   return token
 }

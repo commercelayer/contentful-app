@@ -27,8 +27,11 @@ const Field = ({ sdk }: FieldProps) => {
     sdk.dialogs
       .openCurrentApp({
         position: 'center',
-        title: val,
+        title: `Select an option`,
         width: 'fullWidth',
+        shouldCloseOnOverlayClick: true,
+        shouldCloseOnEscapePress: true,
+        minHeight: 800,
         parameters: {
           resource: val,
         },
@@ -44,7 +47,7 @@ const Field = ({ sdk }: FieldProps) => {
         onChange={handleChange}
         value={resource || ''}
       >
-        <Option value="" disabled selected>
+        <Option value="" disabled>
           Please select a resource...
         </Option>
         {options}
