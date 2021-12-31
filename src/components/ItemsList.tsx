@@ -12,10 +12,10 @@ import styles from './ItemsList.module.css'
 export type Item = Sku & Market & Bundle & SkuList
 
 type Props = {
-  items: Item[]
+  items?: Item[]
 }
 export default function ItemsList({ items }: Props) {
-  return items.length === 0 ? null : (
+  return items?.length === 0 ? null : (
     <Flex
       padding="spacingXl"
       justifyContent="normal"
@@ -23,13 +23,12 @@ export default function ItemsList({ items }: Props) {
       justifyItems="center"
       alignItems="center"
     >
-      {items.map((item, i) => {
-        console.log(`item`, item)
+      {items?.map((item, i) => {
         return (
           <div className={styles.ItemContainer} key={i}>
             <Card>
               {item?.image_url ? (
-                <Asset src={`${item?.image_url}&w=200`} type="image" />
+                <Asset src={item?.image_url} type="image" />
               ) : null}
               <Typography>
                 <SectionHeading>{item?.name}</SectionHeading>

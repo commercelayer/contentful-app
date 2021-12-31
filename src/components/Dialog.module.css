@@ -1,0 +1,13 @@
+.SearchInputIcon {
+  position: absolute;
+  top: 2.7rem;
+  left: 2.7rem;
+}
+
+.SearchInput input {
+  padding-left: 2.3rem;
+}
+
+.TotalResultContainer {
+  padding-left: 2.3rem;
+}

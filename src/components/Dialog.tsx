@@ -1,15 +1,23 @@
 import { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import {
+  Button,
+  Flex,
+  Icon,
   Paragraph,
   SkeletonBodyText,
   SkeletonContainer,
+  Tag,
+  TextInput,
+  Typography,
 } from '@contentful/forma-36-react-components'
 import { DialogExtensionSDK } from '@contentful/app-sdk'
-import clSdk from '@commercelayer/sdk'
+import clSdk, { QueryParamsList } from '@commercelayer/sdk'
 import useGetToken from '../hooks/useGetToken'
 import { getOrganizationSlug, Resource } from '../utils'
 import ItemsList, { Item } from './ItemsList'
+import styles from './Dialog.module.css'
+import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 
 interface DialogProps {
   sdk: DialogExtensionSDK
@@ -17,8 +25,9 @@ interface DialogProps {
 }
 
 const Dialog = ({ sdk }: DialogProps) => {
-  const [items, setItems] = useState<Item[]>([])
+  const [items, setItems] = useState<ListResponse<Item>>()
   const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
   const credentials: any = sdk.parameters.installation
   const accessToken = useGetToken({ ...credentials })
   const invocation = sdk.parameters?.invocation as {
@@ -26,20 +35,59 @@ const Dialog = ({ sdk }: DialogProps) => {
   }
   const org = getOrganizationSlug(credentials?.endpoint)
   useEffect(() => {
-    if (accessToken && items.length === 0) {
+    if (accessToken) {
       const cl = clSdk({ accessToken, ...org })
-      cl[invocation.resource].list().then((res) => {
-        setItems(res)
-        setLoading(false)
-      })
+      if (search.length > 0) {
+        const params = {
+          filters: { name_or_code_start: search },
+        } as QueryParamsList
+        cl[invocation.resource].list(params).then((res) => {
+          setItems(res)
+        })
+      } else {
+        const params = {} as QueryParamsList
+        cl[invocation.resource].list(params).then((res) => {
+          setItems(res)
+          setLoading(false)
+        })
+      }
     }
-  }, [accessToken, org, invocation.resource, items.length])
+  }, [search, accessToken])
   return loading ? (
     <SkeletonContainer>
-      <SkeletonBodyText numberOfLines={5} />
+      <SkeletonBodyText numberOfLines={10} />
     </SkeletonContainer>
   ) : (
-    <ItemsList items={items} />
+    <>
+      <Flex
+        padding="spacingXl"
+        justifyContent="space-between"
+        justifyItems="center"
+        alignItems="center"
+      >
+        <div>
+          <TextInput
+            className={styles.SearchInput}
+            name="search"
+            type="text"
+            value={search}
+            width="large"
+            placeholder="Search for an option..."
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Icon
+            color="muted"
+            icon="Search"
+            className={styles.SearchInputIcon}
+          />
+        </div>
+        <Button buttonType="primary">Save</Button>
+      </Flex>
+      <div className={styles.TotalResultContainer}>
+        <Tag tagType="secondary">Total result: {items?.meta.recordCount}</Tag>
+      </div>
+      <ItemsList items={items} />
+    </>
   )
 }
 
