@@ -11,3 +11,7 @@
 .TotalResultContainer {
   padding-left: 2.3rem;
 }
+
+.SkeletonContainer {
+  margin: 1.5rem;
+}

@@ -13,8 +13,10 @@ export type Item = Sku & Market & Bundle & SkuList
 
 type Props = {
   items?: Item[]
+  onClick?: (item: Item) => void
+  itemSelected?: Item
 }
-export default function ItemsList({ items }: Props) {
+export default function ItemsList({ items, onClick, itemSelected }: Props) {
   return items?.length === 0 ? null : (
     <Flex
       padding="spacingXl"
@@ -24,11 +26,16 @@ export default function ItemsList({ items }: Props) {
       alignItems="center"
     >
       {items?.map((item, i) => {
+        const selected = item.id === itemSelected?.id
         return (
           <div className={styles.ItemContainer} key={i}>
-            <Card>
+            <Card selected={selected} onClick={() => onClick && onClick(item)}>
               {item?.image_url ? (
-                <Asset src={item?.image_url} type="image" />
+                <Asset
+                  className={styles.CardImage}
+                  src={item?.image_url}
+                  type="image"
+                />
               ) : null}
               <Typography>
                 <SectionHeading>{item?.name}</SectionHeading>

@@ -4,16 +4,13 @@ import {
   Button,
   Flex,
   Icon,
-  Paragraph,
   SkeletonBodyText,
   SkeletonContainer,
   Tag,
   TextInput,
-  Typography,
 } from '@contentful/forma-36-react-components'
 import { DialogExtensionSDK } from '@contentful/app-sdk'
 import clSdk, { QueryParamsList } from '@commercelayer/sdk'
-import useGetToken from '../hooks/useGetToken'
 import { getOrganizationSlug, Resource } from '../utils'
 import ItemsList, { Item } from './ItemsList'
 import styles from './Dialog.module.css'
@@ -28,10 +25,12 @@ const Dialog = ({ sdk }: DialogProps) => {
   const [items, setItems] = useState<ListResponse<Item>>()
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemSelected, setItemSelected] = useState<Item | undefined>()
   const credentials: any = sdk.parameters.installation
-  const accessToken = useGetToken({ ...credentials })
-  const invocation = sdk.parameters?.invocation as {
+  const { resource, accessToken } = sdk.parameters?.invocation as {
     resource: Resource
+    accessToken: string
   }
   const org = getOrganizationSlug(credentials?.endpoint)
   useEffect(() => {
@@ -40,23 +39,31 @@ const Dialog = ({ sdk }: DialogProps) => {
       if (search.length > 0) {
         const params = {
           filters: { name_or_code_start: search },
+          pageNumber: currentPage,
         } as QueryParamsList
-        cl[invocation.resource].list(params).then((res) => {
+        cl[resource].list(params).then((res) => {
           setItems(res)
         })
       } else {
-        const params = {} as QueryParamsList
-        cl[invocation.resource].list(params).then((res) => {
+        const params = {
+          pageNumber: currentPage,
+        } as QueryParamsList
+        cl[resource].list(params).then((res) => {
           setItems(res)
           setLoading(false)
         })
       }
     }
-  }, [search, accessToken])
+  }, [search, accessToken, currentPage])
+  const handleClick = (item: Item) => {
+    setItemSelected(item)
+  }
   return loading ? (
-    <SkeletonContainer>
-      <SkeletonBodyText numberOfLines={10} />
-    </SkeletonContainer>
+    <div className={styles.SkeletonContainer}>
+      <SkeletonContainer>
+        <SkeletonBodyText numberOfLines={5} />
+      </SkeletonContainer>
+    </div>
   ) : (
     <>
       <Flex
@@ -81,12 +88,62 @@ const Dialog = ({ sdk }: DialogProps) => {
             className={styles.SearchInputIcon}
           />
         </div>
-        <Button buttonType="primary">Save</Button>
+        <Button
+          disabled={!itemSelected}
+          buttonType="primary"
+          onClick={() => sdk.close(itemSelected)}
+        >
+          Save
+        </Button>
       </Flex>
       <div className={styles.TotalResultContainer}>
         <Tag tagType="secondary">Total result: {items?.meta.recordCount}</Tag>
       </div>
-      <ItemsList items={items} />
+      <ItemsList
+        itemSelected={itemSelected}
+        items={items}
+        onClick={handleClick}
+      />
+      <div>
+        <Flex
+          padding="spacingXl"
+          justifyContent="space-evenly"
+          justifyItems="center"
+          alignItems="center"
+        >
+          <Button
+            buttonType="naked"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(1)}
+          >
+            <Icon icon="ChevronLeft" />
+            <Icon icon="ChevronLeft" />
+          </Button>
+          <Button
+            buttonType="naked"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            <Icon icon="ChevronLeft" />
+          </Button>
+          <Tag tagType="secondary">Current page: {currentPage}</Tag>
+          <Button
+            buttonType="naked"
+            disabled={currentPage === items?.meta.pageCount}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            <Icon icon="ChevronRight" />
+          </Button>
+          <Button
+            buttonType="naked"
+            disabled={currentPage === items?.meta.pageCount}
+            onClick={() => setCurrentPage(items?.meta.pageCount as number)}
+          >
+            <Icon icon="ChevronRight" />
+            <Icon icon="ChevronRight" />
+          </Button>
+        </Flex>
+      </div>
     </>
   )
 }

@@ -1,10 +1,15 @@
 .ItemContainer {
   padding: 0.5rem;
   max-width: 300px;
+  min-width: 150px;
 }
 
 .SkuCode {
   color: rgb(107 114 128);
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.CardImage {
+  margin-bottom: 1rem;
 }
