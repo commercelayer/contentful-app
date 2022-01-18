@@ -1,11 +1,7 @@
 .SearchInputIcon {
-  position: absolute;
-  top: 2.7rem;
-  left: 2.7rem;
-}
-
-.SearchInput input {
-  padding-left: 2.3rem;
+  margin-top: 0.8rem;
+  margin-left: 1.5rem;
+  z-index: 1;
 }
 
 .TotalResultContainer {

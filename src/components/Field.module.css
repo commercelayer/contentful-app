@@ -13,3 +13,8 @@
   line-height: 1rem;
   font-weight: 600;
 }
+
+.Card {
+  border-style: dashed;
+  padding: 1.5rem;
+}

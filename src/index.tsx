@@ -1,6 +1,6 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { createClient } from 'contentful-management';
+import React, { StrictMode } from 'react'
+import { render } from 'react-dom'
+import { createClient } from 'contentful-management'
 
 import {
   AppExtensionSDK,
@@ -11,30 +11,28 @@ import {
   PageExtensionSDK,
   init,
   locations,
-} from '@contentful/app-sdk';
-import type { KnownSDK } from '@contentful/app-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import '@contentful/forma-36-fcss/dist/styles.css';
-import '@contentful/forma-36-tokens/dist/css/index.css';
-import './index.css';
-
-import ConfigScreen from './components/ConfigScreen';
-import EntryEditor from './components/EntryEditor';
-import Page from './components/Page';
-import Sidebar from './components/Sidebar';
-import Field from './components/Field';
-import Dialog from './components/Dialog';
-import LocalhostWarning from './components/LocalhostWarning';
+} from '@contentful/app-sdk'
+import type { KnownSDK } from '@contentful/app-sdk'
+import '@contentful/forma-36-fcss/dist/styles.css'
+import '@contentful/forma-36-tokens/dist/css/index.css'
+import './index.css'
+import { GlobalStyles } from '@contentful/f36-components'
+import ConfigScreen from './components/ConfigScreen'
+import EntryEditor from './components/EntryEditor'
+import Page from './components/Page'
+import Sidebar from './components/Sidebar'
+import Field from './components/Field'
+import Dialog from './components/Dialog'
+import LocalhostWarning from './components/LocalhostWarning'
 
 if (process.env.NODE_ENV === 'development' && window.self === window.top) {
   // You can remove this if block before deploying your app
-  const root = document.getElementById('root');
+  const root = document.getElementById('root')
 
-  render(<LocalhostWarning />, root);
+  render(<LocalhostWarning />, root)
 } else {
   init((sdk: KnownSDK) => {
-    const root = document.getElementById('root');
-
+    const root = document.getElementById('root')
     // Creating a CMA client allows you to use the contentful-management library
     // within your app. See the contentful-management documentation at https://contentful.github.io/contentful-management.js/contentful-management/latest/
     // to learn what is possible.
@@ -47,7 +45,7 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
           spaceId: sdk.ids.space,
         },
       }
-    );
+    )
 
     // All possible locations for your app
     // Feel free to remove unused locations
@@ -77,13 +75,19 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
         location: locations.LOCATION_PAGE,
         component: <Page cma={cma} sdk={sdk as PageExtensionSDK} />,
       },
-    ];
+    ]
 
     // Select a component depending on a location in which the app is rendered.
     ComponentLocationSettings.forEach((componentLocationSetting) => {
       if (sdk.location.is(componentLocationSetting.location)) {
-        render(componentLocationSetting.component, root);
+        render(
+          <StrictMode>
+            <GlobalStyles />
+            {componentLocationSetting.component}
+          </StrictMode>,
+          root
+        )
       }
-    });
-  });
+    })
+  })
 }

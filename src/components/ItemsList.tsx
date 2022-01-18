@@ -1,12 +1,5 @@
 import { Sku, Market, Bundle, SkuList } from '@commercelayer/sdk'
-import {
-  Asset,
-  Card,
-  Flex,
-  Paragraph,
-  SectionHeading,
-  Typography,
-} from '@contentful/forma-36-react-components'
+import { Asset, Card, Flex, Stack, Text } from '@contentful/f36-components'
 import styles from './ItemsList.module.css'
 
 export type Item = Sku & Market & Bundle & SkuList
@@ -23,24 +16,47 @@ export default function ItemsList({ items, onClick, itemSelected }: Props) {
       justifyContent="normal"
       flexWrap="wrap"
       justifyItems="center"
-      alignItems="center"
+      alignContent="center"
     >
       {items?.map((item, i) => {
         const selected = item.id === itemSelected?.id
         return (
           <div className={styles.ItemContainer} key={i}>
-            <Card selected={selected} onClick={() => onClick && onClick(item)}>
-              {item?.image_url ? (
-                <Asset
-                  className={styles.CardImage}
-                  src={item?.image_url}
-                  type="image"
-                />
-              ) : null}
-              <Typography>
-                <SectionHeading>{item?.name}</SectionHeading>
-                <Paragraph className={styles.SkuCode}>{item?.code}</Paragraph>
-              </Typography>
+            <Card
+              isSelected={selected}
+              onClick={() => onClick && onClick(item)}
+            >
+              <Stack
+                flexDirection="column"
+                alignItems="center"
+                margin="spacingXs"
+              >
+                {item?.image_url ? (
+                  <Asset
+                    className={styles.CardImage}
+                    src={item?.image_url}
+                    type="image"
+                  />
+                ) : (
+                  <Asset
+                    className={styles.CardImage}
+                    src="/assets/transparent-logo.png"
+                    type="image"
+                  />
+                )}
+                <Stack flexDirection="column" alignItems="flex-start">
+                  <Text fontColor="gray900" fontWeight="fontWeightMedium">
+                    {item?.name}
+                  </Text>
+                  <Text
+                    fontColor="gray500"
+                    fontSize="fontSizeS"
+                    fontWeight="fontWeightMedium"
+                  >
+                    {item?.code}
+                  </Text>
+                </Stack>
+              </Stack>
             </Card>
           </div>
         )

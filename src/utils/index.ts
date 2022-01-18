@@ -10,6 +10,9 @@ export function validateParameters(parameters: AppInstallationParameters) {
   if (parameters?.endpoint.length < 1) {
     return 'Provide the Commerce Layer API endpoint.'
   }
+  if (parameters?.availableResources.length < 1) {
+    return 'Select one or more resources to show.'
+  }
   return null
 }
 
@@ -18,13 +21,23 @@ export type Resource = 'skus' | 'bundles' | 'markets' | 'sku_lists'
 type ResourceObject = {
   value: Resource
   text: string
+  helpText?: string
 }
 
 export const resources: ResourceObject[] = [
-  { value: 'skus', text: 'Product' },
-  { value: 'bundles', text: 'Bundle' },
-  { value: 'markets', text: 'Market' },
-  { value: 'sku_lists', text: 'SKU list' },
+  {
+    value: 'skus',
+    text: 'SKUs',
+    helpText: 'SKUs describe specific product variations that are being sold.',
+  },
+  {
+    value: 'bundles',
+    text: 'Bundles',
+    helpText:
+      'Bundles describe a set of specific products that are being sold.',
+  },
+  { value: 'markets', text: 'Markets' },
+  { value: 'sku_lists', text: 'SKU lists' },
 ]
 
 type ReturnObj = {
@@ -43,4 +56,19 @@ export function getOrganizationSlug<E extends string>(endpoint: E): ReturnObj {
     .replace('https://', '')
     .replace(`.${org.domain}`, '')
   return org
+}
+
+export function getValue<I extends Record<string, any>>(item: I): string {
+  switch (item.type) {
+    case 'skus':
+      return item.sku_code
+    case 'bundles':
+      return item.bundle_code
+    case 'markets':
+      return item.number
+    case 'sku_lists':
+      return item.id
+    default:
+      return ''
+  }
 }

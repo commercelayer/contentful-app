@@ -4,18 +4,21 @@ import { PlainClientAPI } from 'contentful-management'
 import {
   Heading,
   Form,
-  Workbench,
   Paragraph,
-  FieldGroup,
-  TextField,
-} from '@contentful/forma-36-react-components'
+  TextInput,
+  Checkbox,
+  FormControl,
+} from '@contentful/f36-components'
+import { Workbench } from '@contentful/f36-workbench'
 import styles from './ConfigScreen.module.css'
-import { validateParameters } from '../utils'
+import { Resource, validateParameters } from '../utils'
+import { resources } from '../utils/index'
 
 export interface AppInstallationParameters {
   clientId: string
   clientSecret: string
   endpoint: string
+  availableResources: Resource[]
 }
 
 interface ConfigScreenProps {
@@ -28,6 +31,7 @@ const ConfigScreen = (props: ConfigScreenProps) => {
     clientId: '',
     clientSecret: '',
     endpoint: '',
+    availableResources: [],
   })
 
   const onConfigure = useCallback(async () => {
@@ -74,60 +78,103 @@ const ConfigScreen = (props: ConfigScreenProps) => {
       props.sdk.app.setReady()
     })()
   }, [props.sdk])
+  const handleChecked: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const checked = event.target.checked
+    const name = event.target.name as Resource
+    if (checked && !parameters?.availableResources?.includes(name)) {
+      setParameters({
+        ...parameters,
+        availableResources: [...(parameters?.availableResources || []), name],
+      })
+    } else {
+      const availableResources = parameters?.availableResources.filter(
+        (v) => v !== name
+      )
+      setParameters({ ...parameters, availableResources })
+    }
+  }
+  const Resources = resources.map((r) => (
+    <Checkbox
+      id={r.value}
+      name={r.value}
+      value={r.value}
+      isChecked={parameters?.availableResources?.includes(r.value)}
+      onChange={handleChecked}
+    >
+      {r.text}
+    </Checkbox>
+  ))
   return (
     <Workbench className={styles.Container}>
-      <Form spacing="default">
-        <Heading>About Commerce Layer</Heading>
-        <Paragraph>
-          <a href="https://commercelayer.io/" target="_blank" rel="noreferrer">
-            Commerce Layer
-          </a>{' '}
-          is a multi-market commerce API and order management system that lets
-          you add global shopping capabilities to any website, mobile app,
-          chatbot, wearable, voice, or IoT device, with ease. Compose your stack
-          with the best-of-breed tools you already mastered and love. Make any
-          experience shoppable, anywhere, through a blazing-fast,
-          enterprise-grade, and secure API.
-        </Paragraph>
-        <hr />
-        <Heading>Configuration</Heading>
-        <FieldGroup>
-          {/* {inputs} */}
-          <TextField
-            required
-            name="clientId"
-            id="clientId"
-            labelText="Client ID"
-            helpText="Provide your application Client ID"
-            value={parameters?.clientId}
-            onChange={(e) =>
-              setParameters({ ...parameters, clientId: e.target.value })
-            }
-          />
-          <TextField
-            required
-            name="clientSecret"
-            id="clientSecret"
-            labelText="Client Secret"
-            helpText="Provide your application Client Secret"
-            value={parameters?.clientSecret}
-            onChange={(e) =>
-              setParameters({ ...parameters, clientSecret: e.target.value })
-            }
-          />
-          <TextField
-            required
-            name="endpoint"
-            id="endpoint"
-            labelText="Endpoint"
-            helpText="Provide your application endpoint"
-            value={parameters?.endpoint}
-            onChange={(e) =>
-              setParameters({ ...parameters, endpoint: e.target.value })
-            }
-          />
-        </FieldGroup>
-      </Form>
+      <Workbench.Content>
+        <Form>
+          <Heading>About Commerce Layer</Heading>
+          <Paragraph>
+            <a
+              href="https://commercelayer.io/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Commerce Layer
+            </a>{' '}
+            is a multi-market commerce API and order management system that lets
+            you add global shopping capabilities to any website, mobile app,
+            chatbot, wearable, voice, or IoT device, with ease. Compose your
+            stack with the best-of-breed tools you already mastered and love.
+            Make any experience shoppable, anywhere, through a blazing-fast,
+            enterprise-grade, and secure API.
+          </Paragraph>
+          <hr />
+          <Heading>Configuration</Heading>
+          <FormControl isRequired isInvalid={parameters?.clientId === ''}>
+            <FormControl.Label>Client ID</FormControl.Label>
+            <TextInput
+              name="clientId"
+              id="clientId"
+              value={parameters?.clientId}
+              onChange={(e) =>
+                setParameters({ ...parameters, clientId: e.target.value })
+              }
+            />
+            <FormControl.HelpText>
+              Provide your application Client ID
+            </FormControl.HelpText>
+          </FormControl>
+          <FormControl isRequired isInvalid={parameters?.clientSecret === ''}>
+            <FormControl.Label>Client Secret</FormControl.Label>
+            <TextInput
+              name="clientSecret"
+              id="clientSecret"
+              value={parameters?.clientSecret}
+              onChange={(e) =>
+                setParameters({ ...parameters, clientSecret: e.target.value })
+              }
+            />
+            <FormControl.HelpText>
+              Provide your application Client Secret
+            </FormControl.HelpText>
+          </FormControl>
+          <FormControl isRequired isInvalid={parameters?.endpoint === ''}>
+            <FormControl.Label>Endpoint</FormControl.Label>
+            <TextInput
+              name="endpoint"
+              id="endpoint"
+              value={parameters?.endpoint}
+              onChange={(e) =>
+                setParameters({ ...parameters, endpoint: e.target.value })
+              }
+            />
+            <FormControl.HelpText>
+              Provide your application endpoint
+            </FormControl.HelpText>
+          </FormControl>
+          <Heading>Available Resources</Heading>
+          <Paragraph>
+            Select one or more resources to show in your field editor.
+          </Paragraph>
+          {Resources}
+        </Form>
+      </Workbench.Content>
     </Workbench>
   )
 }

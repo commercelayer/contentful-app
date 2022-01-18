@@ -2,21 +2,30 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { FieldExtensionSDK } from '@contentful/app-sdk'
 import {
-  SelectField,
-  Option,
   Card,
   Paragraph,
   SectionHeading,
-  Typography,
   Asset,
   Flex,
-  Icon,
-} from '@contentful/forma-36-react-components'
-import { getOrganizationSlug, Resource, resources } from '../utils'
+  Stack,
+  Menu,
+  Button,
+  Text,
+  Popover,
+} from '@contentful/f36-components'
+import {
+  ExternalLinkIcon,
+  CloseIcon,
+  PlusIcon,
+  ChevronDownIcon,
+} from '@contentful/f36-icons'
+import { Portal } from '@contentful/f36-utils'
+import { getOrganizationSlug, getValue, Resource, resources } from '../utils'
 import { Item } from './ItemsList'
 import styles from './Field.module.css'
 import useGetToken from '../hooks/useGetToken'
 import clSdk from '@commercelayer/sdk'
+import tokens from '@contentful/forma-36-tokens'
 
 interface FieldProps {
   sdk: FieldExtensionSDK
@@ -25,8 +34,10 @@ interface FieldProps {
 
 const Field = ({ sdk }: FieldProps) => {
   const [resource, setResource] = useState<Resource>()
+  const [isOpen, setIsOpen] = useState(false)
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials: any = sdk.parameters.installation
+  const availableResources = credentials?.availableResources as Resource[]
   const accessToken = useGetToken({ ...credentials })
   const { endpoint } = credentials
   const org = getOrganizationSlug(endpoint)
@@ -47,15 +58,21 @@ const Field = ({ sdk }: FieldProps) => {
   // If you only want to extend Contentful's default editing experience
   // reuse Contentful's editor components
   // -> https://www.contentful.com/developers/docs/extensibility/field-editors/
-  const options = resources.map(({ value, text }, i) => {
-    return (
-      <Option key={i} value={value}>
-        {text}
-      </Option>
-    )
-  })
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const val = event.target.value as Resource
+  const items = resources
+    .filter(({ value }) => availableResources.includes(value))
+    .map(({ value, text }, i) => {
+      return (
+        <Menu.Item key={i} value={value} onClick={() => handleClick(value)}>
+          {text}
+        </Menu.Item>
+      )
+    })
+  const handleOpen = () => {
+    const height = !isOpen ? 100 * items.length : 150
+    setIsOpen(!isOpen)
+    sdk.window.updateHeight(height)
+  }
+  const handleClick = (val: Resource) => {
     setResource(val)
     sdk.dialogs
       .openCurrentApp({
@@ -73,10 +90,7 @@ const Field = ({ sdk }: FieldProps) => {
       .then((itemSelected) => {
         if (itemSelected) {
           setCurrentItem(itemSelected)
-          const value = JSON.stringify({
-            id: itemSelected.id,
-            type: itemSelected.type,
-          })
+          const value = getValue(itemSelected)
           sdk.field.setValue(value)
         } else {
           setResource(undefined)
@@ -84,6 +98,7 @@ const Field = ({ sdk }: FieldProps) => {
         sdk.field.onValueChanged(() => {})
       })
   }
+  console.log(`currentItem`, currentItem)
   return currentItem ? (
     <Card>
       <Flex
@@ -91,12 +106,7 @@ const Field = ({ sdk }: FieldProps) => {
         flexWrap="nowrap"
         flexDirection="row"
       >
-        <Flex
-          justifyContent="normal"
-          flexWrap="nowrap"
-          flexDirection="row"
-          alignItems="center"
-        >
+        <Stack flexDirection="row" alignItems="center">
           {currentItem?.image_url ? (
             <Asset
               className={styles.CardImage}
@@ -104,13 +114,24 @@ const Field = ({ sdk }: FieldProps) => {
               type="image"
             />
           ) : null}
-          <Typography>
-            <SectionHeading>{currentItem?.name}</SectionHeading>
-            <Paragraph className={styles.CardParagraph}>
+          <Stack flexDirection="column" alignItems="flex-start">
+            <Text
+              fontColor="gray900"
+              fontWeight="fontWeightMedium"
+              fontSize="fontSizeL"
+            >
+              {currentItem?.name}{' '}
+              {currentItem?.type !== 'skus' ? `(${currentItem.type})` : ''}
+            </Text>
+            <Text
+              fontColor="gray500"
+              fontWeight="fontWeightMedium"
+              fontSize="fontSizeM"
+            >
               {currentItem?.code}
-            </Paragraph>
-          </Typography>
-        </Flex>
+            </Text>
+          </Stack>
+        </Stack>
         <div>
           <a
             className={styles.CardIcon}
@@ -121,12 +142,11 @@ const Field = ({ sdk }: FieldProps) => {
             }${currentItem.type}/${currentItem.id}/edit`}
             rel="noreferrer"
           >
-            <Icon cursor="pointer" color="muted" icon="ExternalLink" />
+            <ExternalLinkIcon cursor="pointer" variant="muted" />
           </a>
-          <Icon
+          <CloseIcon
             cursor="pointer"
-            color="muted"
-            icon="Close"
+            variant="muted"
             onClick={() => {
               setCurrentItem(undefined)
               setResource(undefined)
@@ -138,20 +158,42 @@ const Field = ({ sdk }: FieldProps) => {
       </Flex>
     </Card>
   ) : (
-    <>
-      <SelectField
+    <Card
+      style={{
+        padding: tokens.spacingXl,
+        border: `1px dashed ${tokens.gray500}`,
+      }}
+    >
+      <Stack
+        style={{ zIndex: tokens.zIndexNotification }}
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Menu isOpen={isOpen} onOpen={handleOpen} onClose={handleOpen}>
+          <Menu.Trigger>
+            <Button>
+              <Stack>
+                <PlusIcon variant="muted" />
+                <Text fontWeight="fontWeightDemiBold">Add resource</Text>
+                <ChevronDownIcon variant="muted" />
+              </Stack>
+            </Button>
+          </Menu.Trigger>
+          <Menu.List>{items}</Menu.List>
+        </Menu>
+      </Stack>
+      {/* <Select
         name="select-resource"
         id="select-resource"
-        labelText="Commerce Layer resource"
         onChange={handleChange}
         value={resource || ''}
-      >
-        <Option value="" disabled>
-          Please select a resource...
-        </Option>
+        >
+        <Select.Option value="" isDisabled>
+        Please select a resource...
+        </Select.Option>
         {options}
-      </SelectField>
-    </>
+      </Select> */}
+    </Card>
   )
 }
 

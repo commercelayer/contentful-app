@@ -3,18 +3,26 @@ import { PlainClientAPI } from 'contentful-management'
 import {
   Button,
   Flex,
-  Icon,
   SkeletonBodyText,
   SkeletonContainer,
-  Tag,
+  Badge,
   TextInput,
-} from '@contentful/forma-36-react-components'
+  Stack,
+  Paragraph,
+  Text,
+} from '@contentful/f36-components'
 import { DialogExtensionSDK } from '@contentful/app-sdk'
 import clSdk, { QueryParamsList } from '@commercelayer/sdk'
 import { getOrganizationSlug, Resource } from '../utils'
 import ItemsList, { Item } from './ItemsList'
 import styles from './Dialog.module.css'
 import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
+import {
+  SearchIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from '@contentful/f36-icons'
+import { Workbench } from '@contentful/f36-workbench'
 
 interface DialogProps {
   sdk: DialogExtensionSDK
@@ -65,86 +73,90 @@ const Dialog = ({ sdk }: DialogProps) => {
       </SkeletonContainer>
     </div>
   ) : (
-    <>
-      <Flex
-        padding="spacingXl"
-        justifyContent="space-between"
-        justifyItems="center"
-        alignItems="center"
-      >
-        <div>
-          <TextInput
-            className={styles.SearchInput}
-            name="search"
-            type="text"
-            value={search}
-            width="large"
-            placeholder="Search for an option..."
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Icon
-            color="muted"
-            icon="Search"
-            className={styles.SearchInputIcon}
-          />
-        </div>
-        <Button
-          disabled={!itemSelected}
-          buttonType="primary"
-          onClick={() => sdk.close(itemSelected)}
-        >
-          Save
-        </Button>
-      </Flex>
-      <div className={styles.TotalResultContainer}>
-        <Tag tagType="secondary">Total result: {items?.meta.recordCount}</Tag>
-      </div>
-      <ItemsList
-        itemSelected={itemSelected}
-        items={items}
-        onClick={handleClick}
-      />
-      <div>
+    <Workbench>
+      <Workbench.Content>
         <Flex
           padding="spacingXl"
-          justifyContent="space-evenly"
+          justifyContent="space-between"
           justifyItems="center"
           alignItems="center"
         >
-          <Button
-            buttonType="naked"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(1)}
-          >
-            <Icon icon="ChevronLeft" />
-            <Icon icon="ChevronLeft" />
-          </Button>
-          <Button
-            buttonType="naked"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
-          >
-            <Icon icon="ChevronLeft" />
-          </Button>
-          <Tag tagType="secondary">Current page: {currentPage}</Tag>
-          <Button
-            buttonType="naked"
-            disabled={currentPage === items?.meta.pageCount}
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            <Icon icon="ChevronRight" />
-          </Button>
-          <Button
-            buttonType="naked"
-            disabled={currentPage === items?.meta.pageCount}
-            onClick={() => setCurrentPage(items?.meta.pageCount as number)}
-          >
-            <Icon icon="ChevronRight" />
-            <Icon icon="ChevronRight" />
-          </Button>
+          <Flex>
+            <SearchIcon variant="muted" className={styles.SearchInputIcon} />
+            <TextInput
+              style={{
+                paddingLeft: '2.3rem',
+                marginLeft: '-1.8rem',
+                zIndex: 0,
+              }}
+              name="search"
+              type="text"
+              value={search}
+              width="large"
+              placeholder="Search for an option..."
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Flex>
+          <Stack>
+            <Text fontColor="gray500">
+              Total result: {items?.meta.recordCount}
+            </Text>
+            <Button
+              isDisabled={!itemSelected}
+              variant="primary"
+              onClick={() => sdk.close(itemSelected)}
+            >
+              Save
+            </Button>
+          </Stack>
         </Flex>
-      </div>
-    </>
+        <ItemsList
+          itemSelected={itemSelected}
+          items={items}
+          onClick={handleClick}
+        />
+        <div>
+          <Flex
+            padding="spacingXl"
+            justifyContent="space-evenly"
+            justifyItems="center"
+            alignItems="center"
+          >
+            <Button
+              variant="transparent"
+              isDisabled={currentPage === 1}
+              onClick={() => setCurrentPage(1)}
+            >
+              <ChevronLeftIcon />
+              <ChevronLeftIcon />
+            </Button>
+            <Button
+              variant="transparent"
+              isDisabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              <ChevronLeftIcon />
+            </Button>
+            <Badge variant="secondary">Current page: {currentPage}</Badge>
+            <Button
+              variant="transparent"
+              isDisabled={currentPage === items?.meta.pageCount}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              <ChevronRightIcon />
+            </Button>
+            <Button
+              variant="transparent"
+              isDisabled={currentPage === items?.meta.pageCount}
+              onClick={() => setCurrentPage(items?.meta.pageCount as number)}
+            >
+              <ChevronRightIcon />
+              <ChevronRightIcon />
+            </Button>
+          </Flex>
+        </div>
+      </Workbench.Content>
+    </Workbench>
   )
 }
 

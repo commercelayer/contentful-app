@@ -12,4 +12,6 @@
 
 .CardImage {
   margin-bottom: 1rem;
+  width: 210px;
+  height: 185px;
 }
