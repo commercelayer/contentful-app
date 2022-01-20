@@ -44,10 +44,17 @@ const Dialog = ({ sdk }: DialogProps) => {
   useEffect(() => {
     if (accessToken) {
       const cl = clSdk({ accessToken, ...org })
+      const include =
+        resource === 'markets'
+          ? ['price_list', 'inventory_model', 'merchant']
+          : resource === 'sku_lists'
+          ? ['sku_list_items']
+          : []
       if (search.length > 0) {
         const params = {
           filters: { name_or_code_start: search },
           pageNumber: currentPage,
+          include,
         } as QueryParamsList
         cl[resource].list(params).then((res) => {
           setItems(res)
@@ -55,6 +62,7 @@ const Dialog = ({ sdk }: DialogProps) => {
       } else {
         const params = {
           pageNumber: currentPage,
+          include,
         } as QueryParamsList
         cl[resource].list(params).then((res) => {
           setItems(res)

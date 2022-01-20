@@ -1,17 +1,14 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { FieldExtensionSDK } from '@contentful/app-sdk'
 import {
   Card,
-  Paragraph,
-  SectionHeading,
   Asset,
   Flex,
   Stack,
   Menu,
   Button,
   Text,
-  Popover,
 } from '@contentful/f36-components'
 import {
   ExternalLinkIcon,
@@ -19,7 +16,6 @@ import {
   PlusIcon,
   ChevronDownIcon,
 } from '@contentful/f36-icons'
-import { Portal } from '@contentful/f36-utils'
 import { getOrganizationSlug, getValue, Resource, resources } from '../utils'
 import { Item } from './ItemsList'
 import styles from './Field.module.css'
@@ -33,7 +29,6 @@ interface FieldProps {
 }
 
 const Field = ({ sdk }: FieldProps) => {
-  const [resource, setResource] = useState<Resource>()
   const [isOpen, setIsOpen] = useState(false)
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials: any = sdk.parameters.installation
@@ -42,16 +37,31 @@ const Field = ({ sdk }: FieldProps) => {
   const { endpoint } = credentials
   const org = getOrganizationSlug(endpoint)
   useEffect(() => {
-    if (!currentItem && accessToken && sdk.field.getValue()) {
-      const { id, type } = JSON.parse(sdk.field.getValue()) as {
-        type: Resource
-        id: string
-      }
-      if (id && type) {
-        const cl = clSdk({ accessToken, ...org })
-        cl[type].retrieve(id).then((res) => {
+    const value = sdk.field.getValue()
+    if (!currentItem && accessToken && value) {
+      const cl = clSdk({ accessToken, ...org })
+      if (value.search('{') !== -1) {
+        const { id, type } = JSON.parse(value) as {
+          type: Resource
+          id: string
+        }
+        const include =
+          type === 'markets'
+            ? ['price_list', 'inventory_model', 'merchant']
+            : type === 'sku_lists'
+            ? ['sku_list_items']
+            : []
+        cl[type].retrieve(id, { include }).then((res) => {
           setCurrentItem(res)
         })
+      } else if (value) {
+        cl.skus
+          .list({
+            filters: { sku_code_eq: value },
+          })
+          .then((res) => {
+            setCurrentItem(res.first())
+          })
       }
     }
   }, [sdk.field, currentItem, accessToken, org])
@@ -68,12 +78,11 @@ const Field = ({ sdk }: FieldProps) => {
       )
     })
   const handleOpen = () => {
-    const height = !isOpen ? 100 * items.length : 150
+    const height = !isOpen ? 100 + items.length * 40 : 150
     setIsOpen(!isOpen)
     sdk.window.updateHeight(height)
   }
   const handleClick = (val: Resource) => {
-    setResource(val)
     sdk.dialogs
       .openCurrentApp({
         position: 'center',
@@ -91,14 +100,61 @@ const Field = ({ sdk }: FieldProps) => {
         if (itemSelected) {
           setCurrentItem(itemSelected)
           const value = getValue(itemSelected)
-          sdk.field.setValue(value)
-        } else {
-          setResource(undefined)
+          const objValue = JSON.stringify({
+            ...value,
+            type: itemSelected.type,
+          })
+          sdk.field.setValue(objValue)
         }
         sdk.field.onValueChanged(() => {})
       })
   }
-  console.log(`currentItem`, currentItem)
+  const condition = currentItem && ['skus'].includes(currentItem?.type)
+  const title = condition ? (
+    <Text fontColor="gray900" fontWeight="fontWeightMedium">
+      {currentItem?.name}
+    </Text>
+  ) : (
+    <Text fontColor="gray900" fontWeight="fontWeightMedium">
+      {currentItem?.name}{' '}
+      <Text style={{ textTransform: 'capitalize' }}>
+        (
+        {currentItem?.type
+          .slice(0, currentItem?.type.length - 1)
+          .replace('_', ' ')}
+        )
+      </Text>
+    </Text>
+  )
+  const content = condition ? (
+    <Text
+      fontColor="gray500"
+      fontSize="fontSizeS"
+      fontWeight="fontWeightMedium"
+    >
+      {currentItem?.code}
+    </Text>
+  ) : (
+    <Text
+      fontColor="gray500"
+      fontSize="fontSizeS"
+      fontWeight="fontWeightMedium"
+    >
+      {[
+        currentItem?.code,
+        currentItem?.merchant?.name,
+        currentItem?.inventory_model?.name,
+        currentItem?.price_list?.name,
+        currentItem?.description,
+        currentItem?.skus_count ? `${currentItem?.skus_count} SKUs` : undefined,
+        currentItem?.sku_list_items?.length
+          ? `${currentItem?.sku_list_items?.length} SKUs`
+          : undefined,
+      ]
+        .filter((i) => i !== undefined)
+        .join(', ')}
+    </Text>
+  )
   return currentItem ? (
     <Card>
       <Flex
@@ -115,21 +171,8 @@ const Field = ({ sdk }: FieldProps) => {
             />
           ) : null}
           <Stack flexDirection="column" alignItems="flex-start">
-            <Text
-              fontColor="gray900"
-              fontWeight="fontWeightMedium"
-              fontSize="fontSizeL"
-            >
-              {currentItem?.name}{' '}
-              {currentItem?.type !== 'skus' ? `(${currentItem.type})` : ''}
-            </Text>
-            <Text
-              fontColor="gray500"
-              fontWeight="fontWeightMedium"
-              fontSize="fontSizeM"
-            >
-              {currentItem?.code}
-            </Text>
+            {title}
+            {content}
           </Stack>
         </Stack>
         <div>
@@ -149,7 +192,6 @@ const Field = ({ sdk }: FieldProps) => {
             variant="muted"
             onClick={() => {
               setCurrentItem(undefined)
-              setResource(undefined)
               sdk.field.setValue(undefined)
               sdk.field.onValueChanged(() => {})
             }}
@@ -182,17 +224,6 @@ const Field = ({ sdk }: FieldProps) => {
           <Menu.List>{items}</Menu.List>
         </Menu>
       </Stack>
-      {/* <Select
-        name="select-resource"
-        id="select-resource"
-        onChange={handleChange}
-        value={resource || ''}
-        >
-        <Select.Option value="" isDisabled>
-        Please select a resource...
-        </Select.Option>
-        {options}
-      </Select> */}
     </Card>
   )
 }

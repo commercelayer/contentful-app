@@ -58,17 +58,22 @@ export function getOrganizationSlug<E extends string>(endpoint: E): ReturnObj {
   return org
 }
 
-export function getValue<I extends Record<string, any>>(item: I): string {
+export function getValue<I extends Record<string, any>>(
+  item: I
+): Record<string, string> {
+  const obj = {
+    id: item.id,
+  } as Record<string, string>
   switch (item.type) {
     case 'skus':
-      return item.sku_code
+      obj.sku_code = item.sku_code
+      break
     case 'bundles':
-      return item.bundle_code
+      obj.bundle_code = item.bundle_code
+      break
     case 'markets':
-      return item.number
-    case 'sku_lists':
-      return item.id
-    default:
-      return ''
+      obj.number = item.number
+      break
   }
+  return obj
 }
