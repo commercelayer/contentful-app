@@ -10,9 +10,6 @@ export function validateParameters(parameters: AppInstallationParameters) {
   if (parameters?.endpoint.length < 1) {
     return 'Provide the Commerce Layer API endpoint.'
   }
-  if (parameters?.availableResources.length < 1) {
-    return 'Select one or more resources to show.'
-  }
   return null
 }
 
@@ -27,17 +24,17 @@ type ResourceObject = {
 export const resources: ResourceObject[] = [
   {
     value: 'skus',
-    text: 'SKUs',
+    text: 'SKU',
     helpText: 'SKUs describe specific product variations that are being sold.',
   },
   {
     value: 'bundles',
-    text: 'Bundles',
+    text: 'Bundle',
     helpText:
       'Bundles describe a set of specific products that are being sold.',
   },
-  { value: 'markets', text: 'Markets' },
-  { value: 'sku_lists', text: 'SKU lists' },
+  { value: 'markets', text: 'Market' },
+  { value: 'sku_lists', text: 'SKU list' },
 ]
 
 type ReturnObj = {
@@ -58,22 +55,36 @@ export function getOrganizationSlug<E extends string>(endpoint: E): ReturnObj {
   return org
 }
 
-export function getValue<I extends Record<string, any>>(
-  item: I
-): Record<string, string> {
-  const obj = {
-    id: item.id,
-  } as Record<string, string>
+export function getValue<I extends Record<string, any>>(item: I): string {
   switch (item.type) {
     case 'skus':
-      obj.sku_code = item.sku_code
-      break
+      return item.code
     case 'bundles':
-      obj.bundle_code = item.bundle_code
-      break
+      return item.code
     case 'markets':
-      obj.number = item.number
-      break
+      return `${item.number}`
+    default:
+      return item.id
   }
-  return obj
+}
+
+type FilterKey = 'code' | 'number' | 'id'
+
+type FiltersObj = {
+  [K in FilterKey as `${K}_eq`]?: string
+}
+
+export function getFilters<I extends { type: Resource; value: string }>(
+  item: I
+): FiltersObj {
+  switch (item.type) {
+    case 'skus':
+      return { code_eq: item.value }
+    case 'bundles':
+      return { code_eq: item.value }
+    case 'markets':
+      return { number_eq: item.value }
+    default:
+      return { id_eq: item.value }
+  }
 }

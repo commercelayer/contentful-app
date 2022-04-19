@@ -6,13 +6,11 @@ import {
   Form,
   Paragraph,
   TextInput,
-  Checkbox,
   FormControl,
 } from '@contentful/f36-components'
 import { Workbench } from '@contentful/f36-workbench'
 import styles from './ConfigScreen.module.css'
 import { Resource, validateParameters } from '../utils'
-import { resources } from '../utils/index'
 
 export interface AppInstallationParameters {
   clientId: string
@@ -78,32 +76,6 @@ const ConfigScreen = (props: ConfigScreenProps) => {
       props.sdk.app.setReady()
     })()
   }, [props.sdk])
-  const handleChecked: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    const checked = event.target.checked
-    const name = event.target.name as Resource
-    if (checked && !parameters?.availableResources?.includes(name)) {
-      setParameters({
-        ...parameters,
-        availableResources: [...(parameters?.availableResources || []), name],
-      })
-    } else {
-      const availableResources = parameters?.availableResources.filter(
-        (v) => v !== name
-      )
-      setParameters({ ...parameters, availableResources })
-    }
-  }
-  const Resources = resources.map((r) => (
-    <Checkbox
-      id={r.value}
-      name={r.value}
-      value={r.value}
-      isChecked={parameters?.availableResources?.includes(r.value)}
-      onChange={handleChecked}
-    >
-      {r.text}
-    </Checkbox>
-  ))
   return (
     <Workbench className={styles.Container}>
       <Workbench.Content>
@@ -168,11 +140,6 @@ const ConfigScreen = (props: ConfigScreenProps) => {
               Provide your application endpoint
             </FormControl.HelpText>
           </FormControl>
-          <Heading>Available Resources</Heading>
-          <Paragraph>
-            Select one or more resources to show in your field editor.
-          </Paragraph>
-          {Resources}
         </Form>
       </Workbench.Content>
     </Workbench>

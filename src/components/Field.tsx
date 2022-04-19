@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { FieldExtensionSDK } from '@contentful/app-sdk'
 import {
@@ -6,17 +6,17 @@ import {
   Asset,
   Flex,
   Stack,
-  Menu,
   Button,
   Text,
 } from '@contentful/f36-components'
+import { ExternalLinkIcon, CloseIcon, PlusIcon } from '@contentful/f36-icons'
 import {
-  ExternalLinkIcon,
-  CloseIcon,
-  PlusIcon,
-  ChevronDownIcon,
-} from '@contentful/f36-icons'
-import { getOrganizationSlug, getValue, Resource, resources } from '../utils'
+  getFilters,
+  getOrganizationSlug,
+  getValue,
+  Resource,
+  resources,
+} from '../utils'
 import { Item } from './ItemsList'
 import styles from './Field.module.css'
 import useGetToken from '../hooks/useGetToken'
@@ -29,59 +29,32 @@ interface FieldProps {
 }
 
 const Field = ({ sdk }: FieldProps) => {
-  const [isOpen, setIsOpen] = useState(false)
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials: any = sdk.parameters.installation
-  const availableResources = credentials?.availableResources as Resource[]
   const accessToken = useGetToken({ ...credentials })
   const { endpoint } = credentials
   const org = getOrganizationSlug(endpoint)
+  const { resource: type } = sdk.parameters.instance as { resource: Resource }
+  const [resource] = resources.filter((resource) => resource.value === type)
   useEffect(() => {
     const value = sdk.field.getValue()
     if (!currentItem && accessToken && value) {
       const cl = clSdk({ accessToken, ...org })
-      if (value.search('{') !== -1) {
-        const { id, type } = JSON.parse(value) as {
-          type: Resource
-          id: string
-        }
-        const include =
-          type === 'markets'
-            ? ['price_list', 'inventory_model', 'merchant']
-            : type === 'sku_lists'
-            ? ['sku_list_items']
-            : []
-        cl[type].retrieve(id, { include }).then((res) => {
-          setCurrentItem(res)
-        })
-      } else if (value) {
-        cl.skus
-          .list({
-            filters: { sku_code_eq: value },
-          })
-          .then((res) => {
-            setCurrentItem(res.first())
-          })
-      }
+      const include =
+        type === 'markets'
+          ? ['price_list', 'inventory_model', 'merchant']
+          : type === 'sku_lists'
+          ? ['sku_list_items']
+          : []
+      const filters = getFilters({ type, value })
+      cl[type].list({ include, filters }).then((res) => {
+        setCurrentItem(res.first())
+      })
     }
-  }, [sdk.field, currentItem, accessToken, org])
+  }, [sdk.field, type, currentItem, accessToken, org])
   // If you only want to extend Contentful's default editing experience
   // reuse Contentful's editor components
   // -> https://www.contentful.com/developers/docs/extensibility/field-editors/
-  const items = resources
-    .filter(({ value }) => availableResources.includes(value))
-    .map(({ value, text }, i) => {
-      return (
-        <Menu.Item key={i} value={value} onClick={() => handleClick(value)}>
-          {text}
-        </Menu.Item>
-      )
-    })
-  const handleOpen = () => {
-    const height = !isOpen ? 100 + items.length * 40 : 150
-    setIsOpen(!isOpen)
-    sdk.window.updateHeight(height)
-  }
   const handleClick = (val: Resource) => {
     sdk.dialogs
       .openCurrentApp({
@@ -100,11 +73,7 @@ const Field = ({ sdk }: FieldProps) => {
         if (itemSelected) {
           setCurrentItem(itemSelected)
           const value = getValue(itemSelected)
-          const objValue = JSON.stringify({
-            ...value,
-            type: itemSelected.type,
-          })
-          sdk.field.setValue(objValue)
+          sdk.field.setValue(value)
         }
         sdk.field.onValueChanged(() => {})
       })
@@ -211,18 +180,12 @@ const Field = ({ sdk }: FieldProps) => {
         flexDirection="column"
         alignItems="center"
       >
-        <Menu isOpen={isOpen} onOpen={handleOpen} onClose={handleOpen}>
-          <Menu.Trigger>
-            <Button>
-              <Stack>
-                <PlusIcon variant="muted" />
-                <Text fontWeight="fontWeightDemiBold">Add resource</Text>
-                <ChevronDownIcon variant="muted" />
-              </Stack>
-            </Button>
-          </Menu.Trigger>
-          <Menu.List>{items}</Menu.List>
-        </Menu>
+        <Button onClick={() => handleClick(type)}>
+          <Stack>
+            <PlusIcon variant="muted" />
+            <Text fontWeight="fontWeightDemiBold">Add {resource.text}</Text>
+          </Stack>
+        </Button>
       </Stack>
     </Card>
   )

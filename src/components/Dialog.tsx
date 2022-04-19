@@ -8,7 +8,6 @@ import {
   Badge,
   TextInput,
   Stack,
-  Paragraph,
   Text,
 } from '@contentful/f36-components'
 import { DialogExtensionSDK } from '@contentful/app-sdk'
@@ -36,13 +35,13 @@ const Dialog = ({ sdk }: DialogProps) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemSelected, setItemSelected] = useState<Item | undefined>()
   const credentials: any = sdk.parameters.installation
-  const { resource, accessToken } = sdk.parameters?.invocation as {
-    resource: Resource
+  const { accessToken, resource } = sdk.parameters?.invocation as {
     accessToken: string
+    resource: Resource
   }
   const org = getOrganizationSlug(credentials?.endpoint)
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && resource && org) {
       const cl = clSdk({ accessToken, ...org })
       const include =
         resource === 'markets'
@@ -70,7 +69,7 @@ const Dialog = ({ sdk }: DialogProps) => {
         })
       }
     }
-  }, [search, accessToken, currentPage])
+  }, [search, accessToken, currentPage, resource])
   const handleClick = (item: Item) => {
     setItemSelected(item)
   }
