@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getIntegrationToken } from '@commercelayer/js-auth'
 import Cookies from 'js-cookie'
 
-type Credentials = {
+export type Credentials = {
   clientId: string
   clientSecret: string
   endpoint: string

@@ -1,13 +1,15 @@
-import { AppInstallationParameters } from '../components/ConfigScreen'
+import { getIntegrationToken } from '@commercelayer/js-auth'
+import type { AppInstallationParameters } from '../components/ConfigScreen'
+import type { Credentials } from '../hooks/useGetToken'
 
 export function validateParameters(parameters: AppInstallationParameters) {
-  if (parameters?.clientId.length < 1) {
+  if (!parameters?.clientId || parameters?.clientId.length < 1) {
     return 'Provide your Commerce Layer Client ID.'
   }
-  if (parameters?.clientSecret.length < 1) {
+  if (!parameters?.clientSecret || parameters?.clientSecret.length < 1) {
     return 'Provide your Commerce Layer Client Secret.'
   }
-  if (parameters?.endpoint.length < 1) {
+  if (!parameters?.endpoint || parameters?.endpoint.length < 1) {
     return 'Provide the Commerce Layer API endpoint.'
   }
   return null
@@ -86,5 +88,15 @@ export function getFilters<I extends { type: Resource; value: string }>(
       return { number_eq: item.value }
     default:
       return { id_eq: item.value }
+  }
+}
+
+export async function checkCredentials(credentials: Credentials) {
+  try {
+    await getIntegrationToken(credentials)
+    return null
+  } catch (error: any) {
+    debugger
+    return error.message
   }
 }

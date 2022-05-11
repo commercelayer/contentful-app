@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { AppExtensionSDK } from '@contentful/app-sdk'
 import { PlainClientAPI } from 'contentful-management'
 import {
@@ -8,15 +8,14 @@ import {
   TextInput,
   FormControl,
 } from '@contentful/f36-components'
-import { Workbench } from '@contentful/f36-workbench'
-import styles from './ConfigScreen.module.css'
-import { Resource, validateParameters } from '../utils'
+import { styles } from './ConfigScreen.styles'
+import { checkCredentials, validateParameters } from '../utils'
+import type { Credentials } from '../hooks/useGetToken'
 
 export interface AppInstallationParameters {
-  clientId: string
-  clientSecret: string
-  endpoint: string
-  availableResources: Resource[]
+  clientId?: string
+  clientSecret?: string
+  endpoint?: string
 }
 
 interface ConfigScreenProps {
@@ -25,12 +24,7 @@ interface ConfigScreenProps {
 }
 
 const ConfigScreen = (props: ConfigScreenProps) => {
-  const [parameters, setParameters] = useState<AppInstallationParameters>({
-    clientId: '',
-    clientSecret: '',
-    endpoint: '',
-    availableResources: [],
-  })
+  const [parameters, setParameters] = useState<AppInstallationParameters>({})
 
   const onConfigure = useCallback(async () => {
     // This method will be called when a user clicks on "Install"
@@ -39,6 +33,12 @@ const ConfigScreen = (props: ConfigScreenProps) => {
     const error = validateParameters(parameters)
     if (error) {
       props.sdk.notifier.error(error)
+      return false
+    }
+    const credentialsError = await checkCredentials(parameters as Credentials)
+    if (credentialsError) {
+      debugger
+      props.sdk.notifier.error(credentialsError as any)
       return false
     }
     // Get current the state of EditorInterface and other entities
@@ -76,33 +76,33 @@ const ConfigScreen = (props: ConfigScreenProps) => {
       props.sdk.app.setReady()
     })()
   }, [props.sdk])
+  console.log('parameters', parameters)
   return (
-    <Workbench className={styles.Container}>
-      <Workbench.Content>
+    <div className={styles.background}>
+      <div className={styles.body}>
+        <Heading>About Commerce Layer</Heading>
+        <Paragraph>
+          <a href="https://commercelayer.io/" target="_blank" rel="noreferrer">
+            Commerce Layer
+          </a>{' '}
+          is a multi-market commerce API and order management system that lets
+          you add global shopping capabilities to any website, mobile app,
+          chatbot, wearable, voice, or IoT device, with ease. Compose your stack
+          with the best-of-breed tools you already mastered and love. Make any
+          experience shoppable, anywhere, through a blazing-fast,
+          enterprise-grade, and secure API.
+        </Paragraph>
+
+        <hr className={styles.splitter} />
+
+        <Heading>Configuration</Heading>
         <Form>
-          <Heading>About Commerce Layer</Heading>
-          <Paragraph>
-            <a
-              href="https://commercelayer.io/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Commerce Layer
-            </a>{' '}
-            is a multi-market commerce API and order management system that lets
-            you add global shopping capabilities to any website, mobile app,
-            chatbot, wearable, voice, or IoT device, with ease. Compose your
-            stack with the best-of-breed tools you already mastered and love.
-            Make any experience shoppable, anywhere, through a blazing-fast,
-            enterprise-grade, and secure API.
-          </Paragraph>
-          <hr />
-          <Heading>Configuration</Heading>
           <FormControl isRequired isInvalid={parameters?.clientId === ''}>
             <FormControl.Label>Client ID</FormControl.Label>
             <TextInput
               name="clientId"
               id="clientId"
+              placeholder="IdL901bQHhAX....."
               value={parameters?.clientId}
               onChange={(e) =>
                 setParameters({ ...parameters, clientId: e.target.value })
@@ -117,9 +117,13 @@ const ConfigScreen = (props: ConfigScreenProps) => {
             <TextInput
               name="clientSecret"
               id="clientSecret"
+              placeholder="TWRrof0VCwZ......"
               value={parameters?.clientSecret}
               onChange={(e) =>
-                setParameters({ ...parameters, clientSecret: e.target.value })
+                setParameters({
+                  ...parameters,
+                  clientSecret: e.target.value,
+                })
               }
             />
             <FormControl.HelpText>
@@ -131,6 +135,7 @@ const ConfigScreen = (props: ConfigScreenProps) => {
             <TextInput
               name="endpoint"
               id="endpoint"
+              placeholder="https://your-domain.commercelayer.io"
               value={parameters?.endpoint}
               onChange={(e) =>
                 setParameters({ ...parameters, endpoint: e.target.value })
@@ -141,8 +146,11 @@ const ConfigScreen = (props: ConfigScreenProps) => {
             </FormControl.HelpText>
           </FormControl>
         </Form>
-      </Workbench.Content>
-    </Workbench>
+      </div>
+      <div className={styles.icon}>
+        <img src="assets/commercelayer-glyph-black.png" alt="App logo" />
+      </div>
+    </div>
   )
 }
 
