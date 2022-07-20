@@ -2,7 +2,7 @@
 
 The Commerce Layer app lets content editors easily link Commerce Layer resources to content data in the Contentful dashboard.
 
-![Commerce Layer Contentful App GIF demo]()
+![Commerce Layer Contentful App GIF demo](./public/assets/demo.gif)
 
 ## What is Commerce Layer?
 
