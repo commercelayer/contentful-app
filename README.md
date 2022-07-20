@@ -2,6 +2,8 @@
 
 The Commerce Layer app lets content editors easily link Commerce Layer resources to content data in the Contentful dashboard.
 
+![Commerce Layer Contentful App GIF demo]()
+
 ## What is Commerce Layer?
 
 [Commerce Layer](https://commercelayer.io) is a multi-market commerce API and order management system that lets you add global shopping capabilities to any website, mobile app, chatbot, wearable, voice, or IoT device, with ease. Compose your stack with the best-of-breed tools you already mastered and love. Make any experience shoppable, anywhere, through a blazing-fast, enterprise-grade, and secure API.
@@ -45,7 +47,7 @@ I need the app deployed to the Contentful marketplace so I can capture the actua
 - Create a Contentful space
 - Visit contentful marketplace
 - Install the app to space
-- Add CL credentials
+- Add CL credentials (read only admin)
 - Select one or more resources to show in the field editor
 - Save installation config
 - Create a content model
