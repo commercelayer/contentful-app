@@ -3,18 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@commercelayer/js-auth": "^2.2.9",
+    "@commercelayer/js-auth": "^2.3.0",
     "@commercelayer/sdk": "^2.3.13",
-    "@contentful/app-sdk": "^4.3.1",
-    "@contentful/f36-components": "^4.0.6",
-    "@contentful/f36-icons": "^4.0.1",
-    "@contentful/f36-utils": "^4.0.0",
-    "@contentful/f36-workbench": "^4.1.0",
-    "@contentful/forma-36-fcss": "^0.3.4",
-    "@contentful/forma-36-tokens": "^0.11.1",
-    "contentful-management": "^7.47.0",
+    "@contentful/app-sdk": "^4.11.1",
+    "@contentful/f36-components": "^4.14.0",
+    "@contentful/f36-icons": "^4.14.0",
+    "@contentful/f36-utils": "^4.14.0",
+    "@contentful/f36-workbench": "^4.14.0",
+    "@contentful/forma-36-fcss": "^0.3.5",
+    "@contentful/forma-36-tokens": "^0.11.2",
+    "contentful-management": "^10.10.0",
     "js-cookie": "^3.0.1",
-    "rapid-form": "^1.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3"
@@ -26,7 +25,8 @@
     "eject": "react-scripts eject",
     "create-app-definition": "contentful-app-scripts create-app-definition",
     "upload": "contentful-app-scripts upload --bundle-dir ./build",
-    "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $CONTENTFUL_ORG_ID --definition-id $CONTENTFUL_APP_DEF_ID --token $CONTENTFUL_ACCESS_TOKEN"
+    "upload-ci": "contentful-app-scripts upload --ci --bundle-dir ./build  --organization-id $CONTENTFUL_ORG_ID --definition-id $CONTENTFUL_APP_DEF_ID --token $CONTENTFUL_ACCESS_TOKEN",
+    "version": "changeset version"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,16 +44,17 @@
     ]
   },
   "devDependencies": {
-    "@contentful/app-scripts": "^0.14.36",
+    "@changesets/cli": "^2.24.2",
+    "@contentful/app-scripts": "^1.1.17",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.3",
-    "@types/js-cookie": "^3.0.1",
-    "@types/node": "^16.11.13",
+    "@types/js-cookie": "^3.0.2",
+    "@types/node": "^18.6.5",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "cross-env": "^7.0.3",
-    "typescript": "^4.5.4"
+    "typescript": "^4.7.4"
   },
   "homepage": "."
 }
