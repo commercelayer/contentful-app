@@ -1,0 +1,47 @@
+---
+title: 'Spinner'
+type: 'component'
+status: 'stable'
+slug: /components/spinner/
+github: 'https://github.com/contentful/forma-36/tree/main/packages/components/spinner'
+storybook: 'https://v4-f36-storybook.netlify.app/?path=/story/components-spinner--default'
+typescript: ./src/Spinner.tsx
+---
+
+`Spinner` is a graphic element that helps communicating to users that an action is in progress and it will take some time to be completed.
+
+## Import
+
+```js static=true
+import { Spinner } from '@contentful/f36-components';
+// or
+import { Spinner } from '@contentful/f36-spinner';
+```
+
+## Examples
+
+### Variants
+
+```jsx file=examples/SpinnerVariantsExample.tsx
+
+```
+
+### Sizes
+
+```jsx file=examples/SpinnerSizesExample.tsx
+
+```
+
+### With text
+
+It’s possible to use the `Spinner` with other elements. A very common pattern is using it together with text.
+
+Another good example of the Spinner being used with other components is the loading state of `Button` component.
+
+```jsx file=examples/SpinnerWithTextExample.tsx
+
+```
+
+## Props (API reference)
+
+<PropsTable of="Spinner" />

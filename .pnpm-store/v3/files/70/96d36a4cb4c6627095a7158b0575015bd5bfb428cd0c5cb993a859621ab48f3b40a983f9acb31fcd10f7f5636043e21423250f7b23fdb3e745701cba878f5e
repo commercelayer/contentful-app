@@ -1,0 +1,62 @@
+---
+title: 'Pagination'
+status: 'stable'
+isNew: true
+slug: /components/pagination/
+github: 'https://github.com/contentful/forma-36/tree/main/packages/components/pagination'
+storybook: 'https://v4-f36-storybook.netlify.app/?path=/story/components-pagination'
+typescript: ./src/Pagination.tsx
+---
+
+Used to navigate between pages on a list.
+
+## Import
+
+```jsx static=true
+import { Pagination } from '@contentful/f36-components';
+// or
+import { Pagination } from '@contentful/f36-pagination';
+```
+
+## Examples
+
+### Basic
+
+When not using the total prop, it's necessary to pass to the component the `isLastPage` and the `pageLength` prop, so the Pagination component can render correctly.
+
+```jsx file=examples/PaginationExample.tsx
+
+```
+
+### With total number of items
+
+When you know how many items in total there will be paginated on, you should pass that prop and the Pagination component will make all the calculations.
+
+```jsx file=examples/PaginationWithTotalExample.tsx
+
+```
+
+### With view per page selector
+
+```jsx file=examples/PaginationWithViewPerPageSelector.tsx
+
+```
+
+### With total and view per page selector
+
+```jsx file=examples/PaginationWithTotalAndViewPerPageExample.tsx
+
+```
+
+## Props (API reference)
+
+<PropsTable of="Pagination" />
+
+## Content guidelines
+
+- `onPageChange` prop must update the list displayed to the user based on the page navigated to.
+
+## Accessibility
+
+- All the necessary a11y attributes are provided for the pagination elements.
+- Pass an `aria-label` to the Pagination to give more context to screen readers.

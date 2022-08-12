@@ -1,0 +1,1 @@
+import*as o from"./api";import{SdkError as i,ApiError as e}from"./error";export const CommerceLayerStatic={resources:()=>o.resourceList,isSdkError:r=>i.isSdkError(r),isApiError:r=>e.isApiError(r)};

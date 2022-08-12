@@ -1,0 +1,1 @@
+import authenticate from"./authenticate";export default async function refreshToken({clientId,endpoint,scope,refreshToken:refreshToken2,clientSecret=""}){const config={clientId,clientSecret,accessTokenUri:`${endpoint}/oauth/token`,redirectUri:void 0};return authenticate({type:"refreshToken",config,scope,refreshToken:refreshToken2})}

@@ -1,0 +1,12 @@
+import { ClientCredentials } from './clientCredentials';
+import { AuthReturnType } from './typings';
+export interface User {
+    username: string;
+    password: string;
+}
+export declare type GetCustomerToken = (clientCredential: ClientCredentials, user: User) => AuthReturnType;
+export interface SalesChannel {
+    (clientCredentials: ClientCredentials, user?: User): AuthReturnType;
+}
+declare const salesChannel: SalesChannel;
+export default salesChannel;

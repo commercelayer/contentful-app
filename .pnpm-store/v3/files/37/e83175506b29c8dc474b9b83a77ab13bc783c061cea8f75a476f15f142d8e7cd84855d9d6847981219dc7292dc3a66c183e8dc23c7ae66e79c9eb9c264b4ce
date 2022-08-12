@@ -1,0 +1,55 @@
+import React from "react";
+import { CommonProps, PropsWithHTMLElement } from "@contentful/f36-core";
+type NoteVariant = 'negative' | 'positive' | 'primary' | 'warning' | 'neutral';
+type NoteInternalProps = CommonProps & {
+    /**
+     * Determines style variation of Note component
+     */
+    variant?: NoteVariant;
+    /**
+     * Sets title in the Note
+     */
+    title?: React.ReactNode;
+    /**
+     * Children of Note
+     */
+    children?: React.ReactNode | string;
+    /**
+     * Defines if the close button should be rendered
+     * @default false
+     */
+    withCloseButton?: boolean;
+    /**
+     * Callback for handling closing
+     */
+    onClose?: React.MouseEventHandler<HTMLButtonElement>;
+};
+export type NoteProps = PropsWithHTMLElement<NoteInternalProps, 'article'>;
+/**
+ * @description: Note provides context and information about a situation or action.
+ */
+export const Note: React.ForwardRefExoticComponent<Omit<Omit<Pick<React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>, "key" | keyof React.HTMLAttributes<HTMLElement>>, never>, "title" | "children" | keyof CommonProps | "variant" | "withCloseButton" | "onClose"> & CommonProps & {
+    /**
+     * Determines style variation of Note component
+     */
+    variant?: NoteVariant;
+    /**
+     * Sets title in the Note
+     */
+    title?: React.ReactNode;
+    /**
+     * Children of Note
+     */
+    children?: React.ReactNode | string;
+    /**
+     * Defines if the close button should be rendered
+     * @default false
+     */
+    withCloseButton?: boolean;
+    /**
+     * Callback for handling closing
+     */
+    onClose?: React.MouseEventHandler<HTMLButtonElement>;
+} & React.RefAttributes<HTMLElement>>;
+
+//# sourceMappingURL=types.d.ts.map

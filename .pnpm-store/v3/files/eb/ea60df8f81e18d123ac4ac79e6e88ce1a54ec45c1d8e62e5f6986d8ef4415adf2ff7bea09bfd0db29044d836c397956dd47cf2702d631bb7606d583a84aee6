@@ -1,0 +1,427 @@
+import $ggPfR$react, {useRef as $ggPfR$useRef, useEffect as $ggPfR$useEffect, createElement as $ggPfR$createElement, Fragment as $ggPfR$Fragment} from "react";
+import $ggPfR$reactmodal from "react-modal";
+import {Box as $ggPfR$Box, Flex as $ggPfR$Flex} from "@contentful/f36-core";
+import {cx as $ggPfR$cx, css as $ggPfR$css} from "emotion";
+import {CloseIcon as $ggPfR$CloseIcon} from "@contentful/f36-icons";
+import {Button as $ggPfR$Button, ButtonGroup as $ggPfR$ButtonGroup} from "@contentful/f36-button";
+import {Subheading as $ggPfR$Subheading} from "@contentful/f36-typography";
+import $ggPfR$contentfulf36tokens from "@contentful/f36-tokens";
+import $ggPfR$reactdom from "react-dom";
+
+
+
+
+
+
+
+
+
+
+
+
+function $cdc4e74e8b16090b$export$4bef00d568400c9b() {
+    return {
+        root: /*#__PURE__*/ $ggPfR$css({
+            position: 'relative',
+            padding: `${$ggPfR$contentfulf36tokens.spacingM} ${$ggPfR$contentfulf36tokens.spacingM} ${$ggPfR$contentfulf36tokens.spacingM} ${$ggPfR$contentfulf36tokens.spacingL}`,
+            borderRadius: `${$ggPfR$contentfulf36tokens.borderRadiusMedium} ${$ggPfR$contentfulf36tokens.borderRadiusMedium} 0 0`,
+            borderBottom: `1px solid ${$ggPfR$contentfulf36tokens.gray300}`
+        }),
+        buttonContainer: /*#__PURE__*/ $ggPfR$css({
+            position: 'relative',
+            width: $ggPfR$contentfulf36tokens.spacing2Xl,
+            height: $ggPfR$contentfulf36tokens.spacingL,
+            button: {
+                position: 'absolute',
+                top: `calc(-1 * ${$ggPfR$contentfulf36tokens.spacing2Xs})`,
+                right: 0
+            }
+        })
+    };
+}
+
+
+const $08ed4541188cb150$export$f50a68e3694789ee = ({ onClose: onClose , title: title , testId: testId = 'cf-ui-modal-header' , className: className , ...otherProps })=>{
+    const styles = $cdc4e74e8b16090b$export$4bef00d568400c9b();
+    return /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Flex, {
+        ...otherProps,
+        className: $ggPfR$cx(styles.root, className),
+        testId: testId,
+        alignItems: "center",
+        justifyContent: "space-between"
+    }, /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Subheading, {
+        as: "h2",
+        isTruncated: true,
+        marginBottom: "none"
+    }, title), onClose && /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Flex, {
+        alignItems: "center",
+        className: styles.buttonContainer
+    }, /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Button, {
+        variant: "transparent",
+        "aria-label": "Close",
+        startIcon: /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$CloseIcon, {
+            size: "small"
+        }),
+        onClick: ()=>{
+            onClose();
+        },
+        size: "small"
+    })));
+};
+$08ed4541188cb150$export$f50a68e3694789ee.displayName = 'ModalHeader';
+
+
+
+
+
+
+
+function $d20e7c3da09cc1c0$export$5168abbf3ad664a0() {
+    return {
+        root: /*#__PURE__*/ $ggPfR$css({
+            padding: `${$ggPfR$contentfulf36tokens.spacingM} ${$ggPfR$contentfulf36tokens.spacingL}`,
+            color: $ggPfR$contentfulf36tokens.gray700,
+            fontSize: $ggPfR$contentfulf36tokens.fontSizeM,
+            fontFamily: $ggPfR$contentfulf36tokens.fontStackPrimary,
+            lineHeight: $ggPfR$contentfulf36tokens.lineHeightM,
+            overflowY: 'auto',
+            overflowX: 'auto',
+            boxSizing: 'border-box'
+        })
+    };
+}
+
+
+const $2e16b6f9c0e7012d$export$6da19a24bf249f17 = ({ testId: testId = 'cf-ui-modal-content' , className: className , children: children , ...otherProps })=>{
+    const styles = $d20e7c3da09cc1c0$export$5168abbf3ad664a0();
+    return /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Box, {
+        ...otherProps,
+        as: "div",
+        className: $ggPfR$cx(styles.root, className),
+        testId: testId
+    }, children);
+};
+$2e16b6f9c0e7012d$export$6da19a24bf249f17.displayName = 'ModalContent';
+
+
+
+
+
+function $f482f3cd8cb551fb$export$9af97f4b0b4c597a(props) {
+    const modal = $ggPfR$cx(/*#__PURE__*/ $ggPfR$css({
+        margin: $ggPfR$contentfulf36tokens.spacing2Xl,
+        backgroundColor: $ggPfR$contentfulf36tokens.colorWhite,
+        borderRadius: props.size === 'zen' ? 0 : $ggPfR$contentfulf36tokens.borderRadiusMedium,
+        boxShadow: $ggPfR$contentfulf36tokens.boxShadowHeavy,
+        maxHeight: `calc(100vh - 1rem * (100 / ${$ggPfR$contentfulf36tokens.fontBaseDefault}))`,
+        maxWidth: `calc(100vw - 1rem * (100 / ${$ggPfR$contentfulf36tokens.fontBaseDefault}))`,
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column'
+    }), props.allowHeightOverflow ? /*#__PURE__*/ $ggPfR$css({
+        name: "1evlo53",
+        styles: "overflow:auto;max-height:none;"
+    }) : null, props.size === 'zen' ? /*#__PURE__*/ $ggPfR$css({
+        name: "11c88st",
+        styles: "max-width:none;max-height:none;margin:0;height:100%;width:100%;"
+    }) : null, props.className);
+    return {
+        portal: /*#__PURE__*/ $ggPfR$css({
+            name: "13o7eu2",
+            styles: "display:block;"
+        }),
+        base: {
+            root: $ggPfR$cx(/*#__PURE__*/ $ggPfR$css({
+                zIndex: $ggPfR$contentfulf36tokens.zIndexModalContent,
+                position: 'relative',
+                padding: 0,
+                display: 'inline-block',
+                margin: '0 auto',
+                textAlign: 'left',
+                outline: 'none',
+                transform: props.size === 'zen' ? 'scale(1)' : 'scale(0.85)',
+                transition: `transform ${$ggPfR$contentfulf36tokens.transitionDurationDefault} ${$ggPfR$contentfulf36tokens.transitionEasingDefault}`
+            }), props.size === 'zen' ? /*#__PURE__*/ $ggPfR$css({
+                name: "uwwqev",
+                styles: "width:100%;height:100%;"
+            }) : null),
+            afterOpen: /*#__PURE__*/ $ggPfR$css({
+                name: "plgkgv",
+                styles: "transform:scale(1) !important;"
+            }),
+            beforeClose: /*#__PURE__*/ $ggPfR$css({
+                transform: props.size === 'zen' ? 'scale(1)' : 'scale(0.85)'
+            })
+        },
+        modalOverlay: {
+            root: $ggPfR$cx(/*#__PURE__*/ $ggPfR$css({
+                display: 'flex',
+                alignItems: 'baseline',
+                flexWrap: 'wrap',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                zIndex: $ggPfR$contentfulf36tokens.zIndexModal,
+                opacity: 0,
+                transition: `opacity ${$ggPfR$contentfulf36tokens.transitionDurationDefault} ${$ggPfR$contentfulf36tokens.transitionEasingDefault}`,
+                position: 'fixed',
+                overflowY: 'auto',
+                backgroundColor: 'rgba(12, 20, 28, 0.74902)',
+                textAlign: 'center'
+            }), props.position === 'center' ? /*#__PURE__*/ $ggPfR$css({
+                name: "1qe4tyl",
+                styles: "align-items:center;justify-content:center;"
+            }) : null),
+            afterOpen: /*#__PURE__*/ $ggPfR$css({
+                name: "whh5e5",
+                styles: "opacity:1;"
+            }),
+            beforeClose: /*#__PURE__*/ $ggPfR$css({
+                name: "q7lffx",
+                styles: "opacity:0;"
+            })
+        },
+        modal: modal
+    };
+}
+
+
+const $bfd2aa2f2cc9e088$var$ModalSizesMapper = {
+    medium: '520px',
+    small: '400px',
+    large: '700px',
+    fullWidth: '100vw',
+    zen: '100vw'
+};
+function $bfd2aa2f2cc9e088$var$focusFirstWithinNode(node) {
+    if (node && node.querySelectorAll) {
+        const elements = node.querySelectorAll('input, button');
+        if (elements.length > 0) {
+            const firstElement = elements[0]; // @ts-expect-error focus might be missing
+            if (typeof firstElement.focus === 'function') // @ts-expect-error focus might be missing
+            firstElement.focus();
+        }
+    }
+}
+const $bfd2aa2f2cc9e088$export$2b77a92f1a5ad772 = ({ allowHeightOverflow: allowHeightOverflow = false , position: position = 'center' , shouldCloseOnEscapePress: shouldCloseOnEscapePress = true , shouldCloseOnOverlayClick: shouldCloseOnOverlayClick = true , size: size = 'medium' , testId: testId = 'cf-ui-modal' , topOffset: topOffset = '50px' , aria: aria , ...otherProps })=>{
+    const contentRef = $ggPfR$useRef(null);
+    const props = {
+        ...otherProps,
+        allowHeightOverflow: allowHeightOverflow,
+        position: position,
+        shouldCloseOnEscapePress: shouldCloseOnEscapePress,
+        shouldCloseOnOverlayClick: shouldCloseOnOverlayClick,
+        size: size,
+        testId: testId,
+        topOffset: topOffset
+    };
+    const styles = $f482f3cd8cb551fb$export$9af97f4b0b4c597a({
+        position: position,
+        size: size,
+        allowHeightOverflow: allowHeightOverflow,
+        className: otherProps.className
+    });
+    $ggPfR$useEffect(()=>{
+        if (props.isShown) setTimeout(()=>{
+            if (props.initialFocusRef && props.initialFocusRef.current) {
+                if (props.initialFocusRef.current.focus) props.initialFocusRef.current.focus();
+            } else if (contentRef.current) $bfd2aa2f2cc9e088$var$focusFirstWithinNode(contentRef.current);
+        }, 100);
+    }, [
+        props.isShown,
+        props.initialFocusRef
+    ]);
+    const renderDefault = ()=>{
+        return /*#__PURE__*/ $ggPfR$createElement($ggPfR$Fragment, null, otherProps.title && /*#__PURE__*/ $ggPfR$createElement($08ed4541188cb150$export$f50a68e3694789ee, {
+            title: otherProps.title,
+            onClose: props.onClose,
+            ...otherProps.modalHeaderProps
+        }), /*#__PURE__*/ $ggPfR$createElement($2e16b6f9c0e7012d$export$6da19a24bf249f17, otherProps.modalContentProps, otherProps.children));
+    };
+    return /*#__PURE__*/ $ggPfR$createElement($ggPfR$reactmodal, {
+        ariaHideApp: false,
+        aria: aria,
+        onRequestClose: props.onClose,
+        isOpen: otherProps.isShown,
+        onAfterOpen: props.onAfterOpen,
+        shouldCloseOnEsc: shouldCloseOnEscapePress,
+        shouldCloseOnOverlayClick: shouldCloseOnOverlayClick,
+        shouldFocusAfterRender: true,
+        shouldReturnFocusAfterClose: true,
+        portalClassName: styles.portal,
+        style: {
+            content: {
+                top: position === 'center' ? 0 : topOffset
+            }
+        },
+        className: {
+            base: styles.base.root,
+            afterOpen: styles.base.afterOpen,
+            beforeClose: styles.base.beforeClose
+        },
+        overlayClassName: {
+            base: styles.modalOverlay.root,
+            afterOpen: styles.modalOverlay.afterOpen,
+            beforeClose: styles.modalOverlay.beforeClose
+        },
+        closeTimeoutMS: 200,
+        contentRef: (ref)=>{
+            contentRef.current = ref;
+        }
+    }, /*#__PURE__*/ $ggPfR$createElement($ggPfR$Box, {
+        testId: testId,
+        style: {
+            width: $bfd2aa2f2cc9e088$var$ModalSizesMapper[size] || size
+        },
+        className: styles.modal,
+        "data-modal-root": true
+    }, typeof otherProps.children === 'function' ? otherProps.children(props) : renderDefault()));
+};
+$bfd2aa2f2cc9e088$export$2b77a92f1a5ad772.displayName = 'Modal';
+
+
+
+
+
+
+
+const $12733d8c9bae35ea$export$c63fb08199be8e0e = ({ testId: testId = 'cf-ui-modal-controls' , className: className , children: children , ...otherProps })=>{
+    return /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Flex, {
+        ...otherProps,
+        className: className,
+        testId: testId,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        margin: "spacingL",
+        marginTop: "none"
+    }, /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$ButtonGroup, {
+        variant: "spaced",
+        spacing: "spacingS"
+    }, children));
+};
+$12733d8c9bae35ea$export$c63fb08199be8e0e.displayName = 'ModalControls';
+
+
+const $d7b21827f6622ba3$export$2b77a92f1a5ad772 = $bfd2aa2f2cc9e088$export$2b77a92f1a5ad772;
+$d7b21827f6622ba3$export$2b77a92f1a5ad772.Content = $2e16b6f9c0e7012d$export$6da19a24bf249f17;
+$d7b21827f6622ba3$export$2b77a92f1a5ad772.Header = $08ed4541188cb150$export$f50a68e3694789ee;
+$d7b21827f6622ba3$export$2b77a92f1a5ad772.Controls = $12733d8c9bae35ea$export$c63fb08199be8e0e;
+
+
+
+
+
+const $78040759975f86df$export$427af6990c8ff682 = ({ allowHeightOverflow: allowHeightOverflow = false , cancelLabel: cancelLabel = 'Cancel' , cancelTestId: cancelTestId = 'cf-ui-modal-confirm-cancel-button' , children: children , confirmLabel: confirmLabel = 'Confirm' , confirmTestId: confirmTestId = 'cf-ui-modal-confirm-confirm-button' , intent: intent = 'positive' , isConfirmDisabled: isConfirmDisabled = false , isConfirmLoading: isConfirmLoading = false , isShown: isShown , modalContentProps: modalContentProps , modalControlsProps: modalControlsProps , modalHeaderProps: modalHeaderProps , onCancel: onCancel , onConfirm: onConfirm , shouldCloseOnEscapePress: shouldCloseOnEscapePress = true , shouldCloseOnOverlayClick: shouldCloseOnOverlayClick = true , size: size = 'medium' , testId: testId = 'cf-ui-modal-confirm' , title: title = 'Are you sure?' , initialFocusRef: initialFocusRef  })=>{
+    const cancelRef = $ggPfR$react.useRef(null);
+    const confirmButton = confirmLabel ? /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Button, {
+        testId: confirmTestId,
+        isDisabled: isConfirmDisabled,
+        isLoading: isConfirmLoading,
+        variant: intent,
+        size: "small",
+        onClick: ()=>onConfirm()
+    }, confirmLabel) : null;
+    const cancelButton = cancelLabel ? /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$Button, {
+        testId: cancelTestId,
+        variant: "secondary",
+        onClick: onCancel,
+        size: "small",
+        ref: initialFocusRef || cancelRef
+    }, cancelLabel) : null;
+    return /*#__PURE__*/ $ggPfR$react.createElement($d7b21827f6622ba3$export$2b77a92f1a5ad772, {
+        testId: testId,
+        isShown: isShown,
+        onClose: onCancel,
+        size: size,
+        shouldCloseOnOverlayClick: shouldCloseOnOverlayClick,
+        shouldCloseOnEscapePress: shouldCloseOnEscapePress,
+        allowHeightOverflow: allowHeightOverflow,
+        initialFocusRef: cancelRef
+    }, ()=>{
+        return /*#__PURE__*/ $ggPfR$react.createElement($ggPfR$react.Fragment, null, /*#__PURE__*/ $ggPfR$react.createElement($d7b21827f6622ba3$export$2b77a92f1a5ad772.Header, {
+            title: title || '',
+            ...modalHeaderProps
+        }), /*#__PURE__*/ $ggPfR$react.createElement($d7b21827f6622ba3$export$2b77a92f1a5ad772.Content, modalContentProps, children), /*#__PURE__*/ $ggPfR$react.createElement($d7b21827f6622ba3$export$2b77a92f1a5ad772.Controls, modalControlsProps, cancelButton, confirmButton));
+    });
+};
+$78040759975f86df$export$427af6990c8ff682.displayName = 'ModalConfirm';
+
+
+
+
+
+
+const $1dc787d4cf525536$var$getRoot = (rootElId)=>{
+    // Reuse the container if we find it
+    let rootDom = document.getElementById(rootElId);
+    if (rootDom !== null) return rootDom;
+     // Otherwise create it
+    rootDom = document.createElement('div');
+    rootDom.setAttribute('id', rootElId);
+    document.body.appendChild(rootDom);
+    return rootDom;
+};
+const $1dc787d4cf525536$var$openModalsIds = new Map();
+function $1dc787d4cf525536$var$closeAll() {
+    $1dc787d4cf525536$var$openModalsIds.forEach(async ({ render: render , currentConfig: currentConfig , delay: delay  }, rootElId)=>{
+        const config = {
+            ...currentConfig,
+            isShown: false
+        };
+        render(config);
+        await new Promise((resolveDelay)=>setTimeout(resolveDelay, delay)
+        );
+        $ggPfR$reactdom.unmountComponentAtNode($1dc787d4cf525536$var$getRoot(rootElId));
+        $1dc787d4cf525536$var$openModalsIds.delete(rootElId);
+    });
+} // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function $1dc787d4cf525536$var$open(componentRenderer, options = {}) {
+    options = {
+        delay: 300,
+        ...options
+    }; // Allow components to specify if they wish to reuse the modal container
+    const rootElId = `modals-root${options.modalId || Date.now()}`;
+    const rootDom = $1dc787d4cf525536$var$getRoot(rootElId);
+    return new Promise((resolve)=>{
+        let currentConfig = {
+            onClose: onClose1,
+            isShown: true
+        };
+        function render({ onClose: onClose , isShown: isShown  }) {
+            $ggPfR$reactdom.render(componentRenderer({
+                onClose: onClose,
+                isShown: isShown
+            }), rootDom);
+        }
+        async function onClose1(arg) {
+            currentConfig = {
+                ...currentConfig,
+                isShown: false
+            };
+            render(currentConfig);
+            await new Promise((resolveDelay)=>setTimeout(resolveDelay, options.delay)
+            );
+            $ggPfR$reactdom.unmountComponentAtNode(rootDom);
+            rootDom.remove();
+            $1dc787d4cf525536$var$openModalsIds.delete(rootElId);
+            resolve(arg);
+        }
+        render(currentConfig);
+        $1dc787d4cf525536$var$openModalsIds.set(rootElId, {
+            render: render,
+            currentConfig: currentConfig,
+            delay: options.delay
+        });
+    });
+}
+const $1dc787d4cf525536$export$e21b828b42c54a37 = {
+    open: $1dc787d4cf525536$var$open,
+    closeAll: $1dc787d4cf525536$var$closeAll
+};
+
+
+
+
+export {$d7b21827f6622ba3$export$2b77a92f1a5ad772 as Modal, $78040759975f86df$export$427af6990c8ff682 as ModalConfirm, $2e16b6f9c0e7012d$export$6da19a24bf249f17 as ModalContent, $12733d8c9bae35ea$export$c63fb08199be8e0e as ModalControls, $08ed4541188cb150$export$f50a68e3694789ee as ModalHeader, $1dc787d4cf525536$export$e21b828b42c54a37 as ModalLauncher};
+//# sourceMappingURL=module.js.map

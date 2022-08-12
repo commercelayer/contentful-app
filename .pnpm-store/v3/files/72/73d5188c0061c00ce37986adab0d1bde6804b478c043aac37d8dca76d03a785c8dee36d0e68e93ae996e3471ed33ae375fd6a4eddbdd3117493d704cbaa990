@@ -1,0 +1,7 @@
+import * as ClientOAuth2 from 'client-oauth2';
+import { AuthReturnType } from './typings';
+export interface AuthorizationCode {
+    (auth: ClientOAuth2, uri: string, code?: string): AuthReturnType;
+}
+declare const authorizationCode: AuthorizationCode;
+export default authorizationCode;

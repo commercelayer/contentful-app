@@ -1,0 +1,1 @@
+import{ApiResource as n}from"../resource";class t extends n{async retrieve(e,r){return this.resources.singleton({type:t.TYPE},e,r)}isApplication(e){return e.type&&e.type===t.TYPE}relationship(e){return typeof e=="string"?{id:e,type:t.TYPE}:{id:e.id,type:t.TYPE}}type(){return t.TYPE}}t.TYPE="application";export default t;

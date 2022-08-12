@@ -1,0 +1,3 @@
+import { Authenticate } from '#typings';
+declare const authenticate: Authenticate;
+export default authenticate;

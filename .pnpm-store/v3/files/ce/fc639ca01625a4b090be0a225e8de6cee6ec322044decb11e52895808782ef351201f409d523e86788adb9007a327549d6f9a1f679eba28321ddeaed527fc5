@@ -1,0 +1,206 @@
+var $9z4kG$emotion = require("emotion");
+var $9z4kG$react = require("react");
+var $9z4kG$reactpopper = require("react-popper");
+var $9z4kG$contentfulf36tokens = require("@contentful/f36-tokens");
+var $9z4kG$contentfulf36utils = require("@contentful/f36-utils");
+var $9z4kG$contentfulf36core = require("@contentful/f36-core");
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+function $parcel$interopDefault(a) {
+  return a && a.__esModule ? a.default : a;
+}
+
+$parcel$export(module.exports, "Tooltip", () => $8bbbba1e2efee8e1$export$28c660c63b792dea);
+
+
+
+
+
+const $a07a638cc7489f76$var$tooltipMargin = `calc(-1 * ((1rem * (10 / ${($parcel$interopDefault($9z4kG$contentfulf36tokens)).fontBaseDefault})) / 2))`;
+const $a07a638cc7489f76$var$tooltipChevronSize = `calc(1rem * (10 / ${($parcel$interopDefault($9z4kG$contentfulf36tokens)).fontBaseDefault}))`;
+function $a07a638cc7489f76$export$ffd58b7f6f099a57() {
+    return {
+        tooltipTargetWrapper: /*#__PURE__*/ $9z4kG$emotion.css({
+            name: "b3pn3b",
+            styles: "display:inline-block;position:relative;"
+        }),
+        tooltip: /*#__PURE__*/ $9z4kG$emotion.css({
+            background: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).gray900,
+            fontFamily: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).fontStackPrimary,
+            fontSize: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).fontSizeS,
+            fontWeight: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).fontWeightNormal,
+            fontStyle: 'normal',
+            textDecoration: 'none',
+            color: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).colorWhite,
+            textAlign: 'center',
+            lineHeight: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).lineHeightM,
+            padding: `${($parcel$interopDefault($9z4kG$contentfulf36tokens)).spacingXs} calc(1rem * (10 / ${($parcel$interopDefault($9z4kG$contentfulf36tokens)).fontBaseDefault}))`,
+            borderRadius: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).borderRadiusMedium,
+            whiteSpace: 'normal'
+        }),
+        tooltipHidden: /*#__PURE__*/ $9z4kG$emotion.css({
+            visibility: 'hidden',
+            pointerEvents: 'none',
+            zIndex: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).zIndexNegative
+        }),
+        tooltipContainer: /*#__PURE__*/ $9z4kG$emotion.css({
+            name: "1nqn0g6",
+            styles: "& > button[disabled]{pointer-events:none;}"
+        }),
+        tooltipArrow: /*#__PURE__*/ $9z4kG$emotion.css({
+            position: 'absolute',
+            '&[data-placement*="top"]': {
+                bottom: 0,
+                left: 0,
+                marginBottom: $a07a638cc7489f76$var$tooltipMargin
+            },
+            '&[data-placement*="right"]': {
+                left: 0,
+                marginLeft: $a07a638cc7489f76$var$tooltipMargin
+            },
+            '&[data-placement*="bottom"]': {
+                left: 0,
+                top: 0,
+                marginTop: $a07a638cc7489f76$var$tooltipMargin
+            },
+            '&[data-placement*="left"]': {
+                right: 0,
+                marginRight: $a07a638cc7489f76$var$tooltipMargin
+            },
+            '&::before': {
+                content: '""',
+                display: 'block',
+                height: $a07a638cc7489f76$var$tooltipChevronSize,
+                width: $a07a638cc7489f76$var$tooltipChevronSize,
+                backgroundColor: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).gray900,
+                transform: 'rotate3d(0, 0, 1, 45deg)',
+                zIndex: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).zIndexNegative
+            }
+        })
+    };
+}
+
+
+
+
+
+const $8bbbba1e2efee8e1$export$28c660c63b792dea = ({ children: children , className: className , as: HtmlTag = 'span' , content: content , id: id , isVisible: isVisible , hideDelay: hideDelay = 0 , onBlur: onBlur , onFocus: onFocus , onMouseLeave: onMouseLeave , onMouseOver: onMouseOver , onKeyDown: onKeyDown , targetWrapperClassName: targetWrapperClassName , maxWidth: maxWidth = 360 , testId: testId = 'cf-ui-tooltip' , placement: placement = 'auto' , usePortal: usePortal = false , isDisabled: isDisabled = false , ...otherProps })=>{
+    const styles = $a07a638cc7489f76$export$ffd58b7f6f099a57();
+    const [show, setShow] = $9z4kG$react.useState(false);
+    const tooltipId = $9z4kG$contentfulf36core.useId(id, 'tooltip');
+    const elementRef = $9z4kG$react.useRef(null);
+    const popperRef = $9z4kG$react.useRef(null);
+    const [arrowRef, setArrowRef] = $9z4kG$react.useState(null);
+    const { styles: popperStyles , attributes: attributes , update: update  } = $9z4kG$reactpopper.usePopper(elementRef.current, popperRef.current, {
+        placement: placement,
+        modifiers: [
+            {
+                name: 'arrow',
+                options: {
+                    element: arrowRef,
+                    padding: parseFloat(($parcel$interopDefault($9z4kG$contentfulf36tokens)).borderRadiusSmall)
+                }
+            },
+            {
+                name: 'offset',
+                options: {
+                    offset: [
+                        0,
+                        10
+                    ]
+                }
+            }
+        ]
+    }); // necessary to update tooltip position in case the content is being updated
+    $9z4kG$react.useEffect(()=>{
+        const updatePosition = async ()=>{
+            if (update !== null) await update();
+        };
+        updatePosition();
+    }, [
+        content,
+        update
+    ]);
+    const [isHoveringTarget, setIsHoveringTarget] = $9z4kG$react.useState(false);
+    const [isHoveringContent, setIsHoveringContent] = $9z4kG$react.useState(false);
+    $9z4kG$react.useEffect(()=>{
+        setShow(isHoveringContent || isHoveringTarget);
+    }, [
+        isHoveringTarget,
+        isHoveringContent
+    ]);
+    $9z4kG$react.useEffect(()=>{
+        if (isVisible) setShow(true); // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    const contentMaxWidth = typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
+    const contentStyles = {
+        zIndex: ($parcel$interopDefault($9z4kG$contentfulf36tokens)).zIndexTooltip,
+        maxWidth: contentMaxWidth,
+        ...popperStyles.popper
+    };
+    if (!content || isDisabled) return /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement($9z4kG$contentfulf36core.Box, {
+        as: HtmlTag,
+        className: targetWrapperClassName
+    }, children);
+    const tooltip = /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement($9z4kG$contentfulf36core.Box, {
+        as: "span",
+        id: tooltipId,
+        ref: popperRef,
+        role: "tooltip",
+        style: contentStyles,
+        className: $9z4kG$emotion.cx(styles.tooltip, className),
+        testId: testId,
+        onMouseEnter: ()=>{
+            setIsHoveringContent(true);
+        },
+        onMouseLeave: ()=>{
+            setIsHoveringContent(false);
+        },
+        ...attributes.popper
+    }, /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement("span", null, content), /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement("span", {
+        className: styles.tooltipArrow,
+        "data-placement": attributes.popper && attributes.popper['data-popper-placement'],
+        ref: setArrowRef,
+        style: popperStyles.arrow
+    }));
+    return /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement(($parcel$interopDefault($9z4kG$react)).Fragment, null, show ? /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement(($parcel$interopDefault($9z4kG$react)).Fragment, null, usePortal ? /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement($9z4kG$contentfulf36utils.Portal, null, tooltip) : tooltip) : null, /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).createElement($9z4kG$contentfulf36core.Box, {
+        as: HtmlTag,
+        ref: elementRef,
+        className: $9z4kG$emotion.cx(styles.tooltipContainer, targetWrapperClassName),
+        onMouseEnter: (evt)=>{
+            setIsHoveringTarget(true);
+            if (onMouseOver) onMouseOver(evt);
+        },
+        onMouseLeave: (evt)=>{
+            setTimeout(()=>setIsHoveringTarget(false)
+            , hideDelay);
+            if (onMouseLeave) onMouseLeave(evt);
+        },
+        onFocus: (evt)=>{
+            setIsHoveringTarget(true);
+            if (onFocus) onFocus(evt);
+        },
+        onBlur: (evt)=>{
+            setTimeout(()=>setIsHoveringTarget(false)
+            , hideDelay);
+            if (onBlur) onBlur(evt);
+        },
+        onKeyDown: (evt)=>{
+            if (evt.key === 'Escape') setTimeout(()=>setIsHoveringTarget(false)
+            , hideDelay);
+            if (onKeyDown) onKeyDown(evt);
+        },
+        ...otherProps
+    }, ($parcel$interopDefault($9z4kG$react)).Children.map(children, (child)=>{
+        if (/*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).isValidElement(child)) return /*#__PURE__*/ ($parcel$interopDefault($9z4kG$react)).cloneElement(child, {
+            'aria-describedby': tooltipId
+        });
+    })));
+};
+
+
+
+
+//# sourceMappingURL=main.js.map

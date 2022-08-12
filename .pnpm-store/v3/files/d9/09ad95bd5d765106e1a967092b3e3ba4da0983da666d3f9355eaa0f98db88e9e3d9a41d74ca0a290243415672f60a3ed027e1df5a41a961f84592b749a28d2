@@ -1,0 +1,236 @@
+import {cx as $dCqiY$cx, css as $dCqiY$css} from "emotion";
+import $dCqiY$react, {isValidElement as $dCqiY$isValidElement} from "react";
+import {Flex as $dCqiY$Flex, Box as $dCqiY$Box} from "@contentful/f36-core";
+import $dCqiY$contentfulf36tokens from "@contentful/f36-tokens";
+import {Heading as $dCqiY$Heading, Paragraph as $dCqiY$Paragraph} from "@contentful/f36-typography";
+import {ChevronLeftIcon as $dCqiY$ChevronLeftIcon} from "@contentful/f36-icons";
+import {IconButton as $dCqiY$IconButton} from "@contentful/f36-button";
+
+
+
+
+
+
+const $60d0c534ab0f7b51$export$84e09de4ec06a483 = ()=>({
+        workbench: /*#__PURE__*/ $dCqiY$css({
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+            zIndex: $dCqiY$contentfulf36tokens.zIndexWorkbench,
+            overflowX: 'hidden'
+        }),
+        contentWrapper: /*#__PURE__*/ $dCqiY$css({
+            name: "1s3f8mv",
+            styles: "height:100%;width:100%;overflow:hidden;"
+        })
+    })
+;
+
+
+function $d1d329fa188adf0b$var$_Workbench({ children: children , className: className , testId: testId = 'cf-ui-workbench'  }, ref1) {
+    const styles = $60d0c534ab0f7b51$export$84e09de4ec06a483();
+    const header = [];
+    const content = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    $dCqiY$react.Children.forEach(children, (child)=>{
+        if (child) {
+            var ref;
+            if (((ref = child.type) === null || ref === void 0 ? void 0 : ref.displayName) === 'WorkbenchHeader') header.push(child);
+            else content.push(child);
+        }
+    });
+    return /*#__PURE__*/ $dCqiY$react.createElement("div", {
+        "data-test-id": testId,
+        ref: ref1,
+        className: $dCqiY$cx(styles.workbench, className)
+    }, header, /*#__PURE__*/ $dCqiY$react.createElement($dCqiY$Flex, {
+        className: styles.contentWrapper
+    }, content));
+}
+$d1d329fa188adf0b$var$_Workbench.displayName = 'Workbench';
+const $d1d329fa188adf0b$export$7ba78694d320932f = /*#__PURE__*/ $dCqiY$react.forwardRef($d1d329fa188adf0b$var$_Workbench);
+
+
+
+
+
+
+
+
+
+
+const $7cb03875c7719198$export$992e9849d9cfac33 = (hasBackButton = false)=>({
+        workbenchHeader: /*#__PURE__*/ $dCqiY$css([
+            {
+                display: 'flex',
+                alignItems: 'center',
+                flexShrink: 0,
+                width: '100%',
+                height: '70px',
+                padding: `0 ${$dCqiY$contentfulf36tokens.spacingL}`,
+                borderBottom: `1px solid ${$dCqiY$contentfulf36tokens.gray300}`,
+                backgroundColor: $dCqiY$contentfulf36tokens.gray100,
+                zIndex: $dCqiY$contentfulf36tokens.zIndexWorkbenchHeader,
+                boxSizing: 'border-box'
+            },
+            hasBackButton && {
+                paddingLeft: 0
+            }
+        ]),
+        flexGrow: /*#__PURE__*/ $dCqiY$css({
+            name: "i9gxme",
+            styles: "flex-grow:1;"
+        }),
+        description: /*#__PURE__*/ $dCqiY$css({
+            name: "182i5uv",
+            styles: "text-overflow:ellipsis;white-space:nowrap;overflow:hidden;flex-grow:1;"
+        }),
+        backButton: /*#__PURE__*/ $dCqiY$css({
+            borderRight: `1px solid ${$dCqiY$contentfulf36tokens.gray200}`,
+            marginRight: $dCqiY$contentfulf36tokens.spacingM,
+            borderRadius: 0,
+            height: '100%',
+            '& svg': {
+                fill: $dCqiY$contentfulf36tokens.gray400
+            },
+            '&:focus': {
+                boxShadow: `inset ${$dCqiY$contentfulf36tokens.glowPrimary}`
+            },
+            // This overwrite is necessary because the transparent button hover and the workbench header have the same bg color
+            '&:hover': {
+                backgroundColor: $dCqiY$contentfulf36tokens.gray200
+            }
+        })
+    })
+;
+
+
+const $7deb991a4d03471a$export$58173985466c6049 = ({ actions: actions , icon: Icon , title: title , description: description , className: className , onBack: onBack , testId: testId = 'cf-ui-workbench-header'  })=>{
+    const hasBackButton = Boolean(onBack);
+    const styles = $7cb03875c7719198$export$992e9849d9cfac33(hasBackButton);
+    const iconComponent = Icon === undefined ? null : /*#__PURE__*/ $dCqiY$isValidElement(Icon) ? Icon : /*#__PURE__*/ $dCqiY$react.createElement(Icon, null);
+    return /*#__PURE__*/ $dCqiY$react.createElement("header", {
+        className: $dCqiY$cx(styles.workbenchHeader, className),
+        "data-test-id": testId
+    }, hasBackButton && /*#__PURE__*/ $dCqiY$react.createElement($dCqiY$IconButton, {
+        "aria-label": "Back",
+        testId: "workbench-back-btn",
+        variant: "transparent",
+        className: styles.backButton,
+        onClick: ()=>onBack()
+        ,
+        icon: /*#__PURE__*/ $dCqiY$react.createElement($dCqiY$ChevronLeftIcon, {
+            size: "large",
+            variant: "muted"
+        })
+    }), Icon && /*#__PURE__*/ $dCqiY$react.createElement($dCqiY$Box, {
+        marginRight: "spacingM",
+        display: "inline-flex"
+    }, iconComponent), typeof title === 'string' ? /*#__PURE__*/ $dCqiY$react.createElement($dCqiY$Heading, {
+        className: !description && styles.flexGrow,
+        marginBottom: "none",
+        marginRight: "spacingM"
+    }, title) : title, description && /*#__PURE__*/ $dCqiY$react.createElement($dCqiY$Paragraph, {
+        className: styles.description,
+        marginBottom: "none",
+        marginRight: "spacingM"
+    }, description), actions);
+};
+$7deb991a4d03471a$export$58173985466c6049.displayName = 'WorkbenchHeader';
+
+
+
+
+
+
+
+const $9390c59e5d795df3$export$1eac59802f4e19f5 = (type)=>{
+    let innerContentMaxWidth = 'initial';
+    switch(type){
+        case 'text':
+            innerContentMaxWidth = $dCqiY$contentfulf36tokens.contentWidthText;
+            break;
+        case 'full':
+            innerContentMaxWidth = $dCqiY$contentfulf36tokens.contentWidthFull;
+            break;
+        default:
+            innerContentMaxWidth = $dCqiY$contentfulf36tokens.contentWidthDefault;
+            break;
+    }
+    return {
+        workbenchContent: /*#__PURE__*/ $dCqiY$css({
+            padding: $dCqiY$contentfulf36tokens.spacingL,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            flexGrow: 1
+        }),
+        innerContent: /*#__PURE__*/ $dCqiY$css({
+            margin: '0 auto',
+            maxWidth: innerContentMaxWidth
+        })
+    };
+};
+
+
+const $00614fa2b321c740$export$81e1a9ce302170f8 = ({ children: children , className: className , type: type = 'default' , testId: testId = 'cf-ui-workbench-content' , ...otherProps })=>{
+    const styles = $9390c59e5d795df3$export$1eac59802f4e19f5(type);
+    return /*#__PURE__*/ $dCqiY$react.createElement("main", {
+        "data-test-id": testId,
+        ...otherProps,
+        className: $dCqiY$cx(styles.workbenchContent, className)
+    }, /*#__PURE__*/ $dCqiY$react.createElement("div", {
+        className: styles.innerContent
+    }, children));
+};
+$00614fa2b321c740$export$81e1a9ce302170f8.displayName = 'WorkbenchContent';
+
+
+
+
+
+
+
+const $13142e5bcfee9517$export$648d2b50e07168d2 = (position = 'left')=>{
+    const borderStyleKey = position === 'left' ? 'borderRight' : 'borderLeft';
+    const width = position === 'left' ? '280px' : '360px';
+    return {
+        workbenchSidebar: /*#__PURE__*/ $dCqiY$css({
+            backgroundColor: $dCqiY$contentfulf36tokens.gray100,
+            [borderStyleKey]: `1px solid ${$dCqiY$contentfulf36tokens.gray200}`,
+            width: width,
+            padding: $dCqiY$contentfulf36tokens.spacingL,
+            overflowY: 'auto',
+            overflowX: 'hidden'
+        })
+    };
+};
+
+
+const $bd047964c450f20e$export$3847d48b00ada057 = ({ children: children , className: className , position: position = 'left' , testId: testId = 'cf-ui-workbench-sidebar' , ...otherProps })=>{
+    const styles = $13142e5bcfee9517$export$648d2b50e07168d2(position);
+    return /*#__PURE__*/ $dCqiY$react.createElement("aside", {
+        "data-test-id": testId,
+        ...otherProps,
+        className: $dCqiY$cx(styles.workbenchSidebar, className)
+    }, children);
+};
+$bd047964c450f20e$export$3847d48b00ada057.displayName = 'WorkbenchSidebar';
+
+
+
+const $0cc0442f65ad837c$export$7ba78694d320932f = $d1d329fa188adf0b$export$7ba78694d320932f;
+$0cc0442f65ad837c$export$7ba78694d320932f.Header = $7deb991a4d03471a$export$58173985466c6049;
+$0cc0442f65ad837c$export$7ba78694d320932f.Content = $00614fa2b321c740$export$81e1a9ce302170f8;
+$0cc0442f65ad837c$export$7ba78694d320932f.Sidebar = $bd047964c450f20e$export$3847d48b00ada057;
+
+
+
+
+
+
+
+export {$0cc0442f65ad837c$export$7ba78694d320932f as Workbench, $7deb991a4d03471a$export$58173985466c6049 as WorkbenchHeader, $bd047964c450f20e$export$3847d48b00ada057 as WorkbenchSidebar, $00614fa2b321c740$export$81e1a9ce302170f8 as WorkbenchContent};
+//# sourceMappingURL=module.js.map

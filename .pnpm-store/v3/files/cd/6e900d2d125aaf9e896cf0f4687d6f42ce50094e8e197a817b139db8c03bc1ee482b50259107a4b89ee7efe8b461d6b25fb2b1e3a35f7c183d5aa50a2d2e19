@@ -1,0 +1,57 @@
+interface QueryParamsRetrieve {
+    include?: string[];
+    fields?: {
+        [key: string]: string[];
+    };
+}
+interface QueryParamsList extends QueryParamsRetrieve {
+    sort?: string[] | {
+        [key: string]: 'asc' | 'desc';
+    };
+    filters?: {
+        [key: string]: string | number | boolean;
+    };
+    pageNumber?: number;
+    pageSize?: number;
+}
+declare type QueryParams = QueryParamsRetrieve | QueryParamsList;
+export { QueryParamsRetrieve, QueryParamsList, QueryParams };
+declare type FilterPredicate = 'blank' | 'cont' | 'cont_all' | 'cont_any' | 'does_not_match' | 'does_not_match_all' | 'does_not_match_any' | 'end' | 'end_all' | 'end_any' | 'eq' | 'false' | 'gt' | 'gt_all' | 'gt_any' | 'gteq' | 'gteq_all' | 'gteq_any' | 'in' | 'lt' | 'lt_all' | 'lt_any' | 'lteq' | 'lteq_all' | 'lteq_any' | 'matches' | 'matches_all' | 'matches_any' | 'not_cont' | 'not_cont_all' | 'not_end' | 'not_end_all' | 'not_end_any' | 'not_eq' | 'not_eq_all' | 'not_in' | 'not_null' | 'not_start' | 'not_start_all' | 'not_start_any' | 'null' | 'present' | 'start' | 'start_all' | 'start_any' | 'true';
+declare class QueryBuilderRetrieve {
+    #private;
+    constructor(resource?: string);
+    include(...resources: string[]): QueryBuilderRetrieve;
+    field(field: string, resource?: string): QueryBuilderRetrieve;
+    fields(fields: string[], resource?: string): QueryBuilderRetrieve;
+    clear(): QueryBuilderRetrieve;
+    build(): QueryParams;
+    generate(): {
+        [key: string]: string;
+    };
+}
+declare class QueryBuilderList extends QueryBuilderRetrieve {
+    #private;
+    constructor(resource?: string);
+    include(...resources: string[]): QueryBuilderList;
+    field(field: string, resource?: string): QueryBuilderList;
+    fields(fields: string[], resource?: string): QueryBuilderList;
+    pageNumber(num: number): QueryBuilderList;
+    pageSize(size: number): QueryBuilderList;
+    page(num: number, size: number): QueryBuilderList;
+    sort(field: string, descending?: boolean): QueryBuilderList;
+    filter(field: string | string[], predicate: FilterPredicate, value: string | number | boolean | string[], resource?: string): QueryBuilderList;
+    clear(): QueryBuilderList;
+    build(): QueryParams;
+    generate(): {
+        [key: string]: string;
+    };
+}
+declare class QueryBuilder extends QueryBuilderList {
+    constructor(resource?: string);
+}
+export default QueryBuilder;
+export { QueryBuilderRetrieve, QueryBuilderList };
+declare const generateQueryStringParams: (params: QueryParamsRetrieve | QueryParamsList | undefined) => {
+    [key: string]: string;
+};
+export { generateQueryStringParams };

@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.isResourceType=exports.isResourceId=void 0;const isResourceId=e=>e&&e.type&&e.id;exports.isResourceId=isResourceId;const isResourceType=e=>e&&typeof e.type!="undefined"&&e.type;exports.isResourceType=isResourceType;

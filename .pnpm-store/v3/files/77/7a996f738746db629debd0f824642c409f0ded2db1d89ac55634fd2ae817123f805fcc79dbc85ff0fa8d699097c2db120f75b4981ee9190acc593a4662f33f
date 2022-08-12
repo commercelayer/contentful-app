@@ -1,0 +1,141 @@
+var $iSxHR$react = require("react");
+var $iSxHR$dayjs = require("dayjs");
+var $iSxHR$dayjspluginutc = require("dayjs/plugin/utc");
+var $iSxHR$dayjspluginrelativeTime = require("dayjs/plugin/relativeTime");
+var $iSxHR$dayjsplugincalendar = require("dayjs/plugin/calendar");
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+function $parcel$interopDefault(a) {
+  return a && a.__esModule ? a.default : a;
+}
+
+$parcel$export(module.exports, "DateTime", () => $8c9ef2783da7ec5f$export$82f9ebd9adeba146);
+$parcel$export(module.exports, "RelativeDateTime", () => $de66f20f0f273947$export$6de14fd95adb1c8a);
+$parcel$export(module.exports, "formatDateAndTime", () => $fe3d2807f48471b7$export$de4eb09f10f9c95e);
+$parcel$export(module.exports, "formatMachineReadableDateTime", () => $fe3d2807f48471b7$export$5fb913e47d486079);
+$parcel$export(module.exports, "formatRelativeDateTime", () => $4e7e5146bc048e19$export$68534c3ecebfa124);
+
+
+
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjspluginutc)));
+function $fe3d2807f48471b7$export$de4eb09f10f9c95e(date, format = 'full') {
+    let template;
+    switch(format){
+        case 'day':
+            template = 'DD MMM YYYY'; // 17 Aug 2021
+            break;
+        case 'weekday':
+            template = 'ddd, DD MMM'; // Tue, 17 Aug
+            break;
+        case 'time':
+            template = 'h:mm A'; // 3:45 PM
+            break;
+        case 'fullWithSeconds':
+            template = 'ddd, DD MMM YYYY [at] h:mm:ss A'; // Tue, 17 Aug 2021 at 3:45:67 PM
+            break;
+        default:
+            template = 'ddd, DD MMM YYYY [at] h:mm A';
+    }
+    return ($parcel$interopDefault($iSxHR$dayjs))(date).format(template);
+}
+function $fe3d2807f48471b7$export$5fb913e47d486079(date, format = 'full') {
+    let template;
+    switch(format){
+        case 'day':
+            template = 'YYYY-MM-DD'; // 2019-08-24
+            break;
+        case 'weekday':
+            template = 'MM-DD'; // 08-24
+            break;
+        case 'time':
+            template = 'HH:mm:ss.SSS'; // 15:44:07.000
+            break;
+        default:
+            template = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';
+    }
+    return ($parcel$interopDefault($iSxHR$dayjs))(date).utc().format(template);
+}
+const $fe3d2807f48471b7$export$3ae94a2503e890a1 = (date)=>{
+    return $fe3d2807f48471b7$export$de4eb09f10f9c95e(date, 'day');
+};
+const $fe3d2807f48471b7$export$3203edd9e5edd663 = (date)=>{
+    return $fe3d2807f48471b7$export$de4eb09f10f9c95e(date, 'time');
+};
+const $fe3d2807f48471b7$export$b89623867a65b725 = (date)=>{
+    return $fe3d2807f48471b7$export$de4eb09f10f9c95e(date, 'weekday');
+};
+
+
+
+
+
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjspluginutc)));
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjspluginrelativeTime)));
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjsplugincalendar)));
+function $4e7e5146bc048e19$export$68534c3ecebfa124(date, baseDate = new Date()) {
+    return ($parcel$interopDefault($iSxHR$dayjs))(date).from(baseDate);
+}
+function $4e7e5146bc048e19$export$aa1a2def90bfd930(date, baseDate = new Date()) {
+    const isToday = ($parcel$interopDefault($iSxHR$dayjs))(date).isSame(baseDate, 'day');
+    if (!isToday) // if the date is not today, we display it with "Yesterday", "Tomorrow", etc.
+    // and if the date is not in the current week then it will display "17 Aug 2021"
+    return ($parcel$interopDefault($iSxHR$dayjs))(date).calendar(baseDate, {
+        sameElse: 'DD MMM YYYY'
+    });
+     // returns "... ago"
+    return $4e7e5146bc048e19$export$68534c3ecebfa124(date, baseDate);
+}
+
+
+
+const $8c9ef2783da7ec5f$var$_DateTime = ({ date: date , format: format = 'full' , testId: testId = 'cf-ui-date-time' , ...otherProps }, ref)=>{
+    const machineReadableDate = $fe3d2807f48471b7$export$5fb913e47d486079(date);
+    return /*#__PURE__*/ ($parcel$interopDefault($iSxHR$react)).createElement("time", {
+        dateTime: machineReadableDate,
+        "data-test-id": testId,
+        ...otherProps,
+        ref: ref
+    }, $fe3d2807f48471b7$export$de4eb09f10f9c95e(date, format));
+};
+const $8c9ef2783da7ec5f$export$82f9ebd9adeba146 = /*#__PURE__*/ ($parcel$interopDefault($iSxHR$react)).forwardRef($8c9ef2783da7ec5f$var$_DateTime);
+
+
+
+
+
+
+
+
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjspluginutc)));
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjspluginrelativeTime)));
+($parcel$interopDefault($iSxHR$dayjs)).extend(($parcel$interopDefault($iSxHR$dayjsplugincalendar)));
+const $de66f20f0f273947$var$_RelativeDateTime = ({ date: date , baseDate: baseDate , isRelativeToCurrentWeek: isRelativeToCurrentWeek = false , testId: testId = 'cf-ui-relative-date-time' , ...otherProps }, ref)=>{
+    const now = new Date();
+    const referenceDate = baseDate !== null && baseDate !== void 0 ? baseDate : now;
+    const dayjsDate = ($parcel$interopDefault($iSxHR$dayjs))(date);
+    const machineReadableDate = $fe3d2807f48471b7$export$5fb913e47d486079(date);
+    let relativeDate;
+    if (isRelativeToCurrentWeek && !dayjsDate.isSame(referenceDate, 'day')) /**
+     * if isRelativeToCurrentWeek is true and the date is not today, we display the date with Yesterday, Tomorrow, etc
+     * or, if the date is not in the current week, it displays "17 Aug 2021"
+     *
+     * check formatRelativeToCurrentWeekDateTime for more details
+     */ relativeDate = $4e7e5146bc048e19$export$aa1a2def90bfd930(date, referenceDate);
+    else // otherwise we display it with "... ago" or "in ..." notation
+    relativeDate = $4e7e5146bc048e19$export$68534c3ecebfa124(date, referenceDate);
+    return /*#__PURE__*/ ($parcel$interopDefault($iSxHR$react)).createElement("time", {
+        dateTime: machineReadableDate,
+        "data-test-id": testId,
+        ...otherProps,
+        ref: ref
+    }, relativeDate);
+};
+const $de66f20f0f273947$export$6de14fd95adb1c8a = /*#__PURE__*/ ($parcel$interopDefault($iSxHR$react)).forwardRef($de66f20f0f273947$var$_RelativeDateTime);
+
+
+
+
+
+//# sourceMappingURL=main.js.map

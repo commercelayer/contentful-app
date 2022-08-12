@@ -1,0 +1,151 @@
+import {cx as $1glhb$cx, css as $1glhb$css} from "emotion";
+import $1glhb$react from "react";
+import {Grid as $1glhb$Grid, Flex as $1glhb$Flex} from "@contentful/f36-core";
+import {Button as $1glhb$Button} from "@contentful/f36-button";
+import {Heading as $1glhb$Heading, Text as $1glhb$Text, Paragraph as $1glhb$Paragraph} from "@contentful/f36-typography";
+import {InfoCircleIcon as $1glhb$InfoCircleIcon, CheckCircleIcon as $1glhb$CheckCircleIcon, ErrorCircleIcon as $1glhb$ErrorCircleIcon, WarningIcon as $1glhb$WarningIcon, CloseIcon as $1glhb$CloseIcon} from "@contentful/f36-icons";
+import {Icon as $1glhb$Icon} from "@contentful/f36-icon";
+import $1glhb$contentfulf36tokens from "@contentful/f36-tokens";
+
+
+
+
+
+
+
+
+
+
+const $40db410f6b3626c8$var$variantToStyles = (variant)=>{
+    switch(variant){
+        case 'primary':
+            return {
+                backgroundColor: $1glhb$contentfulf36tokens.blue100,
+                borderColor: $1glhb$contentfulf36tokens.blue300,
+                a: {
+                    color: $1glhb$contentfulf36tokens.blue700
+                }
+            };
+        case 'positive':
+            return {
+                backgroundColor: $1glhb$contentfulf36tokens.green100,
+                borderColor: $1glhb$contentfulf36tokens.green300,
+                a: {
+                    color: $1glhb$contentfulf36tokens.blue700
+                }
+            };
+        case 'negative':
+            return {
+                backgroundColor: $1glhb$contentfulf36tokens.red100,
+                borderColor: $1glhb$contentfulf36tokens.red300,
+                a: {
+                    color: $1glhb$contentfulf36tokens.blue700
+                }
+            };
+        case 'warning':
+            return {
+                backgroundColor: $1glhb$contentfulf36tokens.orange100,
+                borderColor: $1glhb$contentfulf36tokens.orange300,
+                a: {
+                    color: $1glhb$contentfulf36tokens.blue700
+                }
+            };
+        case 'neutral':
+            return {
+                backgroundColor: $1glhb$contentfulf36tokens.gray100,
+                borderColor: $1glhb$contentfulf36tokens.gray300,
+                a: {
+                    color: $1glhb$contentfulf36tokens.blue700
+                }
+            };
+        default:
+            return {};
+    }
+};
+const $40db410f6b3626c8$export$513fe11e594cca6f = ()=>{
+    return {
+        container: ({ variant: variant  })=>/*#__PURE__*/ $1glhb$css({
+                position: 'relative',
+                borderRadius: $1glhb$contentfulf36tokens.borderRadiusMedium,
+                border: '1px solid',
+                ...$40db410f6b3626c8$var$variantToStyles(variant)
+            })
+        ,
+        title: /*#__PURE__*/ $1glhb$css({
+            color: $1glhb$contentfulf36tokens.gray800,
+            fontSize: $1glhb$contentfulf36tokens.fontSizeL,
+            lineHeight: $1glhb$contentfulf36tokens.lineHeightL
+        }),
+        description: /*#__PURE__*/ $1glhb$css({
+            color: $1glhb$contentfulf36tokens.gray700
+        }),
+        close: /*#__PURE__*/ $1glhb$css({
+            position: 'absolute',
+            top: $1glhb$contentfulf36tokens.spacingXs,
+            right: $1glhb$contentfulf36tokens.spacingXs,
+            padding: $1glhb$contentfulf36tokens.spacingXs,
+            '&:hover, &:active': {
+                backgroundColor: 'transparent'
+            }
+        }),
+        closeIcon: /*#__PURE__*/ $1glhb$css({
+            fill: $1glhb$contentfulf36tokens.gray600
+        })
+    };
+};
+
+
+const $4933ec7cc08cf190$var$icons = {
+    primary: $1glhb$InfoCircleIcon,
+    positive: $1glhb$CheckCircleIcon,
+    negative: $1glhb$ErrorCircleIcon,
+    warning: $1glhb$WarningIcon,
+    neutral: $1glhb$InfoCircleIcon
+};
+const $4933ec7cc08cf190$export$6c88bf799aca3d2b = /*#__PURE__*/ $1glhb$react.forwardRef((props, ref)=>{
+    const { children: children , className: className , withCloseButton: withCloseButton = false , variant: variant = 'primary' , onClose: onClose , testId: testId = 'cf-ui-note' , title: title , ...otherProps } = props;
+    const styles = $40db410f6b3626c8$export$513fe11e594cca6f();
+    return /*#__PURE__*/ $1glhb$react.createElement($1glhb$Grid, {
+        ...otherProps,
+        columns: withCloseButton ? 'auto 1fr 24px' : 'auto 1fr',
+        as: "article",
+        className: $1glhb$cx(styles.container({
+            variant: variant
+        }), className),
+        testId: testId,
+        ref: ref,
+        padding: "spacingM"
+    }, /*#__PURE__*/ $1glhb$react.createElement($1glhb$Icon, {
+        as: $4933ec7cc08cf190$var$icons[variant],
+        variant: variant === 'neutral' ? 'muted' : variant,
+        size: title ? 'medium' : 'small'
+    }), /*#__PURE__*/ $1glhb$react.createElement($1glhb$Flex, {
+        flexDirection: "column"
+    }, title && /*#__PURE__*/ $1glhb$react.createElement($1glhb$Heading, {
+        as: "h2",
+        className: styles.title,
+        marginBottom: !children ? 'none' : 'spacingS'
+    }, title), children && /*#__PURE__*/ $1glhb$react.createElement($1glhb$Text, {
+        as: "div",
+        lineHeight: "lineHeightM",
+        className: styles.description
+    }, typeof children === 'string' ? /*#__PURE__*/ $1glhb$react.createElement($1glhb$Paragraph, {
+        marginBottom: "none"
+    }, children) : children)), withCloseButton && /*#__PURE__*/ $1glhb$react.createElement($1glhb$Button, {
+        variant: "transparent",
+        startIcon: /*#__PURE__*/ $1glhb$react.createElement($1glhb$CloseIcon, {
+            className: styles.closeIcon
+        }),
+        onClick: onClose,
+        testId: `${testId}-close`,
+        "aria-label": "Dismiss",
+        className: styles.close
+    }));
+});
+$4933ec7cc08cf190$export$6c88bf799aca3d2b.displayName = 'Note';
+
+
+
+
+export {$4933ec7cc08cf190$export$6c88bf799aca3d2b as Note};
+//# sourceMappingURL=module.js.map

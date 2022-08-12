@@ -1,0 +1,1 @@
+const authorizationCode=async(auth,uri,code)=>{if(code)return await auth.code.getToken(code);if(!window)throw new Error("Authorization code works only in a Web context");return window.open(uri),null};export default authorizationCode;

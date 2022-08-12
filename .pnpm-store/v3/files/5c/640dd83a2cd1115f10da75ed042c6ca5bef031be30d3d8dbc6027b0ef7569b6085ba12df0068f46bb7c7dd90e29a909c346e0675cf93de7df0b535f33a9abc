@@ -1,0 +1,236 @@
+var $36WSQ$react = require("react");
+var $36WSQ$contentfulf36core = require("@contentful/f36-core");
+var $36WSQ$reactpopper = require("react-popper");
+var $36WSQ$emotion = require("emotion");
+var $36WSQ$contentfulf36utils = require("@contentful/f36-utils");
+var $36WSQ$contentfulf36tokens = require("@contentful/f36-tokens");
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+function $parcel$interopDefault(a) {
+  return a && a.__esModule ? a.default : a;
+}
+
+$parcel$export(module.exports, "Popover", () => $dd96ee4ab94ee75f$export$5b6b19405a83ff9d);
+$parcel$export(module.exports, "PopoverTrigger", () => $b3e2e9dc1eae953e$export$7dacb05d26466c3);
+$parcel$export(module.exports, "PopoverContent", () => $ec6b27dd96eb674c$export$d7e1f420b25549ff);
+
+
+
+const $a5e54ab4533eb4d3$var$PopoverContext = ($parcel$interopDefault($36WSQ$react)).createContext(undefined);
+const $a5e54ab4533eb4d3$export$1468d0761b26e6c8 = ()=>{
+    const context = ($parcel$interopDefault($36WSQ$react)).useContext($a5e54ab4533eb4d3$var$PopoverContext);
+    if (context === undefined) throw new Error('usePopoverContext must be used within a PopoverContextProvider');
+    return context;
+};
+const $a5e54ab4533eb4d3$export$f5300fbf692a63ec = $a5e54ab4533eb4d3$var$PopoverContext.Provider;
+
+
+
+function $ed3840333e471e4e$export$5b6b19405a83ff9d(props) {
+    const { children: children , isOpen: isOpen , placement: placement = 'bottom-start' , isFullWidth: isFullWidth = false , isAutoalignmentEnabled: isAutoalignmentEnabled = true , usePortal: usePortal = true , closeOnBlur: closeOnBlur = true , closeOnEsc: closeOnEsc = true , onClose: onClose , autoFocus: autoFocus = true , id: id , offset: offset = [
+        1,
+        4
+    ] , renderOnlyWhenOpen: renderOnlyWhenOpen = true  } = props;
+    const [triggerElement, setTriggerElement] = $36WSQ$react.useState(null);
+    const [popoverElement, setPopoverElement] = $36WSQ$react.useState(null);
+    const { attributes: popperAttributes , update: update , styles: popperStyles  } = $36WSQ$reactpopper.usePopper(triggerElement, popoverElement, {
+        placement: placement,
+        modifiers: [
+            {
+                name: 'offset',
+                options: {
+                    offset: offset
+                }
+            },
+            {
+                ...$ed3840333e471e4e$var$sameWidth,
+                enabled: isFullWidth
+            },
+            {
+                name: 'preventOverflow',
+                enabled: isAutoalignmentEnabled,
+                options: {
+                    mainAxis: true
+                }
+            },
+            {
+                name: 'flip',
+                enabled: isAutoalignmentEnabled
+            }
+        ]
+    });
+    $36WSQ$react.useEffect(()=>{
+        if (isOpen && autoFocus && popoverElement) popoverElement.focus({
+            preventScroll: true
+        });
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        isOpen,
+        popoverElement
+    ]);
+    $36WSQ$react.useEffect(()=>{
+        const updatePosition = async ()=>{
+            if (isOpen && update) await update();
+        };
+        updatePosition();
+    }, [
+        isOpen,
+        update
+    ]);
+    const popoverGeneratedId = $36WSQ$contentfulf36core.useId(undefined, 'popover-content');
+    const popoverId = id || popoverGeneratedId;
+    const closeAndFocusTrigger = $36WSQ$react.useCallback(()=>{
+        onClose === null || onClose === void 0 ? void 0 : onClose(); // setTimeout trick to make it work with focus-lock
+        setTimeout(()=>{
+            return triggerElement === null || triggerElement === void 0 ? void 0 : triggerElement.focus({
+                preventScroll: true
+            });
+        }, 0);
+    }, [
+        onClose,
+        triggerElement
+    ]);
+    const contextValue = $36WSQ$react.useMemo(()=>{
+        return {
+            isOpen: Boolean(isOpen),
+            usePortal: usePortal,
+            renderOnlyWhenOpen: renderOnlyWhenOpen,
+            getTriggerProps: (_ref = null)=>({
+                    ref: $36WSQ$contentfulf36core.mergeRefs(setTriggerElement, _ref),
+                    ['aria-expanded']: Boolean(isOpen),
+                    ['aria-controls']: popoverId
+                })
+            ,
+            getPopoverProps: (_props = {}, _ref = null)=>{
+                return {
+                    ...popperAttributes.popper,
+                    style: {
+                        ..._props.style || {},
+                        ...popperStyles.popper
+                    },
+                    ref: $36WSQ$contentfulf36core.mergeRefs(setPopoverElement, _ref),
+                    id: popoverId,
+                    onBlur: (event)=>{
+                        if (_props.onBlur) _props.onBlur(event);
+                        if (!closeOnBlur) return;
+                        const relatedTarget = event.relatedTarget;
+                        const targetIsPopover = popoverElement === relatedTarget || (popoverElement === null || popoverElement === void 0 ? void 0 : popoverElement.contains(relatedTarget));
+                        const targetIsTrigger = triggerElement === relatedTarget || (triggerElement === null || triggerElement === void 0 ? void 0 : triggerElement.contains(relatedTarget));
+                        if (targetIsPopover || targetIsTrigger) return;
+                        onClose === null || onClose === void 0 ? void 0 : onClose();
+                    },
+                    onKeyDown: (event)=>{
+                        if (_props.onKeyDown) _props.onKeyDown(event);
+                        if (closeOnEsc && event.key === 'Escape') closeAndFocusTrigger();
+                    }
+                };
+            }
+        };
+    }, [
+        isOpen,
+        renderOnlyWhenOpen,
+        popperAttributes,
+        popperStyles,
+        usePortal,
+        popoverId,
+        closeOnEsc,
+        closeOnBlur,
+        popoverElement,
+        triggerElement,
+        closeAndFocusTrigger,
+        onClose
+    ]);
+    return /*#__PURE__*/ ($parcel$interopDefault($36WSQ$react)).createElement($a5e54ab4533eb4d3$export$f5300fbf692a63ec, {
+        value: contextValue
+    }, children);
+}
+/**
+ * Sets the popover width to the size of the trigger element.
+ */ const $ed3840333e471e4e$var$sameWidth = {
+    name: 'sameWidth',
+    enabled: true,
+    phase: 'beforeWrite',
+    requires: [
+        'computeStyles'
+    ],
+    fn: ({ state: state  })=>{
+        state.styles.popper.width = `${state.rects.reference.width}px`;
+    },
+    effect: ({ state: state  })=>()=>{
+            const reference = state.elements.reference;
+            state.elements.popper.style.width = `${reference.offsetWidth}px`;
+        }
+};
+
+
+
+
+
+
+
+
+const $ac842fe302ff665f$export$fbd764fe961047f7 = (isOpen)=>({
+        container: /*#__PURE__*/ $36WSQ$emotion.css({
+            display: isOpen ? 'initial' : 'none',
+            background: ($parcel$interopDefault($36WSQ$contentfulf36tokens)).colorWhite,
+            border: 0,
+            borderRadius: ($parcel$interopDefault($36WSQ$contentfulf36tokens)).borderRadiusMedium,
+            boxShadow: ($parcel$interopDefault($36WSQ$contentfulf36tokens)).boxShadowDefault,
+            zIndex: ($parcel$interopDefault($36WSQ$contentfulf36tokens)).zIndexDropdown,
+            '&:focus': {
+                boxShadow: ($parcel$interopDefault($36WSQ$contentfulf36tokens)).glowPrimary,
+                outline: 'none'
+            },
+            '&:focus:not(:focus-visible)': {
+                boxShadow: ($parcel$interopDefault($36WSQ$contentfulf36tokens)).boxShadowDefault
+            }
+        })
+    })
+;
+
+
+const $ec6b27dd96eb674c$var$_PopoverContent = (props, ref)=>{
+    const { children: children , className: className , testId: testId = 'cf-ui-popover-content' , role: role = 'dialog' , ...otherProps } = props;
+    const { isOpen: isOpen , renderOnlyWhenOpen: renderOnlyWhenOpen , getPopoverProps: getPopoverProps , usePortal: usePortal  } = $a5e54ab4533eb4d3$export$1468d0761b26e6c8();
+    const styles = $ac842fe302ff665f$export$fbd764fe961047f7(isOpen);
+    const content = /*#__PURE__*/ ($parcel$interopDefault($36WSQ$react)).createElement("div", {
+        ...otherProps,
+        ...getPopoverProps(otherProps, ref),
+        className: $36WSQ$emotion.cx(styles.container, className),
+        "data-test-id": testId,
+        tabIndex: -1,
+        role: role,
+        // for internal contentful apps usage
+        "data-position-absolute": true
+    }, children);
+    if (renderOnlyWhenOpen && !isOpen) return null;
+    return usePortal ? /*#__PURE__*/ ($parcel$interopDefault($36WSQ$react)).createElement($36WSQ$contentfulf36utils.Portal, null, content) : content;
+};
+const $ec6b27dd96eb674c$export$d7e1f420b25549ff = /*#__PURE__*/ ($parcel$interopDefault($36WSQ$react)).forwardRef($ec6b27dd96eb674c$var$_PopoverContent);
+
+
+
+
+const $b3e2e9dc1eae953e$export$7dacb05d26466c3 = (props)=>{
+    const child = ($parcel$interopDefault($36WSQ$react)).Children.only(props.children);
+    const { getTriggerProps: getTriggerProps  } = $a5e54ab4533eb4d3$export$1468d0761b26e6c8();
+    var ref;
+    return /*#__PURE__*/ ($parcel$interopDefault($36WSQ$react)).cloneElement(child, {
+        ...getTriggerProps(child.ref),
+        'aria-haspopup': (ref = child.props['aria-haspopup']) !== null && ref !== void 0 ? ref : 'dialog'
+    });
+};
+
+
+const $dd96ee4ab94ee75f$export$5b6b19405a83ff9d = $ed3840333e471e4e$export$5b6b19405a83ff9d;
+$dd96ee4ab94ee75f$export$5b6b19405a83ff9d.Content = $ec6b27dd96eb674c$export$d7e1f420b25549ff;
+$dd96ee4ab94ee75f$export$5b6b19405a83ff9d.Trigger = $b3e2e9dc1eae953e$export$7dacb05d26466c3;
+
+
+
+
+
+
+//# sourceMappingURL=main.js.map

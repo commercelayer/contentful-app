@@ -1,0 +1,290 @@
+import {cx as $7oe8x$cx, css as $7oe8x$css} from "emotion";
+import $7oe8x$react, {useState as $7oe8x$useState, useCallback as $7oe8x$useCallback} from "react";
+import {useCombobox as $7oe8x$useCombobox} from "downshift";
+import {mergeRefs as $7oe8x$mergeRefs} from "@contentful/f36-core";
+import {IconButton as $7oe8x$IconButton} from "@contentful/f36-button";
+import {TextInput as $7oe8x$TextInput} from "@contentful/f36-forms";
+import {ChevronDownIcon as $7oe8x$ChevronDownIcon, CloseIcon as $7oe8x$CloseIcon} from "@contentful/f36-icons";
+import {SkeletonContainer as $7oe8x$SkeletonContainer, SkeletonBodyText as $7oe8x$SkeletonBodyText} from "@contentful/f36-skeleton";
+import {Popover as $7oe8x$Popover} from "@contentful/f36-popover";
+import {Subheading as $7oe8x$Subheading, SectionHeading as $7oe8x$SectionHeading, Text as $7oe8x$Text} from "@contentful/f36-typography";
+import {getStringMatch as $7oe8x$getStringMatch} from "@contentful/f36-utils";
+import $7oe8x$contentfulf36tokens from "@contentful/f36-tokens";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const $b76be67e84921f58$export$71b73d9f7d678746 = (listMaxHeight)=>({
+        autocomplete: /*#__PURE__*/ $7oe8x$css({
+            name: "1jke4yk",
+            styles: "position:relative;width:100%;"
+        }),
+        combobox: /*#__PURE__*/ $7oe8x$css({
+            name: "79elbk",
+            styles: "position:relative;"
+        }),
+        inputField: /*#__PURE__*/ $7oe8x$css({
+            paddingRight: $7oe8x$contentfulf36tokens.spacingXl,
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+        }),
+        toggleButton: /*#__PURE__*/ $7oe8x$css({
+            position: 'absolute',
+            top: '1px',
+            right: '1px',
+            zIndex: 1,
+            padding: $7oe8x$contentfulf36tokens.spacing2Xs,
+            height: '38px'
+        }),
+        content: /*#__PURE__*/ $7oe8x$css({
+            overflow: 'auto',
+            maxHeight: `${listMaxHeight}px`
+        }),
+        list: /*#__PURE__*/ $7oe8x$css({
+            listStyle: 'none',
+            padding: `${$7oe8x$contentfulf36tokens.spacingXs} 0`,
+            margin: 0
+        }),
+        groupTitle: /*#__PURE__*/ $7oe8x$css({
+            padding: `${$7oe8x$contentfulf36tokens.spacingXs} ${$7oe8x$contentfulf36tokens.spacingM}`,
+            lineHeight: $7oe8x$contentfulf36tokens.lineHeightM
+        }),
+        noMatchesTitle: /*#__PURE__*/ $7oe8x$css({
+            color: $7oe8x$contentfulf36tokens.gray500,
+            margin: `${$7oe8x$contentfulf36tokens.spacingM} 0 ${$7oe8x$contentfulf36tokens.spacingM} 0`
+        }),
+        item: /*#__PURE__*/ $7oe8x$css({
+            display: 'block',
+            padding: `${$7oe8x$contentfulf36tokens.spacingXs} ${$7oe8x$contentfulf36tokens.spacingM}`,
+            wordBreak: 'break-word',
+            whiteSpace: 'break-spaces',
+            cursor: 'pointer',
+            hyphens: 'auto',
+            '&:focus, &:hover': {
+                backgroundColor: $7oe8x$contentfulf36tokens.gray100
+            },
+            '&:active': {
+                backgroundColor: $7oe8x$contentfulf36tokens.gray200
+            }
+        }),
+        disabled: /*#__PURE__*/ $7oe8x$css({
+            name: "1e07izz",
+            styles: "opacity:0.5;pointer-events:none;"
+        }),
+        highlighted: /*#__PURE__*/ $7oe8x$css({
+            backgroundColor: $7oe8x$contentfulf36tokens.gray100
+        })
+    })
+;
+
+
+const $641c6dc49f14cfd8$export$4db5c29873bb228f = (props)=>{
+    const { items: items , elementStartIndex: elementStartIndex , highlightedIndex: highlightedIndex , getItemProps: getItemProps , renderItem: renderItem , inputValue: inputValue , listMaxHeight: listMaxHeight = 180  } = props;
+    const styles = $b76be67e84921f58$export$71b73d9f7d678746(listMaxHeight);
+    return /*#__PURE__*/ $7oe8x$react.createElement("ul", {
+        className: styles.list,
+        "data-test-id": "cf-autocomplete-list"
+    }, items.map((item, index)=>{
+        const itemIndex = elementStartIndex + index;
+        const itemProps = getItemProps({
+            item: item,
+            index: itemIndex
+        });
+        return /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$Text, {
+            ...itemProps,
+            as: "li",
+            key: itemIndex,
+            className: $7oe8x$cx([
+                styles.item,
+                highlightedIndex === itemIndex && styles.highlighted
+            ]),
+            "data-test-id": `cf-autocomplete-list-item-${itemIndex}`
+        }, renderItem ? renderItem(item, inputValue) : typeof item === 'string' ? /*#__PURE__*/ $7oe8x$react.createElement($641c6dc49f14cfd8$var$HighlightedItem, {
+            item: item,
+            inputValue: inputValue
+        }) : item);
+    }));
+};
+$641c6dc49f14cfd8$export$4db5c29873bb228f.displayName = 'AutocompleteItems';
+function $641c6dc49f14cfd8$var$HighlightedItem({ item: item , inputValue: inputValue  }) {
+    const { before: before , match: match , after: after  } = $7oe8x$getStringMatch(item, inputValue);
+    return /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$react.Fragment, null, before, /*#__PURE__*/ $7oe8x$react.createElement("b", null, match), after);
+}
+$641c6dc49f14cfd8$var$HighlightedItem.displayName = 'HighlightedItem';
+
+
+
+function $7cd5ba9838c72bf9$var$_Autocomplete(props, ref) {
+    const { id: id , className: className , clearAfterSelect: clearAfterSelect = false , closeAfterSelect: closeAfterSelect = true , defaultValue: defaultValue = '' , selectedItem: selectedItem1 , items: items , onInputValueChange: onInputValueChange , onSelectItem: onSelectItem , renderItem: renderItem , icon: icon = /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$ChevronDownIcon, {
+        variant: "muted"
+    }) , itemToString: itemToString = (item)=>item
+     , isInvalid: isInvalid , isDisabled: isDisabled , isRequired: isRequired , isReadOnly: isReadOnly , noMatchesMessage: noMatchesMessage = 'No matches found' , placeholder: placeholder = 'Search' , inputRef: inputRef , toggleRef: toggleRef , listRef: listRef , listWidth: listWidth = 'auto' , listMaxHeight: listMaxHeight = 180 , isGrouped: isGrouped = false , isLoading: isLoading = false , usePortal: usePortal = false , testId: testId = 'cf-autocomplete'  } = props;
+    const styles = $b76be67e84921f58$export$71b73d9f7d678746(listMaxHeight);
+    const [inputValue1, setInputValue] = $7oe8x$useState(defaultValue);
+    const handleInputValueChange = $7oe8x$useCallback((value)=>{
+        setInputValue(value);
+        onInputValueChange === null || onInputValueChange === void 0 ? void 0 : onInputValueChange(value);
+    }, [
+        onInputValueChange
+    ]); // Handle manually to avoid a jumping cursor, see https://github.com/downshift-js/downshift/issues/1108#issuecomment-842407759
+    const handleNativeChangeEvent = $7oe8x$useCallback((event)=>{
+        const value = event.target.value;
+        handleInputValueChange(value);
+    }, [
+        handleInputValueChange
+    ]);
+    const flattenItems = $7cd5ba9838c72bf9$var$isUsingGroups(isGrouped, items) ? items.reduce((acc, group)=>[
+            ...acc,
+            ...group.options
+        ]
+    , []) : items;
+    const isShowingNoMatches = $7cd5ba9838c72bf9$var$isUsingGroups(isGrouped, items) ? items.every((group)=>group.options.length === 0
+    ) : items.length === 0;
+    const { getComboboxProps: getComboboxProps , getInputProps: getInputProps , getItemProps: getItemProps , getMenuProps: getMenuProps , getToggleButtonProps: getToggleButtonProps , highlightedIndex: highlightedIndex , isOpen: isOpen , toggleMenu: toggleMenu  } = $7oe8x$useCombobox({
+        items: flattenItems,
+        selectedItem: selectedItem1,
+        inputValue: inputValue1,
+        itemToString: itemToString,
+        onInputValueChange: ({ type: type , inputValue: inputValue  })=>{
+            if (type !== '__input_change__') handleInputValueChange(inputValue);
+        },
+        onStateChange: ({ type: type , selectedItem: selectedItem  })=>{
+            switch(type){
+                case $7oe8x$useCombobox.stateChangeTypes.InputKeyDownEnter:
+                case $7oe8x$useCombobox.stateChangeTypes.ItemClick:
+                    if (selectedItem) onSelectItem(selectedItem);
+                    if (clearAfterSelect) handleInputValueChange('');
+                    if (!closeAfterSelect) toggleMenu();
+                    break;
+                default:
+                    break;
+            }
+        }
+    });
+    const { 'aria-labelledby': _labelledby , id: _inputId , ...inputProps } = getInputProps();
+    const comboboxProps = getComboboxProps();
+    const toggleProps = getToggleButtonProps();
+    const menuProps = getMenuProps();
+    let elementStartIndex = 0;
+    return /*#__PURE__*/ $7oe8x$react.createElement("div", {
+        "data-test-id": testId,
+        className: $7oe8x$cx(styles.autocomplete, className),
+        ref: ref
+    }, /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$Popover, {
+        usePortal: usePortal,
+        isOpen: isOpen,
+        isFullWidth: listWidth === 'full',
+        renderOnlyWhenOpen: false,
+        // and the user won't be able to type in the input
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus: false,
+        id: menuProps.id
+    }, /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$Popover.Trigger, null, /*#__PURE__*/ $7oe8x$react.createElement("div", {
+        ...comboboxProps,
+        className: styles.combobox
+    }, /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$TextInput, {
+        className: styles.inputField,
+        ...inputProps,
+        onFocus: ()=>{
+            if (!isOpen) toggleMenu();
+        },
+        id: id,
+        isInvalid: isInvalid,
+        isDisabled: isDisabled,
+        isRequired: isRequired,
+        isReadOnly: isReadOnly,
+        ref: $7oe8x$mergeRefs(inputProps.ref, inputRef),
+        testId: "cf-autocomplete-input",
+        placeholder: placeholder,
+        onChange: (event)=>{
+            inputProps.onChange(event);
+            handleNativeChangeEvent(event);
+        }
+    }), /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$IconButton, {
+        ...toggleProps,
+        ref: $7oe8x$mergeRefs(toggleProps.ref, toggleRef),
+        "aria-label": inputValue1 ? 'Clear' : 'Show list',
+        className: styles.toggleButton,
+        variant: "transparent",
+        icon: inputValue1 ? /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$CloseIcon, {
+            variant: "muted"
+        }) : icon,
+        onClick: ()=>{
+            if (inputValue1) handleInputValueChange('');
+            else toggleMenu();
+        },
+        isDisabled: isDisabled,
+        size: "small"
+    }))), /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$Popover.Content, {
+        ...menuProps,
+        ref: $7oe8x$mergeRefs(menuProps.ref, listRef),
+        className: styles.content,
+        testId: "cf-autocomplete-container"
+    }, isLoading && [
+        ...Array(3)
+    ].map((_, index)=>/*#__PURE__*/ $7oe8x$react.createElement("div", {
+            key: index,
+            className: $7oe8x$cx(styles.item, styles.disabled)
+        }, /*#__PURE__*/ $7oe8x$react.createElement($7cd5ba9838c72bf9$var$ListItemLoadingState, null))
+    ), !isLoading && isShowingNoMatches && /*#__PURE__*/ $7oe8x$react.createElement("div", {
+        className: styles.item
+    }, /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$Subheading, {
+        className: styles.noMatchesTitle
+    }, noMatchesMessage)), !isLoading && $7cd5ba9838c72bf9$var$isUsingGroups(isGrouped, items) && items.map((group, index)=>{
+        if (group.options.length < 1) return;
+        const render = /*#__PURE__*/ $7oe8x$react.createElement("div", {
+            key: index
+        }, /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$SectionHeading, {
+            key: index,
+            "data-test-id": "cf-autocomplete-grouptitle",
+            marginBottom: "none",
+            className: styles.groupTitle
+        }, group.groupTitle), /*#__PURE__*/ $7oe8x$react.createElement($641c6dc49f14cfd8$export$4db5c29873bb228f, {
+            items: group.options,
+            highlightedIndex: highlightedIndex,
+            getItemProps: getItemProps,
+            renderItem: renderItem,
+            inputValue: inputValue1,
+            elementStartIndex: elementStartIndex
+        }));
+        elementStartIndex += group.options.length;
+        return render;
+    }), !isLoading && !$7cd5ba9838c72bf9$var$isUsingGroups(isGrouped, items) && items.length > 0 && /*#__PURE__*/ $7oe8x$react.createElement($641c6dc49f14cfd8$export$4db5c29873bb228f, {
+        items: items,
+        elementStartIndex: elementStartIndex,
+        highlightedIndex: highlightedIndex,
+        getItemProps: getItemProps,
+        renderItem: renderItem,
+        inputValue: inputValue1
+    }))));
+}
+const $7cd5ba9838c72bf9$var$ListItemLoadingState = ()=>{
+    return /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$SkeletonContainer, {
+        svgHeight: 16
+    }, /*#__PURE__*/ $7oe8x$react.createElement($7oe8x$SkeletonBodyText, {
+        numberOfLines: 1
+    }));
+}; // This is required to infer correct typings when differentiating groups and items
+function $7cd5ba9838c72bf9$var$isUsingGroups(isGrouped, items) {
+    return isGrouped;
+}
+const $7cd5ba9838c72bf9$export$2f2b9559550c7bbc = /*#__PURE__*/ $7oe8x$react.forwardRef($7cd5ba9838c72bf9$var$_Autocomplete);
+
+
+
+
+export {$7cd5ba9838c72bf9$export$2f2b9559550c7bbc as Autocomplete};
+//# sourceMappingURL=module.js.map

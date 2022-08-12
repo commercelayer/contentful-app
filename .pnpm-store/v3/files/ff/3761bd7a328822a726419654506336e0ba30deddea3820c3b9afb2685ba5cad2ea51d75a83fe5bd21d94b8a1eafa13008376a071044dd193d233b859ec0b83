@@ -1,0 +1,46 @@
+/**
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ **/
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource';
+import { /* QueryBuilderRetrieve, QueryBuilderList, */ QueryParamsList, QueryParamsRetrieve } from '../query';
+import { PaymentMethod } from './payment_methods';
+import { KlarnaPayment } from './klarna_payments';
+declare type KlarnaGatewayRel = ResourceId & {
+    type: typeof KlarnaGateways.TYPE;
+};
+declare type KlarnaPaymentRel = ResourceId & {
+    type: 'klarna_payments';
+};
+interface KlarnaGateway extends Resource {
+    name?: string;
+    payment_methods?: PaymentMethod[];
+    klarna_payments?: KlarnaPayment[];
+}
+interface KlarnaGatewayCreate extends ResourceCreate {
+    name: string;
+    country_code: string;
+    api_key: string;
+    api_secret: string;
+    klarna_payments?: KlarnaPaymentRel[];
+}
+interface KlarnaGatewayUpdate extends ResourceUpdate {
+    name?: string;
+    country_code?: string;
+    api_key?: string;
+    api_secret?: string;
+    klarna_payments?: KlarnaPaymentRel[];
+}
+declare class KlarnaGateways extends ApiResource {
+    static readonly TYPE: 'klarna_gateways';
+    list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaGateway>>;
+    create(resource: KlarnaGatewayCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway>;
+    retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway>;
+    update(resource: KlarnaGatewayUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaGateway>;
+    delete(id: string, options?: ResourcesConfig): Promise<void>;
+    isKlarnaGateway(resource: any): resource is KlarnaGateway;
+    relationship(id: string | ResourceId): KlarnaGatewayRel;
+    type(): string;
+}
+export default KlarnaGateways;
+export { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewayUpdate };

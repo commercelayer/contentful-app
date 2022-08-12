@@ -1,0 +1,64 @@
+{
+  "name": "@contentful/app-scripts",
+  "version": "1.1.17",
+  "description": "A collection of scripts for building Contentful Apps",
+  "author": "Contentful GmbH",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentful/create-contentful-app.git",
+    "directory": "packages/contentful--app-scripts"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "main": "lib/index.js",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "bin": {
+    "contentful-app-scripts": "bin/app-scripts"
+  },
+  "scripts": {
+    "prettier": "prettier **/*.js --write --ignore-path .gitignore",
+    "lint": "eslint ./lib",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha ./lib/**/*.test.js ./lib/*.test.js ./utils/**/*.test.js",
+    "test:watch": "npm t -- --watch",
+    "pre-commit": "lint-staged"
+  },
+  "bugs": {
+    "url": "https://github.com/contentful/create-contentful-app/issues"
+  },
+  "homepage": "https://github.com/contentful/create-contentful-app#readme",
+  "directories": {
+    "lib": "lib",
+    "bin": "bin"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "utils"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "adm-zip": "0.5.9",
+    "bottleneck": "2.19.5",
+    "chalk": "4.1.2",
+    "commander": "9.4.0",
+    "contentful-management": "10.10.0",
+    "dotenv": "16.0.1",
+    "ignore": "5.2.0",
+    "inquirer": "8.2.4",
+    "lodash": "4.17.21",
+    "open": "8.4.0",
+    "ora": "5.4.1"
+  },
+  "gitHead": "5915788e8f1206cacb7fe42f55a74e216f1d5fd3"
+}

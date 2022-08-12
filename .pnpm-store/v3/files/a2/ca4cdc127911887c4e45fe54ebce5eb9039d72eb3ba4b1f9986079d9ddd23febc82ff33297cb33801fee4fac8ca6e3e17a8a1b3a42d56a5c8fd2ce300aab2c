@@ -1,0 +1,1 @@
+import{ApiResource as p}from"../resource";class t extends p{async retrieve(e,r){return this.resources.singleton({type:t.TYPE},e,r)}isOrganization(e){return e.type&&e.type===t.TYPE}relationship(e){return typeof e=="string"?{id:e,type:t.TYPE}:{id:e.id,type:t.TYPE}}type(){return t.TYPE}}t.TYPE="organization";export default t;
