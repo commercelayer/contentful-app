@@ -1,4 +1,5 @@
 import tokens from '@contentful/forma-36-tokens'
+// @ts-ignore
 import { css } from 'emotion'
 
 export const styles = {
