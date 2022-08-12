@@ -1,9 +1,9 @@
 name: Release
 on:
   push:
-    branches: [master, beta, alpha]
+    branches: [main, beta, alpha]
   pull_request:
-    branches: [master, beta, alpha]
+    branches: [main, beta, alpha]
 jobs:
   build:
     runs-on: ubuntu-20.04
