@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const tslib_1=require("tslib"),client_oauth2_1=(0,tslib_1.__importDefault)(require("client-oauth2")),createAuth=credentials=>new client_oauth2_1.default(credentials);exports.default=createAuth;

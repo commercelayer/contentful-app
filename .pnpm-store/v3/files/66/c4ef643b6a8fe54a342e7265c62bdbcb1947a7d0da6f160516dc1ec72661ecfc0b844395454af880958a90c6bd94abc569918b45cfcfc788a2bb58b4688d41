@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const authorizationCode=async(auth,uri,code)=>{if(code)return await auth.code.getToken(code);if(!window)throw new Error("Authorization code works only in a Web context");return window.open(uri),null};exports.default=authorizationCode;
