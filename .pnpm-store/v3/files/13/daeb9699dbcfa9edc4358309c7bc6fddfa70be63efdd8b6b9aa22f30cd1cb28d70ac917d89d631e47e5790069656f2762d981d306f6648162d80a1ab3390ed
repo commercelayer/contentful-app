@@ -1,0 +1,43 @@
+/**
+ * ©2022 Commerce Layer Inc.
+ * Source code generated automatically by SDK codegen from OpenAPI schema 2.8.1
+ **/
+import { ApiResource, Resource, ResourceCreate, ResourceUpdate, ResourcesConfig, ResourceId, ListResponse } from '../resource';
+import { /* QueryBuilderRetrieve, QueryBuilderList, */ QueryParamsList, QueryParamsRetrieve } from '../query';
+import { Order } from './orders';
+import { PaymentGateway } from './payment_gateways';
+declare type KlarnaPaymentRel = ResourceId & {
+    type: typeof KlarnaPayments.TYPE;
+};
+declare type OrderRel = ResourceId & {
+    type: 'orders';
+};
+interface KlarnaPayment extends Resource {
+    session_id?: string;
+    client_token?: string;
+    payment_methods?: object[];
+    auth_token?: string;
+    order?: Order;
+    payment_gateway?: PaymentGateway;
+}
+interface KlarnaPaymentCreate extends ResourceCreate {
+    order?: OrderRel;
+}
+interface KlarnaPaymentUpdate extends ResourceUpdate {
+    auth_token?: string;
+    _update?: boolean;
+    order?: OrderRel;
+}
+declare class KlarnaPayments extends ApiResource {
+    static readonly TYPE: 'klarna_payments';
+    list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<KlarnaPayment>>;
+    create(resource: KlarnaPaymentCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment>;
+    retrieve(id: string, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment>;
+    update(resource: KlarnaPaymentUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<KlarnaPayment>;
+    delete(id: string, options?: ResourcesConfig): Promise<void>;
+    isKlarnaPayment(resource: any): resource is KlarnaPayment;
+    relationship(id: string | ResourceId): KlarnaPaymentRel;
+    type(): string;
+}
+export default KlarnaPayments;
+export { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate };

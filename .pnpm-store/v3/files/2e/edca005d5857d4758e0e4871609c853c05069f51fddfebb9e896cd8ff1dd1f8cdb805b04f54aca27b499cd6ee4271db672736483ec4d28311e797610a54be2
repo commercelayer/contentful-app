@@ -1,0 +1,7 @@
+import ClientOAuth2 from 'client-oauth2';
+export interface AuthOptions extends ClientOAuth2.Options {
+    clientId: string;
+    accessTokenUri: string;
+}
+declare const createAuth: (credentials: AuthOptions) => ClientOAuth2;
+export default createAuth;

@@ -1,0 +1,54 @@
+---
+title: 'CopyButton'
+type: 'component'
+status: 'stable'
+section: 'buttonComponents'
+slug: /components/copy-button/
+github: 'https://github.com/contentful/forma-36/tree/main/packages/components/copybutton'
+typescript: ./src/CopyButton.tsx
+storybook: 'https://v4-f36-storybook.netlify.app/?path=/story/components-copybutton--default'
+---
+
+Copy text to the clipboard.
+
+Place it at the right bottom end of the text you want users to copy.
+
+## Import
+
+```js static=true
+import { CopyButton } from '@contentful/f36-components';
+// or
+import { CopyButton } from '@contentful/f36-copybutton';
+```
+
+## Examples
+
+### Basic
+
+```jsx file=examples/CopyButtonExample.tsx
+
+```
+
+### Changing the tooltip
+
+You can modify tooltip text and its placement by using the following properties: `tooltipCopiedText`, `tooltipText` and `tooltipProps`.
+
+To read more about all possible values of `tooltipProps` object, refer to [Tooltip](../components/tooltip) documentation.
+
+```jsx file=examples/CopyButtonModifiedTooltipsExample.tsx
+
+```
+
+### Using with `TextInput`
+
+```jsx file=examples/CopyButtonWithInputExample.tsx
+
+```
+
+## Accessibility
+
+You can pass a custom `aria-label` through the `label` prop.
+
+## Props (API reference)
+
+<PropsTable of="CopyButton" />

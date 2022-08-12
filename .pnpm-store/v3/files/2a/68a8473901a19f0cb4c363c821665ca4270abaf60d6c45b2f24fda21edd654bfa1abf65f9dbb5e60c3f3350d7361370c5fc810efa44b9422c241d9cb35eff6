@@ -1,0 +1,25 @@
+{
+  "name": "@contentful/f36-tokens",
+  "description": "Forma 36 Tokens",
+  "version": "4.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "package.json",
+    "dist"
+  ],
+  "devDependencies": {
+    "fs-extra": "^10.0.0",
+    "globby": "^10.0.1"
+  },
+  "scripts": {
+    "build:clean": "rm -rf dist",
+    "build:tokens": "node tools/build.js",
+    "build": "yarn build:clean && yarn build:tokens"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "e3e979f182b1386de7209705403030cdbb92d71b"
+}

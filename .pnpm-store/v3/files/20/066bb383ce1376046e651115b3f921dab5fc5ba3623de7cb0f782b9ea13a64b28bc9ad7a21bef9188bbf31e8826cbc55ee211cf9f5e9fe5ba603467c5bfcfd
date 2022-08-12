@@ -1,0 +1,703 @@
+var $6ZrLO$react = require("react");
+var $6ZrLO$contentfulf36core = require("@contentful/f36-core");
+var $6ZrLO$contentfulf36popover = require("@contentful/f36-popover");
+var $6ZrLO$emotion = require("emotion");
+var $6ZrLO$contentfulf36tokens = require("@contentful/f36-tokens");
+var $6ZrLO$contentfulf36typography = require("@contentful/f36-typography");
+var $6ZrLO$contentfulf36icons = require("@contentful/f36-icons");
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+function $parcel$interopDefault(a) {
+  return a && a.__esModule ? a.default : a;
+}
+
+$parcel$export(module.exports, "Menu", () => $c2cdaffe72abf66f$export$d9b273488cd8ce6f);
+$parcel$export(module.exports, "MenuList", () => $c5bfee6901fd5b47$export$d4c4e98c5044dc8);
+$parcel$export(module.exports, "MenuItem", () => $01d29448a29c05b3$export$2ce376c2cc3355c8);
+$parcel$export(module.exports, "MenuTrigger", () => $57a0b88402c05a1e$export$27d2ad3c5815583e);
+$parcel$export(module.exports, "MenuDivider", () => $a8d7f8a94ad9b120$export$acb07b4664ac227c);
+$parcel$export(module.exports, "MenuSectionTitle", () => $a9e47e1a6fcc6dbc$export$5d1e6c648985631e);
+$parcel$export(module.exports, "Submenu", () => $d1c454a08dd2b04a$export$49229ebf838c159b);
+$parcel$export(module.exports, "SubmenuTrigger", () => $68e427819b978177$export$ecabc99eeffab7ca);
+
+
+
+const $9abfe5cafeb7e9d3$var$ARROW_KEY_TYPES = {
+    vertical: {
+        prev: 'ArrowUp',
+        next: 'ArrowDown'
+    },
+    horizontal: {
+        prev: 'ArrowLeft',
+        next: 'ArrowRight'
+    }
+};
+const $9abfe5cafeb7e9d3$export$e8d01079a7f85a7 = ({ itemsContainerRef: itemsContainerRef , itemsSelector: itemsSelector , keyType: keyType = 'vertical'  })=>{
+    const [focusedIndex, setFocusedIndex] = $6ZrLO$react.useState(0);
+    const handleArrowsKeyDown = $6ZrLO$react.useCallback((event)=>{
+        const container = itemsContainerRef.current;
+        if (!container) return;
+        const items = container.querySelectorAll(itemsSelector);
+        if (items.length === 0) return;
+        const lastItemIndex = items.length - 1;
+        const focusFirstItem = ()=>setFocusedIndex(0)
+        ;
+        const focusLastItem = ()=>setFocusedIndex(lastItemIndex)
+        ;
+        const focusNextItem = ()=>{
+            if (focusedIndex === lastItemIndex) focusFirstItem();
+            else setFocusedIndex(focusedIndex + 1);
+        };
+        const focusPrevItem = ()=>{
+            if (focusedIndex === 0) focusLastItem();
+            else setFocusedIndex(focusedIndex - 1);
+        };
+        const keyToFnMap = {
+            [$9abfe5cafeb7e9d3$var$ARROW_KEY_TYPES[keyType].next]: focusNextItem,
+            [$9abfe5cafeb7e9d3$var$ARROW_KEY_TYPES[keyType].prev]: focusPrevItem
+        };
+        const fn = keyToFnMap[event.key];
+        if (fn) {
+            event.preventDefault();
+            fn();
+        }
+    }, [
+        focusedIndex,
+        itemsSelector,
+        itemsContainerRef,
+        keyType
+    ]);
+    return {
+        focusedIndex: focusedIndex,
+        handleArrowsKeyDown: handleArrowsKeyDown,
+        setFocusedIndex: setFocusedIndex
+    };
+};
+
+
+
+
+const $31bc1b2a74a830dc$var$MenuContext = ($parcel$interopDefault($6ZrLO$react)).createContext(undefined);
+const $31bc1b2a74a830dc$export$21c7ab35b39f78ec = ()=>{
+    const context = ($parcel$interopDefault($6ZrLO$react)).useContext($31bc1b2a74a830dc$var$MenuContext);
+    if (context === undefined) throw new Error('useMenuContext must be used within a MenuContextProvider');
+    return context;
+};
+const $31bc1b2a74a830dc$export$2cad3fd48ac06579 = $31bc1b2a74a830dc$var$MenuContext.Provider;
+
+
+const $453ff7c40e833219$var$MENU_ITEMS_SELECTOR = '[role="menuitem"]:not(:disabled)';
+function $453ff7c40e833219$export$d9b273488cd8ce6f(props) {
+    const { closeOnSelect: closeOnSelect = true , closeOnBlur: closeOnBlur = true , closeOnEsc: closeOnEsc = true , children: children , onOpen: onOpen , ...otherProps } = props;
+    const { isOpen: isOpen , handleOpen: handleOpen , handleClose: handleClose , isControlled: isControlled  } = $6ZrLO$contentfulf36core.useControllableState({
+        isOpen: props.isOpen,
+        defaultIsOpen: props.defaultIsOpen,
+        onOpen: onOpen,
+        onClose: props.onClose
+    });
+    const triggerRef = $6ZrLO$react.useRef(null);
+    const menuListRef = $6ZrLO$react.useRef(null);
+    const menuId = $6ZrLO$contentfulf36core.useId(null, 'menu');
+    const { focusedIndex: focusedIndex , handleArrowsKeyDown: handleArrowsKeyDown , setFocusedIndex: setFocusedIndex  } = $9abfe5cafeb7e9d3$export$e8d01079a7f85a7({
+        itemsContainerRef: menuListRef,
+        itemsSelector: $453ff7c40e833219$var$MENU_ITEMS_SELECTOR
+    });
+    $6ZrLO$react.useEffect(()=>{
+        if (isOpen && menuListRef.current) {
+            const menuItems = menuListRef.current.querySelectorAll($453ff7c40e833219$var$MENU_ITEMS_SELECTOR);
+            if (menuItems.length > 0 && focusedIndex < menuItems.length) // timeout trick to prevent scroll from jumping
+            // when the popover is not positioned correctly yet in the opening phase
+            setTimeout(()=>{
+                menuItems[focusedIndex].focus({
+                    preventScroll: false
+                });
+            }, 0);
+        }
+    }, [
+        isOpen,
+        focusedIndex
+    ]);
+    const focusMenuItem = $6ZrLO$react.useCallback((item)=>{
+        const menuItems = menuListRef.current.querySelectorAll($453ff7c40e833219$var$MENU_ITEMS_SELECTOR);
+        const itemIndex = [
+            ...menuItems
+        ].findIndex((menuItem)=>item === menuItem
+        );
+        if (itemIndex !== -1) setFocusedIndex(itemIndex);
+    }, [
+        setFocusedIndex
+    ]);
+    const closeAndFocusTrigger = $6ZrLO$react.useCallback(()=>{
+        var ref;
+        handleClose();
+        (ref = triggerRef.current) === null || ref === void 0 ? void 0 : ref.focus({
+            preventScroll: true
+        });
+    }, [
+        handleClose
+    ]);
+    const handleMenuListKeyDown = $6ZrLO$react.useCallback((event)=>{
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            closeAndFocusTrigger();
+            return;
+        } // we don't want to propagate other keydown events except `Tab`
+        event.stopPropagation();
+        if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            closeAndFocusTrigger();
+            return;
+        }
+        handleArrowsKeyDown(event);
+    }, [
+        closeAndFocusTrigger,
+        handleArrowsKeyDown
+    ]);
+    const contextValue = $6ZrLO$react.useMemo(()=>{
+        return {
+            isOpen: isOpen,
+            menuId: menuId,
+            focusMenuItem: focusMenuItem,
+            getTriggerProps: (_props = {}, _ref = null)=>{
+                return {
+                    onClick: (event)=>{
+                        var ref;
+                        // if the user made component controlled by providing isOpen prop
+                        // but onOpen callback is not provided, we won't add toggle logic
+                        // to the trigger component. So they can make any toggle logic on their own.
+                        const isFullyControlled = isControlled && !onOpen;
+                        if (!isFullyControlled) {
+                            if (isOpen) handleClose();
+                            else handleOpen();
+                        }
+                        (ref = _props.onClick) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    },
+                    ref: $6ZrLO$contentfulf36core.mergeRefs(triggerRef, _ref)
+                };
+            },
+            getMenuListProps: (_props = {}, _ref = null)=>{
+                return {
+                    ref: $6ZrLO$contentfulf36core.mergeRefs(menuListRef, _ref),
+                    onKeyDown: (event)=>{
+                        var ref;
+                        handleMenuListKeyDown(event);
+                        (ref = _props.onKeyDown) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    },
+                    onBlur: (event)=>{
+                        var ref, ref1, ref2, ref3;
+                        (ref = _props.onBlur) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                        if (!closeOnBlur) return;
+                        const relatedTarget = event.relatedTarget;
+                        const targetIsMenu = menuListRef.current === relatedTarget || ((ref1 = menuListRef.current) === null || ref1 === void 0 ? void 0 : ref1.contains(relatedTarget));
+                        const targetIsTrigger = triggerRef.current === relatedTarget || ((ref2 = triggerRef.current) === null || ref2 === void 0 ? void 0 : ref2.contains(relatedTarget));
+                        const targetIsSubmenu = (relatedTarget === null || relatedTarget === void 0 ? void 0 : (ref3 = relatedTarget.parentElement) === null || ref3 === void 0 ? void 0 : ref3.dataset.parentMenu) === menuId;
+                        if (targetIsMenu || targetIsTrigger || targetIsSubmenu) {
+                            event.stopPropagation();
+                            return;
+                        }
+                        handleClose();
+                    }
+                };
+            },
+            getMenuItemProps: (_props = {})=>{
+                return {
+                    onClick: (event)=>{
+                        var ref;
+                        (ref = _props.onClick) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                        const isSubmenuTrigger = Boolean(event.target.getAttribute('aria-haspopup'));
+                        if (closeOnSelect && !isSubmenuTrigger) closeAndFocusTrigger();
+                    }
+                };
+            },
+            propsToPropagateToSubmenus: {
+                closeOnSelect: closeOnSelect,
+                closeOnBlur: closeOnBlur,
+                closeOnEsc: closeOnEsc
+            }
+        };
+    }, [
+        menuId,
+        isOpen,
+        handleMenuListKeyDown,
+        closeOnSelect,
+        handleClose,
+        handleOpen,
+        focusMenuItem,
+        closeOnBlur,
+        closeOnEsc,
+        closeAndFocusTrigger,
+        isControlled,
+        onOpen
+    ]);
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($31bc1b2a74a830dc$export$2cad3fd48ac06579, {
+        value: contextValue
+    }, /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($6ZrLO$contentfulf36popover.Popover, {
+        ...otherProps,
+        isOpen: isOpen,
+        onClose: handleClose,
+        id: menuId,
+        closeOnEsc: closeOnEsc,
+        autoFocus: false,
+        closeOnBlur: false
+    }, children));
+}
+
+
+
+
+
+
+const $62b35dc82bb7def8$var$SubmenuContext = ($parcel$interopDefault($6ZrLO$react)).createContext(undefined);
+const $62b35dc82bb7def8$export$958673a266cbe049 = ()=>{
+    const context = ($parcel$interopDefault($6ZrLO$react)).useContext($62b35dc82bb7def8$var$SubmenuContext);
+    return context;
+};
+const $62b35dc82bb7def8$export$81b3dbd1f003f0c7 = $62b35dc82bb7def8$var$SubmenuContext.Provider;
+
+
+
+
+
+const $ce9788dc1cd48a1b$export$396ce14bde1b7929 = ()=>{
+    return /*#__PURE__*/ $6ZrLO$emotion.css({
+        position: 'sticky',
+        top: 0,
+        left: 0,
+        backgroundColor: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).colorWhite,
+        borderBottom: `1px solid ${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray300}`,
+        padding: `${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs} 0`,
+        zIndex: 1001
+    });
+};
+const $ce9788dc1cd48a1b$export$fd3dbc8a890448f = ()=>{
+    return /*#__PURE__*/ $6ZrLO$emotion.css({
+        position: 'sticky',
+        bottom: 0,
+        left: 0,
+        backgroundColor: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).colorWhite,
+        borderTop: `1px solid ${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray300}`,
+        padding: `${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs} 0`,
+        zIndex: 1001
+    });
+};
+const $ce9788dc1cd48a1b$export$10ce7613b0465b57 = (props)=>({
+        container: /*#__PURE__*/ $6ZrLO$emotion.css({
+            overflowY: 'auto',
+            position: 'relative',
+            padding: 0,
+            paddingTop: props.hasStickyHeader ? 0 : ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs,
+            paddingBottom: props.hasStickyFooter ? 0 : ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs
+        })
+    })
+;
+
+
+
+
+
+const $77fa76994469c42b$export$77451990ddb9d17c = (props)=>{
+    const { children: children , testId: testId = 'cf-ui-menu-list-header' , className: className , ...otherProps } = props;
+    const styles = $ce9788dc1cd48a1b$export$396ce14bde1b7929();
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement("div", {
+        "data-test-id": testId,
+        className: $6ZrLO$emotion.cx(styles, className),
+        ...otherProps
+    }, children);
+};
+$77fa76994469c42b$export$77451990ddb9d17c.displayName = 'MenuListHeader';
+
+
+
+
+
+const $56409107038e75ac$export$3e8a81e7ad0650f4 = (props)=>{
+    const { children: children , testId: testId = 'cf-ui-menu-list-footer' , className: className , ...otherProps } = props;
+    const styles = $ce9788dc1cd48a1b$export$fd3dbc8a890448f();
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement("div", {
+        "data-test-id": testId,
+        className: $6ZrLO$emotion.cx(styles, className),
+        ...otherProps
+    }, children);
+};
+$56409107038e75ac$export$3e8a81e7ad0650f4.displayName = 'MenuListFooter';
+
+
+function $c5bfee6901fd5b47$var$assertChild(child) {
+    var ref;
+    return Boolean(child === null || child === void 0 ? void 0 : (ref = child.type) === null || ref === void 0 ? void 0 : ref.displayName);
+}
+const $c5bfee6901fd5b47$var$_MenuList = (props, ref)=>{
+    const { children: children , testId: testId = 'cf-ui-menu-list' , className: className , ...otherProps } = props;
+    const { getMenuListProps: getMenuListProps  } = $31bc1b2a74a830dc$export$21c7ab35b39f78ec();
+    const submenuContext = $62b35dc82bb7def8$export$958673a266cbe049();
+    let header = null;
+    let footer = null;
+    const items = [];
+    ($parcel$interopDefault($6ZrLO$react)).Children.forEach(children, (child)=>{
+        let appendChild = true;
+        if ($c5bfee6901fd5b47$var$assertChild(child)) {
+            if (child.type.displayName === $77fa76994469c42b$export$77451990ddb9d17c.displayName) {
+                header = child;
+                appendChild = false;
+            } else if (child.type.displayName === $56409107038e75ac$export$3e8a81e7ad0650f4.displayName) {
+                footer = child;
+                appendChild = false;
+            }
+        }
+        if (appendChild) items.push(child);
+    });
+    const styles = $ce9788dc1cd48a1b$export$10ce7613b0465b57({
+        hasStickyHeader: Boolean(header),
+        hasStickyFooter: Boolean(footer)
+    });
+    const extendedOtherProps = submenuContext ? submenuContext.getSubmenuListProps(otherProps) : otherProps;
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($6ZrLO$contentfulf36popover.Popover.Content, {
+        role: "menu",
+        ...extendedOtherProps,
+        ...getMenuListProps(extendedOtherProps, ref),
+        className: $6ZrLO$emotion.cx(styles.container, className),
+        testId: testId
+    }, header, items, footer);
+};
+const $c5bfee6901fd5b47$export$d4c4e98c5044dc8 = /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).forwardRef($c5bfee6901fd5b47$var$_MenuList);
+
+
+
+
+
+
+
+
+
+
+
+const $f099c69f76c1082f$export$adaad53e003c74d0 = ()=>{
+    return {
+        root: /*#__PURE__*/ $6ZrLO$emotion.css({
+            display: 'block',
+            width: '100%',
+            background: 'none',
+            border: 0,
+            margin: 0,
+            outline: 'none',
+            fontSize: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).fontSizeM,
+            lineHeight: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).lineHeightM,
+            fontWeight: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).fontWeightNormal,
+            position: 'relative',
+            textAlign: 'left',
+            padding: `${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs} ${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingM}`,
+            wordBreak: 'break-word',
+            whiteSpace: 'break-spaces',
+            cursor: 'pointer',
+            hyphens: 'auto',
+            minWidth: '150px',
+            textDecoration: 'none',
+            color: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray800,
+            '&:hover': {
+                backgroundColor: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray100
+            },
+            '&:focus': {
+                boxShadow: `inset ${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).glowPrimary}`,
+                // just to make boxShadow with rounded corners
+                borderRadius: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).borderRadiusMedium
+            },
+            '&:focus:not(:focus-visible)': {
+                boxShadow: 'unset',
+                borderRadius: 'unset'
+            },
+            '&:focus-visible': {
+                boxShadow: `inset ${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).glowPrimary}`,
+                borderRadius: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).borderRadiusMedium
+            },
+            '&:active': {
+                backgroundColor: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray200
+            },
+            '&:disabled': {
+                opacity: 0.5,
+                cursor: 'auto'
+            }
+        })
+    };
+};
+
+
+const $01d29448a29c05b3$var$MENU_ITEM_DEFAULT_TAG = 'button';
+function $01d29448a29c05b3$var$_MenuItem(props, ref) {
+    const { testId: testId , className: className , as: as , isInitiallyFocused: isInitiallyFocused , ...otherProps } = props;
+    const id = $6ZrLO$contentfulf36core.useId(undefined, 'menu-item');
+    const itemTestId = testId || `cf-ui-${id}`;
+    const styles = $f099c69f76c1082f$export$adaad53e003c74d0();
+    const { getMenuItemProps: getMenuItemProps , focusMenuItem: focusMenuItem  } = $31bc1b2a74a830dc$export$21c7ab35b39f78ec();
+    const itemRef = $6ZrLO$react.useRef(null);
+    $6ZrLO$react.useEffect(()=>{
+        if (isInitiallyFocused && itemRef.current) focusMenuItem(itemRef.current);
+    }, [
+        isInitiallyFocused,
+        focusMenuItem
+    ]);
+    const Element = as !== null && as !== void 0 ? as : $01d29448a29c05b3$var$MENU_ITEM_DEFAULT_TAG;
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement(Element, {
+        role: "menuitem",
+        ...otherProps,
+        ...getMenuItemProps(otherProps),
+        className: $6ZrLO$emotion.cx(styles.root, className),
+        "data-test-id": itemTestId,
+        ref: $6ZrLO$contentfulf36core.mergeRefs(itemRef, ref),
+        tabIndex: -1
+    }, props.children);
+}
+$01d29448a29c05b3$var$_MenuItem.displayName = 'MenuItem';
+const $01d29448a29c05b3$export$2ce376c2cc3355c8 = /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).forwardRef($01d29448a29c05b3$var$_MenuItem);
+
+
+
+
+
+const $57a0b88402c05a1e$export$27d2ad3c5815583e = (props)=>{
+    const child = ($parcel$interopDefault($6ZrLO$react)).Children.only(props.children);
+    const { getTriggerProps: getTriggerProps  } = $31bc1b2a74a830dc$export$21c7ab35b39f78ec();
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($6ZrLO$contentfulf36popover.Popover.Trigger, null, /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).cloneElement(child, {
+        ...getTriggerProps(child.props, child.ref),
+        ['aria-haspopup']: 'menu'
+    }));
+};
+
+
+
+
+
+
+const $f85a558bae23a8bd$export$4605da6f9a8ef405 = ()=>/*#__PURE__*/ $6ZrLO$emotion.css({
+        border: 'none',
+        width: '100%',
+        height: '1px',
+        background: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray300,
+        margin: `${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs} 0`
+    })
+;
+
+
+const $a8d7f8a94ad9b120$export$acb07b4664ac227c = (props)=>{
+    const { children: children , testId: testId = 'cf-ui-menu-divider' , className: className , ...otherProps } = props;
+    const styles = $f85a558bae23a8bd$export$4605da6f9a8ef405();
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement("hr", {
+        "aria-orientation": "horizontal",
+        "data-test-id": testId,
+        className: $6ZrLO$emotion.cx(styles, className),
+        ...otherProps
+    });
+};
+
+
+
+
+
+
+const $80d81cb0da14b65a$export$2698fa8b3a0a79e6 = ()=>/*#__PURE__*/ $6ZrLO$emotion.css({
+        textAlign: 'left',
+        padding: `${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs} ${($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingM}`,
+        lineHeight: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).lineHeightM,
+        'hr + &': {
+            marginTop: '-8px'
+        }
+    })
+;
+
+
+
+const $a9e47e1a6fcc6dbc$export$5d1e6c648985631e = (props)=>{
+    const { children: children , testId: testId = 'cf-ui-menu-section-title' , className: className , ...otherProps } = props;
+    const styles = $80d81cb0da14b65a$export$2698fa8b3a0a79e6();
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($6ZrLO$contentfulf36typography.SectionHeading // Techincally, menus cannot contain headings according to ARIA.
+    , {
+        // We hide the heading from assistive technology, and only use it
+        // as a label
+        "aria-hidden": "true",
+        testId: testId,
+        className: $6ZrLO$emotion.cx(styles, className),
+        marginBottom: "none",
+        ...otherProps
+    }, children);
+};
+
+
+
+
+
+
+
+const $d1c454a08dd2b04a$var$SUBMENU_OFFSET = [
+    -8,
+    2
+];
+const $d1c454a08dd2b04a$export$49229ebf838c159b = (props)=>{
+    const { onClose: onClose , onOpen: onOpen , ...otherProps } = props;
+    const { isOpen: isParentMenuOpen , menuId: menuId , propsToPropagateToSubmenus: propsToPropagateToSubmenus  } = $31bc1b2a74a830dc$export$21c7ab35b39f78ec();
+    const triggerRef = $6ZrLO$react.useRef(null);
+    const mouseLeaveTimerRef = $6ZrLO$react.useRef(null);
+    const [isOpen, setIsOpen] = $6ZrLO$react.useState(false);
+    const handleOpen = $6ZrLO$react.useCallback(()=>{
+        setIsOpen(true);
+        window.clearTimeout(mouseLeaveTimerRef.current);
+        onOpen === null || onOpen === void 0 ? void 0 : onOpen();
+    }, [
+        onOpen
+    ]);
+    const handleClose = $6ZrLO$react.useCallback(()=>{
+        setIsOpen(false);
+        window.clearTimeout(mouseLeaveTimerRef.current);
+        onClose === null || onClose === void 0 ? void 0 : onClose();
+    }, [
+        onClose
+    ]);
+    const closeAndFocusTrigger = $6ZrLO$react.useCallback(()=>{
+        var ref;
+        handleClose();
+        (ref = triggerRef.current) === null || ref === void 0 ? void 0 : ref.focus({
+            preventScroll: true
+        });
+    }, [
+        handleClose
+    ]);
+    $6ZrLO$react.useEffect(()=>{
+        // close when parent menu closed
+        if (isParentMenuOpen === false) setIsOpen(false);
+    }, [
+        isParentMenuOpen
+    ]);
+    const contextValue = $6ZrLO$react.useMemo(()=>{
+        return {
+            isOpen: isOpen,
+            getSubmenuListProps: (_props)=>{
+                return {
+                    'data-parent-menu': menuId,
+                    onMouseOver: (event)=>{
+                        var ref;
+                        handleOpen();
+                        (ref = _props.onMouseOver) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    },
+                    onMouseLeave: (event)=>{
+                        var ref;
+                        closeAndFocusTrigger();
+                        (ref = _props.onMouseLeave) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    }
+                };
+            },
+            getSubmenuTriggerProps: (_props, _ref)=>{
+                return {
+                    ref: $6ZrLO$contentfulf36core.mergeRefs(triggerRef, _ref),
+                    onKeyDown: (event)=>{
+                        var ref;
+                        if (event.key === 'ArrowRight') {
+                            event.preventDefault();
+                            handleOpen();
+                        }
+                        (ref = _props.onKeyDown) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    },
+                    onMouseOver: (event)=>{
+                        var ref;
+                        handleOpen();
+                        (ref = _props.onMouseOver) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    },
+                    onMouseLeave: (event)=>{
+                        var ref;
+                        mouseLeaveTimerRef.current = window.setTimeout(closeAndFocusTrigger, 300);
+                        (ref = _props.onMouseLeave) === null || ref === void 0 ? void 0 : ref.call(_props, event);
+                    }
+                };
+            }
+        };
+    }, [
+        isOpen,
+        menuId,
+        handleOpen,
+        closeAndFocusTrigger
+    ]);
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($62b35dc82bb7def8$export$81b3dbd1f003f0c7, {
+        value: contextValue
+    }, /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($453ff7c40e833219$export$d9b273488cd8ce6f, {
+        ...propsToPropagateToSubmenus,
+        ...otherProps,
+        isOpen: isOpen,
+        onClose: handleClose,
+        onOpen: handleOpen,
+        placement: "right-start",
+        offset: $d1c454a08dd2b04a$var$SUBMENU_OFFSET,
+        isAutoalignmentEnabled: false
+    }));
+};
+
+
+
+
+
+
+
+
+
+
+const $440a5860c5fbe4e7$export$ce276565acbba1c9 = ()=>{
+    return {
+        root: ({ isActive: isActive  })=>/*#__PURE__*/ $6ZrLO$emotion.css({
+                display: 'flex',
+                alignItems: 'center',
+                paddingRight: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingXs,
+                ...isActive ? {
+                    backgroundColor: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).gray100
+                } : {}
+            })
+        ,
+        content: /*#__PURE__*/ $6ZrLO$emotion.css({
+            marginRight: ($parcel$interopDefault($6ZrLO$contentfulf36tokens)).spacingM
+        }),
+        icon: /*#__PURE__*/ $6ZrLO$emotion.css({
+            name: "1hapt0s",
+            styles: "margin-left:auto;fill:currentColor;"
+        })
+    };
+};
+
+
+const $68e427819b978177$var$_SubmenuTrigger = (props, ref)=>{
+    const { className: className , children: children  } = props;
+    const { getSubmenuTriggerProps: getSubmenuTriggerProps , isOpen: isOpen  } = $62b35dc82bb7def8$export$958673a266cbe049();
+    const styles = $440a5860c5fbe4e7$export$ce276565acbba1c9();
+    return /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($57a0b88402c05a1e$export$27d2ad3c5815583e, null, /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($01d29448a29c05b3$export$2ce376c2cc3355c8, {
+        ...props,
+        ...getSubmenuTriggerProps(props, ref),
+        className: $6ZrLO$emotion.cx(styles.root({
+            isActive: isOpen
+        }), className)
+    }, /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement("span", {
+        className: styles.content
+    }, children), /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).createElement($6ZrLO$contentfulf36icons.ChevronRightIcon, {
+        className: styles.icon
+    })));
+};
+const $68e427819b978177$export$ecabc99eeffab7ca = /*#__PURE__*/ ($parcel$interopDefault($6ZrLO$react)).forwardRef($68e427819b978177$var$_SubmenuTrigger);
+
+
+const $c2cdaffe72abf66f$export$d9b273488cd8ce6f = $453ff7c40e833219$export$d9b273488cd8ce6f;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.List = $c5bfee6901fd5b47$export$d4c4e98c5044dc8;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.ListHeader = $77fa76994469c42b$export$77451990ddb9d17c;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.ListFooter = $56409107038e75ac$export$3e8a81e7ad0650f4;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.Item = $01d29448a29c05b3$export$2ce376c2cc3355c8;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.Trigger = $57a0b88402c05a1e$export$27d2ad3c5815583e;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.Divider = $a8d7f8a94ad9b120$export$acb07b4664ac227c;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.SectionTitle = $a9e47e1a6fcc6dbc$export$5d1e6c648985631e;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.Submenu = $d1c454a08dd2b04a$export$49229ebf838c159b;
+$c2cdaffe72abf66f$export$d9b273488cd8ce6f.SubmenuTrigger = $68e427819b978177$export$ecabc99eeffab7ca;
+
+
+
+
+
+
+
+
+
+
+
+//# sourceMappingURL=main.js.map

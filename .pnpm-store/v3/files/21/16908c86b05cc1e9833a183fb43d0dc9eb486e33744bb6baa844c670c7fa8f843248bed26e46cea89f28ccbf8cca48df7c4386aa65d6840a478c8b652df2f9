@@ -1,0 +1,57 @@
+import React, { ReactElement, ReactNode } from "react";
+import { CommonProps, PropsWithHTMLElement } from "@contentful/f36-core";
+import { IconComponent } from "@contentful/f36-icon";
+export interface WorkbenchProps extends CommonProps {
+    children: React.ReactNode;
+}
+/**
+ * The Workbench assembles the outer app shell which defines regions to structure content and interactions
+ */
+declare const _Workbench1: React.ForwardRefExoticComponent<WorkbenchProps & React.RefAttributes<HTMLDivElement>>;
+export interface WorkbenchHeaderProps extends CommonProps {
+    /** This is the title that will be shown inside the Header component */
+    title: string | ReactElement;
+    /** This is the icon that will be shown on the left side of the title and it's possible to use Forma 36’s icons or external icons */
+    icon?: IconComponent | ReactElement;
+    /** This is the text that will be shown on the right side of the title in the Header component */
+    description?: string;
+    /** It's possible to pass a ReactNode to be shown at the end of the Header */
+    actions?: ReactNode;
+    /** If a function is passed to the onBack prop the Header will show a back button that will call this function when clicked */
+    onBack?: () => void;
+}
+export const WorkbenchHeader: {
+    ({ actions, icon: Icon, title, description, className, onBack, testId, }: WorkbenchHeaderProps): JSX.Element;
+    displayName: string;
+};
+interface WorkbenchContentOwnProps extends CommonProps {
+    children: React.ReactNode;
+    /**
+     * This props define the max-width of the content container
+     * The default value is "default" which translates to `max-width: 1200px` in the browser
+     * */
+    type?: 'default' | 'text' | 'full';
+}
+export type WorkbenchContentProps = PropsWithHTMLElement<WorkbenchContentOwnProps, 'main'>;
+export const WorkbenchContent: {
+    ({ children, className, type, testId, ...otherProps }: WorkbenchContentProps): JSX.Element;
+    displayName: string;
+};
+interface WorkbenchSidebarOwnProps extends CommonProps {
+    children: React.ReactNode;
+    /** It sets the correct border style for the Sidebar */
+    position?: 'left' | 'right';
+}
+export type WorkbenchSidebarProps = PropsWithHTMLElement<WorkbenchSidebarOwnProps, 'aside'>;
+export const WorkbenchSidebar: {
+    ({ children, className, position, testId, ...otherProps }: WorkbenchSidebarProps): JSX.Element;
+    displayName: string;
+};
+type CompoundWorkbench = typeof _Workbench1 & {
+    Header: typeof WorkbenchHeader;
+    Content: typeof WorkbenchContent;
+    Sidebar: typeof WorkbenchSidebar;
+};
+export const Workbench: CompoundWorkbench;
+
+//# sourceMappingURL=types.d.ts.map

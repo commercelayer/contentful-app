@@ -1,0 +1,130 @@
+import $fUYts$react from "react";
+import $fUYts$dayjs from "dayjs";
+import $fUYts$dayjspluginutc from "dayjs/plugin/utc";
+import $fUYts$dayjspluginrelativeTime from "dayjs/plugin/relativeTime";
+import $fUYts$dayjsplugincalendar from "dayjs/plugin/calendar";
+
+
+
+
+$fUYts$dayjs.extend($fUYts$dayjspluginutc);
+function $ee655ad1301c8997$export$de4eb09f10f9c95e(date, format = 'full') {
+    let template;
+    switch(format){
+        case 'day':
+            template = 'DD MMM YYYY'; // 17 Aug 2021
+            break;
+        case 'weekday':
+            template = 'ddd, DD MMM'; // Tue, 17 Aug
+            break;
+        case 'time':
+            template = 'h:mm A'; // 3:45 PM
+            break;
+        case 'fullWithSeconds':
+            template = 'ddd, DD MMM YYYY [at] h:mm:ss A'; // Tue, 17 Aug 2021 at 3:45:67 PM
+            break;
+        default:
+            template = 'ddd, DD MMM YYYY [at] h:mm A';
+    }
+    return $fUYts$dayjs(date).format(template);
+}
+function $ee655ad1301c8997$export$5fb913e47d486079(date, format = 'full') {
+    let template;
+    switch(format){
+        case 'day':
+            template = 'YYYY-MM-DD'; // 2019-08-24
+            break;
+        case 'weekday':
+            template = 'MM-DD'; // 08-24
+            break;
+        case 'time':
+            template = 'HH:mm:ss.SSS'; // 15:44:07.000
+            break;
+        default:
+            template = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';
+    }
+    return $fUYts$dayjs(date).utc().format(template);
+}
+const $ee655ad1301c8997$export$3ae94a2503e890a1 = (date)=>{
+    return $ee655ad1301c8997$export$de4eb09f10f9c95e(date, 'day');
+};
+const $ee655ad1301c8997$export$3203edd9e5edd663 = (date)=>{
+    return $ee655ad1301c8997$export$de4eb09f10f9c95e(date, 'time');
+};
+const $ee655ad1301c8997$export$b89623867a65b725 = (date)=>{
+    return $ee655ad1301c8997$export$de4eb09f10f9c95e(date, 'weekday');
+};
+
+
+
+
+
+$fUYts$dayjs.extend($fUYts$dayjspluginutc);
+$fUYts$dayjs.extend($fUYts$dayjspluginrelativeTime);
+$fUYts$dayjs.extend($fUYts$dayjsplugincalendar);
+function $162585a33f185f78$export$68534c3ecebfa124(date, baseDate = new Date()) {
+    return $fUYts$dayjs(date).from(baseDate);
+}
+function $162585a33f185f78$export$aa1a2def90bfd930(date, baseDate = new Date()) {
+    const isToday = $fUYts$dayjs(date).isSame(baseDate, 'day');
+    if (!isToday) // if the date is not today, we display it with "Yesterday", "Tomorrow", etc.
+    // and if the date is not in the current week then it will display "17 Aug 2021"
+    return $fUYts$dayjs(date).calendar(baseDate, {
+        sameElse: 'DD MMM YYYY'
+    });
+     // returns "... ago"
+    return $162585a33f185f78$export$68534c3ecebfa124(date, baseDate);
+}
+
+
+
+const $02aa7794cdab25f9$var$_DateTime = ({ date: date , format: format = 'full' , testId: testId = 'cf-ui-date-time' , ...otherProps }, ref)=>{
+    const machineReadableDate = $ee655ad1301c8997$export$5fb913e47d486079(date);
+    return /*#__PURE__*/ $fUYts$react.createElement("time", {
+        dateTime: machineReadableDate,
+        "data-test-id": testId,
+        ...otherProps,
+        ref: ref
+    }, $ee655ad1301c8997$export$de4eb09f10f9c95e(date, format));
+};
+const $02aa7794cdab25f9$export$82f9ebd9adeba146 = /*#__PURE__*/ $fUYts$react.forwardRef($02aa7794cdab25f9$var$_DateTime);
+
+
+
+
+
+
+
+
+$fUYts$dayjs.extend($fUYts$dayjspluginutc);
+$fUYts$dayjs.extend($fUYts$dayjspluginrelativeTime);
+$fUYts$dayjs.extend($fUYts$dayjsplugincalendar);
+const $f5a0093d268a4b59$var$_RelativeDateTime = ({ date: date , baseDate: baseDate , isRelativeToCurrentWeek: isRelativeToCurrentWeek = false , testId: testId = 'cf-ui-relative-date-time' , ...otherProps }, ref)=>{
+    const now = new Date();
+    const referenceDate = baseDate !== null && baseDate !== void 0 ? baseDate : now;
+    const dayjsDate = $fUYts$dayjs(date);
+    const machineReadableDate = $ee655ad1301c8997$export$5fb913e47d486079(date);
+    let relativeDate;
+    if (isRelativeToCurrentWeek && !dayjsDate.isSame(referenceDate, 'day')) /**
+     * if isRelativeToCurrentWeek is true and the date is not today, we display the date with Yesterday, Tomorrow, etc
+     * or, if the date is not in the current week, it displays "17 Aug 2021"
+     *
+     * check formatRelativeToCurrentWeekDateTime for more details
+     */ relativeDate = $162585a33f185f78$export$aa1a2def90bfd930(date, referenceDate);
+    else // otherwise we display it with "... ago" or "in ..." notation
+    relativeDate = $162585a33f185f78$export$68534c3ecebfa124(date, referenceDate);
+    return /*#__PURE__*/ $fUYts$react.createElement("time", {
+        dateTime: machineReadableDate,
+        "data-test-id": testId,
+        ...otherProps,
+        ref: ref
+    }, relativeDate);
+};
+const $f5a0093d268a4b59$export$6de14fd95adb1c8a = /*#__PURE__*/ $fUYts$react.forwardRef($f5a0093d268a4b59$var$_RelativeDateTime);
+
+
+
+
+
+export {$02aa7794cdab25f9$export$82f9ebd9adeba146 as DateTime, $f5a0093d268a4b59$export$6de14fd95adb1c8a as RelativeDateTime, $ee655ad1301c8997$export$de4eb09f10f9c95e as formatDateAndTime, $ee655ad1301c8997$export$5fb913e47d486079 as formatMachineReadableDateTime, $162585a33f185f78$export$68534c3ecebfa124 as formatRelativeDateTime};
+//# sourceMappingURL=module.js.map

@@ -1,0 +1,11 @@
+import { AuthReturnType, AuthScope, ClientId, ClientSecret, Endpoint } from './typings';
+import { User } from './salesChannel';
+export interface IntegrationCredentials {
+    clientId: ClientId;
+    clientSecret: ClientSecret;
+    endpoint: Endpoint;
+    scope?: AuthScope;
+}
+export declare type Integration = (credentials: IntegrationCredentials, user?: User) => AuthReturnType;
+declare const integration: Integration;
+export default integration;

@@ -1,0 +1,56 @@
+---
+title: 'Pill'
+type: 'component'
+status: 'stable'
+slug: /components/pill/
+github: 'https://github.com/contentful/forma-36/tree/main/packages/components/pill'
+storybook: 'https://v4-f36-storybook.netlify.app/?path=/story/components-pill--basic'
+typescript: ./src/Pill.tsx
+---
+
+`Pill` component allows to represent a set of one or multiple objects which can be entered or changed by the user. For example, tags. `Pill` can be integrated with a drag-and-drop solution.
+
+## Import
+
+```js static=true
+import { Pill } from '@contentful/f36-components';
+// or
+import { Pill } from '@contentful/f36-pill';
+```
+
+## Examples
+
+### Using with draggable and close option
+
+```jsx file=./examples/DraggableAndClosePillExample.tsx
+
+```
+
+### Using the Pill component with custom dragHandleComponent
+
+```jsx file=./examples/DragHandleComponentPillExample.tsx
+
+```
+
+### Integration example with `react-sortable-hoc`
+
+This is an example of integrating `Pill` components with a library for drag-and-drop sorting. In this example, `react-sortable-hoc` is used.
+
+```jsx file=./examples/IntegrationPillExample.tsx
+
+```
+
+## Props (API reference)
+
+<PropsTable of="Pill" />
+
+## Content guidelines
+
+- Be sure the pill text is clear and concise
+- Use Pill to represent data like contact details or tagging
+- It can be used for web content that needs to be labeled, categorized, or organized using keywords that describe them.
+
+## Accessibility
+
+- Label value is passed in the component as a title in the span element, like follows `title={label}`.
+- The default drag component has a `aria-label="Drag handler"`, custom drag handle components should also include an `aria-label`, as shown on the example

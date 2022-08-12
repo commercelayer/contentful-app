@@ -1,0 +1,1 @@
+import{ApiResource as s}from"../resource";class t extends s{async list(e,r){return this.resources.list({type:t.TYPE},e,r)}async retrieve(e,r,p){return this.resources.retrieve({type:t.TYPE,id:e},r,p)}isVoid(e){return e.type&&e.type===t.TYPE}relationship(e){return typeof e=="string"?{id:e,type:t.TYPE}:{id:e.id,type:t.TYPE}}type(){return t.TYPE}}t.TYPE="voids";export default t;

@@ -1,0 +1,246 @@
+var $52Fgc$emotion = require("emotion");
+var $52Fgc$react = require("react");
+var $52Fgc$contentfulf36core = require("@contentful/f36-core");
+var $52Fgc$contentfulf36tokens = require("@contentful/f36-tokens");
+var $52Fgc$contentfulf36typography = require("@contentful/f36-typography");
+var $52Fgc$contentfulf36icons = require("@contentful/f36-icons");
+var $52Fgc$contentfulf36button = require("@contentful/f36-button");
+
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
+function $parcel$interopDefault(a) {
+  return a && a.__esModule ? a.default : a;
+}
+
+$parcel$export(module.exports, "Workbench", () => $276230892d0c85a2$export$7ba78694d320932f);
+$parcel$export(module.exports, "WorkbenchHeader", () => $bb608ff4065912f1$export$58173985466c6049);
+$parcel$export(module.exports, "WorkbenchSidebar", () => $143443b01e430726$export$3847d48b00ada057);
+$parcel$export(module.exports, "WorkbenchContent", () => $ac0881278e3bc674$export$81e1a9ce302170f8);
+
+
+
+
+
+const $2945d68808a538ae$export$84e09de4ec06a483 = ()=>({
+        workbench: /*#__PURE__*/ $52Fgc$emotion.css({
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+            zIndex: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).zIndexWorkbench,
+            overflowX: 'hidden'
+        }),
+        contentWrapper: /*#__PURE__*/ $52Fgc$emotion.css({
+            name: "1s3f8mv",
+            styles: "height:100%;width:100%;overflow:hidden;"
+        })
+    })
+;
+
+
+function $e8dea66605823eb3$var$_Workbench({ children: children , className: className , testId: testId = 'cf-ui-workbench'  }, ref1) {
+    const styles = $2945d68808a538ae$export$84e09de4ec06a483();
+    const header = [];
+    const content = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ($parcel$interopDefault($52Fgc$react)).Children.forEach(children, (child)=>{
+        if (child) {
+            var ref;
+            if (((ref = child.type) === null || ref === void 0 ? void 0 : ref.displayName) === 'WorkbenchHeader') header.push(child);
+            else content.push(child);
+        }
+    });
+    return /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement("div", {
+        "data-test-id": testId,
+        ref: ref1,
+        className: $52Fgc$emotion.cx(styles.workbench, className)
+    }, header, /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement($52Fgc$contentfulf36core.Flex, {
+        className: styles.contentWrapper
+    }, content));
+}
+$e8dea66605823eb3$var$_Workbench.displayName = 'Workbench';
+const $e8dea66605823eb3$export$7ba78694d320932f = /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).forwardRef($e8dea66605823eb3$var$_Workbench);
+
+
+
+
+
+
+
+
+
+
+const $814062ebab426788$export$992e9849d9cfac33 = (hasBackButton = false)=>({
+        workbenchHeader: /*#__PURE__*/ $52Fgc$emotion.css([
+            {
+                display: 'flex',
+                alignItems: 'center',
+                flexShrink: 0,
+                width: '100%',
+                height: '70px',
+                padding: `0 ${($parcel$interopDefault($52Fgc$contentfulf36tokens)).spacingL}`,
+                borderBottom: `1px solid ${($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray300}`,
+                backgroundColor: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray100,
+                zIndex: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).zIndexWorkbenchHeader,
+                boxSizing: 'border-box'
+            },
+            hasBackButton && {
+                paddingLeft: 0
+            }
+        ]),
+        flexGrow: /*#__PURE__*/ $52Fgc$emotion.css({
+            name: "i9gxme",
+            styles: "flex-grow:1;"
+        }),
+        description: /*#__PURE__*/ $52Fgc$emotion.css({
+            name: "182i5uv",
+            styles: "text-overflow:ellipsis;white-space:nowrap;overflow:hidden;flex-grow:1;"
+        }),
+        backButton: /*#__PURE__*/ $52Fgc$emotion.css({
+            borderRight: `1px solid ${($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray200}`,
+            marginRight: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).spacingM,
+            borderRadius: 0,
+            height: '100%',
+            '& svg': {
+                fill: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray400
+            },
+            '&:focus': {
+                boxShadow: `inset ${($parcel$interopDefault($52Fgc$contentfulf36tokens)).glowPrimary}`
+            },
+            // This overwrite is necessary because the transparent button hover and the workbench header have the same bg color
+            '&:hover': {
+                backgroundColor: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray200
+            }
+        })
+    })
+;
+
+
+const $bb608ff4065912f1$export$58173985466c6049 = ({ actions: actions , icon: Icon , title: title , description: description , className: className , onBack: onBack , testId: testId = 'cf-ui-workbench-header'  })=>{
+    const hasBackButton = Boolean(onBack);
+    const styles = $814062ebab426788$export$992e9849d9cfac33(hasBackButton);
+    const iconComponent = Icon === undefined ? null : /*#__PURE__*/ $52Fgc$react.isValidElement(Icon) ? Icon : /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement(Icon, null);
+    return /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement("header", {
+        className: $52Fgc$emotion.cx(styles.workbenchHeader, className),
+        "data-test-id": testId
+    }, hasBackButton && /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement($52Fgc$contentfulf36button.IconButton, {
+        "aria-label": "Back",
+        testId: "workbench-back-btn",
+        variant: "transparent",
+        className: styles.backButton,
+        onClick: ()=>onBack()
+        ,
+        icon: /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement($52Fgc$contentfulf36icons.ChevronLeftIcon, {
+            size: "large",
+            variant: "muted"
+        })
+    }), Icon && /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement($52Fgc$contentfulf36core.Box, {
+        marginRight: "spacingM",
+        display: "inline-flex"
+    }, iconComponent), typeof title === 'string' ? /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement($52Fgc$contentfulf36typography.Heading, {
+        className: !description && styles.flexGrow,
+        marginBottom: "none",
+        marginRight: "spacingM"
+    }, title) : title, description && /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement($52Fgc$contentfulf36typography.Paragraph, {
+        className: styles.description,
+        marginBottom: "none",
+        marginRight: "spacingM"
+    }, description), actions);
+};
+$bb608ff4065912f1$export$58173985466c6049.displayName = 'WorkbenchHeader';
+
+
+
+
+
+
+
+const $1ae53675b6c35141$export$1eac59802f4e19f5 = (type)=>{
+    let innerContentMaxWidth = 'initial';
+    switch(type){
+        case 'text':
+            innerContentMaxWidth = ($parcel$interopDefault($52Fgc$contentfulf36tokens)).contentWidthText;
+            break;
+        case 'full':
+            innerContentMaxWidth = ($parcel$interopDefault($52Fgc$contentfulf36tokens)).contentWidthFull;
+            break;
+        default:
+            innerContentMaxWidth = ($parcel$interopDefault($52Fgc$contentfulf36tokens)).contentWidthDefault;
+            break;
+    }
+    return {
+        workbenchContent: /*#__PURE__*/ $52Fgc$emotion.css({
+            padding: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).spacingL,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            flexGrow: 1
+        }),
+        innerContent: /*#__PURE__*/ $52Fgc$emotion.css({
+            margin: '0 auto',
+            maxWidth: innerContentMaxWidth
+        })
+    };
+};
+
+
+const $ac0881278e3bc674$export$81e1a9ce302170f8 = ({ children: children , className: className , type: type = 'default' , testId: testId = 'cf-ui-workbench-content' , ...otherProps })=>{
+    const styles = $1ae53675b6c35141$export$1eac59802f4e19f5(type);
+    return /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement("main", {
+        "data-test-id": testId,
+        ...otherProps,
+        className: $52Fgc$emotion.cx(styles.workbenchContent, className)
+    }, /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement("div", {
+        className: styles.innerContent
+    }, children));
+};
+$ac0881278e3bc674$export$81e1a9ce302170f8.displayName = 'WorkbenchContent';
+
+
+
+
+
+
+
+const $4d6a837c98e8517d$export$648d2b50e07168d2 = (position = 'left')=>{
+    const borderStyleKey = position === 'left' ? 'borderRight' : 'borderLeft';
+    const width = position === 'left' ? '280px' : '360px';
+    return {
+        workbenchSidebar: /*#__PURE__*/ $52Fgc$emotion.css({
+            backgroundColor: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray100,
+            [borderStyleKey]: `1px solid ${($parcel$interopDefault($52Fgc$contentfulf36tokens)).gray200}`,
+            width: width,
+            padding: ($parcel$interopDefault($52Fgc$contentfulf36tokens)).spacingL,
+            overflowY: 'auto',
+            overflowX: 'hidden'
+        })
+    };
+};
+
+
+const $143443b01e430726$export$3847d48b00ada057 = ({ children: children , className: className , position: position = 'left' , testId: testId = 'cf-ui-workbench-sidebar' , ...otherProps })=>{
+    const styles = $4d6a837c98e8517d$export$648d2b50e07168d2(position);
+    return /*#__PURE__*/ ($parcel$interopDefault($52Fgc$react)).createElement("aside", {
+        "data-test-id": testId,
+        ...otherProps,
+        className: $52Fgc$emotion.cx(styles.workbenchSidebar, className)
+    }, children);
+};
+$143443b01e430726$export$3847d48b00ada057.displayName = 'WorkbenchSidebar';
+
+
+
+const $276230892d0c85a2$export$7ba78694d320932f = $e8dea66605823eb3$export$7ba78694d320932f;
+$276230892d0c85a2$export$7ba78694d320932f.Header = $bb608ff4065912f1$export$58173985466c6049;
+$276230892d0c85a2$export$7ba78694d320932f.Content = $ac0881278e3bc674$export$81e1a9ce302170f8;
+$276230892d0c85a2$export$7ba78694d320932f.Sidebar = $143443b01e430726$export$3847d48b00ada057;
+
+
+
+
+
+
+
+//# sourceMappingURL=main.js.map

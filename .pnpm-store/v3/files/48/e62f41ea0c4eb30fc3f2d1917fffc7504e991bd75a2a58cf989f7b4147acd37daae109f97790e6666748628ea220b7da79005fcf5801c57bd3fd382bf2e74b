@@ -1,0 +1,1 @@
+const e=t=>t&&t.type&&t.id,n=t=>t&&typeof t.type!="undefined"&&t.type;export{e as isResourceId,n as isResourceType};

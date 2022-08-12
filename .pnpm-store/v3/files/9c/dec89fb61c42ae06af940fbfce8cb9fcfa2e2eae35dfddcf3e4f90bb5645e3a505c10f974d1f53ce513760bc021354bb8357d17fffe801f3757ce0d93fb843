@@ -1,0 +1,94 @@
+import React from "react";
+import { CommonProps, PropsWithHTMLElement } from "@contentful/f36-core";
+type DateType = Date | string | number;
+type DateFormat = 'fullWithSeconds' | 'full' | 'time' | 'day' | 'weekday';
+/**
+ * A funtion that will return a formatted date string. The format will dependend on the option
+ * passed in the second argument.
+ * By default, it will return a string with Forma 36’s "full" format (e.g. Tue, 17 Aug 2021 at 3:45 PM)
+ *
+ * @param {DateType} date - the date to be formatted
+ * @param {DateFormat} format - the desired format ("full", "day", "weekday", or "time")
+ * @returns a formatted date
+ *
+ * @example
+ * formatDateAndTime('2021-08-17T15:45:00') // returns "Tue, 17 Aug 2021 at 3:45 PM"
+ *
+ * @example
+ * formatDateAndTime('2021-08-17T15:45:00', 'day') // returns "17 Aug 2021"
+ */
+export function formatDateAndTime(date: DateType, format?: DateFormat): string;
+/**
+ * A funtion that will return a machine-readable date string that should be passed to the `datetime` attribute of a `<time>` tag
+ * By default, it will return a string with "YYYY-MM-DDTHH:mm:ss.SSS[Z]" format
+ *
+ * @param {DateType} date - the date to be formatted
+ * @param {DateFormat} format - the desired format ("full", "day", "weekday", or "time")
+ * @returns a formatted date
+ *
+ * @example
+ * formatMachineReadableDateTime(date) // returns 2019-08-13T10:00:00.000Z
+ *
+ * @example
+ * formatMachineReadableDateTime(date, 'day') // returns 2019-08-13
+ */
+export function formatMachineReadableDateTime(date: DateType, format?: DateFormat): string;
+/**
+ * A function that will return a string with how far a given date is in the past or future,
+ * using a baseDate as reference. If the baseDate is not passed, the function will use today as reference.
+ *
+ * @param {DateType} date - the date to be formatted
+ * @param {DateFormat} baseDate - the date that should be used as a reference (default is "today")
+ * @returns a relative date
+ *
+ * @example
+ * // Considering today as 18.08.2021
+ * formatRelativeDateTime('2021-08-17T15:45:00') // returns "a day ago"
+ *
+ * @example
+ * formatRelativeDateTime('2021-08-17T15:45:00', '2021-08-16') // returns "in a day"
+ */
+export function formatRelativeDateTime(date: DateType, baseDate?: DateType): string;
+interface DateTimeOwnProps extends CommonProps {
+    /**
+     * The date that will be displayed. It accepts a JS Date, an ISO8601 Timestamp string, or Unix Epoch Milliseconds number
+     */
+    date: DateType;
+    /**
+     * The format in which the date will be presented
+     *
+     * @default full
+     **/
+    format?: DateFormat;
+}
+export type DateTimeProps = PropsWithHTMLElement<DateTimeOwnProps, 'time'>;
+/**
+ * The DateTime component will format a date to a human friendly format and wrap it in a `<time>` tag
+ */
+export const DateTime: React.ForwardRefExoticComponent<Omit<Omit<Pick<React.DetailedHTMLProps<React.TimeHTMLAttributes<HTMLElement>, HTMLElement>, "key" | keyof React.TimeHTMLAttributes<HTMLElement>>, never>, keyof DateTimeOwnProps> & DateTimeOwnProps & React.RefAttributes<HTMLTimeElement>>;
+interface RelativeDateTimeInternalProps extends CommonProps {
+    /**
+     * The date that will be displayed. It accepts a JS Date, an ISO8601 Timestamp string, or Unix Epoch Milliseconds number
+     */
+    date: DateType;
+    /**
+     * If a value is passed to baseDate, then the component will compare both dates and return the time between them.
+     * If no value is passed then the date will be compared to "now"
+     *
+     * @default "Now"
+     */
+    baseDate?: DateType;
+    /**
+     * Sets the date to be relative only if it is in the current week
+     * @default false
+     */
+    isRelativeToCurrentWeek?: boolean;
+}
+export type RelativeDateTimeProps = PropsWithHTMLElement<RelativeDateTimeInternalProps, 'time'>;
+/**
+ * The RelativeDateTime will show a `date` relative to "now" or to the `baseDate`
+ * (e.g. in a day, in one month, one month ago, etc).
+ */
+export const RelativeDateTime: React.ForwardRefExoticComponent<Omit<Omit<Pick<React.DetailedHTMLProps<React.TimeHTMLAttributes<HTMLElement>, HTMLElement>, "key" | keyof React.TimeHTMLAttributes<HTMLElement>>, never>, keyof RelativeDateTimeInternalProps> & RelativeDateTimeInternalProps & React.RefAttributes<HTMLTimeElement>>;
+
+//# sourceMappingURL=types.d.ts.map
