@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/commercelayer/contentful-app/compare/v1.0.0...v1.0.1) (2022-08-16)
+
+
+### Bug Fixes
+
+* Import `@emotion/css` package ([220a0b8](https://github.com/commercelayer/contentful-app/commit/220a0b82b037a965e1ee95fdb3d6b9236dca61ca))
+* Import `@emotion/css` package ([360e1d2](https://github.com/commercelayer/contentful-app/commit/360e1d2f8e379f1d572cd95cd379594074e7ea43))
+
 # 1.0.0 (2022-08-16)
 
 
