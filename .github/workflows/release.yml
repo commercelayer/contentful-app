@@ -22,9 +22,9 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm i
-      - name: Install dependencies
-        run: pnpm build
       - name: Run package
+        run: pnpm build
+      - name: Upload package
         env:
           CONTENTFUL_ORG_ID: ${{ secrets.CONTENTFUL_ORG_ID }}
           CONTENTFUL_APP_DEF_ID: ${{ secrets.CONTENTFUL_APP_DEF_ID }}
