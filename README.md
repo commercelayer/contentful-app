@@ -20,7 +20,7 @@ The Commerce Layer app lets content editors easily link Commerce Layer resources
 
 ## App Features
 
-The current version of this app, allows you to:
+The current version of this app allows you to:
 
 - Full-text search for products in Contentful
 - Preview selected products in Contentful
@@ -31,13 +31,15 @@ The current version of this app, allows you to:
 
 ## Getting Started
 
-1. Create a [Contentful account](https://www.contentful.com) if you haven't already and set up a new space for your project.
+1. Create a [Contentful account](https://www.contentful.com) if you haven't yet and set up a new space for your project.
 
 2. Create a [Commerce Layer account](https://dashboard.commercelayer.io/sign_up) if you haven't already.
 
 3. If you haven't already, kindly follow this [onboarding guide](https://docs.commercelayer.io/developers) to learn how to set up your Commerce Layer organization, seed with demo data, and get your API credentials.
 
-4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application, with the name: `Contentful` and role: `Read only`. Upon successful creation, you'll get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT`. Kindly remember to save these credentials as you'll need them later.
+4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application with the name: `Contentful` and role: `Read only`.
+
+5. Upon successful creation, you'll get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT`. Kindly remember to save these credentials, as you'll need them later.
 
 ## Installation Guide
 
@@ -47,13 +49,13 @@ Kindly follow the steps below to install and configure the [Commerce Layer app](
 
 1. Visit [this page](https://contentful.com/marketplace/app/commercelayer) and click on the "Install now" button.
 
-2. Choose where to install the app by selecting a *Space* and *Environment*.
+2. Choose where to install the app by selecting a **Space** and **Environment**.
 
-3. You'll be redirected to a new page, now click on the "Install" button to proceed.
+3. You will be redirected to a new page; now click on the "Install" button to proceed.
 
-4. You'll be redirected to a new page, now enter your previously saved Commerce Layer `CLIENT ID`, `CLIENT SECRET`, and `ENDPOINT` credentials to complete the installation.
+4. You will be redirected to a new page; now enter your previously saved Commerce Layer `CLIENT ID`, `CLIENT SECRET`, and `ENDPOINT` credentials to complete the installation.
 
-5. Now you can begin using the Commerce Layer contentful app.
+5. Now, you can begin using the Commerce Layer contentful app.
 
 ## Usage Guide
 
@@ -65,13 +67,13 @@ Kindly follow the steps below to use the [Commerce Layer contentful app](https:/
 
 3. Click on the content model tab and create a content type e.g, Products).
 
-4. Add a new `Text` field, enter a name (e.g, Product SKU) and select the type `Short text, exact search`.
+4. Add a new `Text` field, enter a name (e.g., Product SKU) and select the type `Short text, exact search`.
 
 5. Click on the "Create and configure" button.
 
 6. Click on the "Appearance" tab, select the Commerce Layer app, select the right resource you want to fetch (either SKUs, SKU Lists, Bundles, or Markets), and click on the "Confirm" button.
 
-7. Use the same steps above to create all the fields you want and click on the "Save" button to save the content type.
+7. Use the same steps above to create all the fields you want, and click on the "Save" button to save the content type.
 
 8. Create new content to test for each resource based on the created content types.
 
@@ -93,7 +95,7 @@ Kindly follow the steps below to use the [Commerce Layer contentful app](https:/
 
 This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app) and uses [Reactjs](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/), [App SDK](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/), and [Forma36](https://github.com/contentful/forma-36) design system. In the project directory, you can perform the following actions using these commands:
 
-1. Create or update your app definition in Contentful, and run the app in development mode in the browser. The page will reload if you make edits and you will also see any lint errors in the console.
+1. Create or update your app definition in Contentful, and run the app in development mode in the browser. The page will reload if you make edits, and you will see any lint errors in the console.
 
 ```bash
 npm start
@@ -111,7 +113,7 @@ npm run build
 npm run upload
 ```
 
-4. Similar to `npm run upload` it will upload your app to Contentful and activate it. The only difference is that with this command all required arguments are read from the environment variables. For this command to work, the following environment variables must be set: 
+4. Similar to `npm run upload`, it will upload your app to Contentful and activate it. The only difference is that with this command all required arguments are read from the environment variables. For this command to work, the following environment variables must be set: 
 
 - `CONTENTFUL_ORG_ID` - The ID of your organization
 - `CONTENTFUL_APP_DEF_ID` - The ID of the app to which to add the bundle
