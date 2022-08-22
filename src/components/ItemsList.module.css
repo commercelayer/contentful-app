@@ -15,3 +15,14 @@
   width: 210px;
   height: 185px;
 }
+
+.DefaultCardImage {
+  margin-bottom: 1rem;
+  width: 210px;
+  height: 185px;
+}
+
+.DefaultCardImage img {
+  margin: auto;
+  margin-top: 4.5rem;
+}
