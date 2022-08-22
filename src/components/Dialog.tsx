@@ -69,6 +69,7 @@ const Dialog = ({ sdk }: DialogProps) => {
         })
       }
     }
+    // eslint-disable-next-line
   }, [search, accessToken, currentPage, resource])
   const handleClick = (item: Item) => {
     setItemSelected(item)

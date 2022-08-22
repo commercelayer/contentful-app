@@ -37,7 +37,6 @@ const ConfigScreen = (props: ConfigScreenProps) => {
     }
     const credentialsError = await checkCredentials(parameters as Credentials)
     if (credentialsError) {
-      debugger
       props.sdk.notifier.error(credentialsError as any)
       return false
     }

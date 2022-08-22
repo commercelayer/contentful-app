@@ -96,7 +96,6 @@ export async function checkCredentials(credentials: Credentials) {
     await getIntegrationToken(credentials)
     return null
   } catch (error: any) {
-    debugger
     return error.message
   }
 }
