@@ -13,6 +13,7 @@ The Commerce Layer app lets content editors easily link Commerce Layer resources
 - [App Features](#features)
 - [Getting started](#getting-started)
 - [Installation Guide](#installation-guide)
+- [Usage Guide](#usage-guide)
 - [Contributors guide](#contributors-guide)
 - [Help and support](#need-help)
 - [License](#license)
@@ -30,38 +31,69 @@ The current version of this app, allows you to:
 
 ## Getting Started
 
-1. Create a [Contentful account](https://www.contentful.com) if you haven't already and setup a new space for your project.
+1. Create a [Contentful account](https://www.contentful.com) if you haven't already and set up a new space for your project.
 
 2. Create a [Commerce Layer account](https://dashboard.commercelayer.io/sign_up) if you haven't already.
 
 3. If you haven't already, kindly follow this [onboarding guide](https://docs.commercelayer.io/developers) to learn how to set up your Commerce Layer organization, seed with demo data, and get your API credentials.
 
-4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application, with the name: `contentful` and role: `Admin`. Upon successful creation, you'll get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT`. Kindly remember to save these credentials as you'll need them later.
+4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application, with the name: `Contentful` and role: `Read only`. Upon successful creation, you'll get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT`. Kindly remember to save these credentials as you'll need them later.
 
 ![A screenshot of the Commerce Layer dashboard](./public/assets/screenshots/cl-integration.png)
 
 ## Installation Guide
 
-I need the app deployed to the Contentful marketplace so I can capture the actual installation flow before setup.
+Kindly follow the steps below to install and configure the [Commerce Layer app](https://contentful.com/marketplace/app/commercelayer) from the contentful marketplace.
 
-- Create a Contentful space
-- Visit contentful marketplace
-- Install the app to space
-- Add CL credentials (read only admin)
-- Select one or more resources to show in the field editor
-- Save installation config
-- Create a content model
-- Create a content type
-- Add a field with text field of type `Short text, exact search`
-- Click "create and configure"
-- Go to "Apperance" tab and Set to the Commerce Layer app
-- Create a new content to test for each resource
-- Link resource from CL to the content field
-- Done!
+![A screenshot of the Commerce Layer app](./public/assets/screenshots/cl-contentful-app.png)
+
+1. Visit [this page](https://contentful.com/marketplace/app/commercelayer) and click on the "Install now" button.
+
+2. Choose where to install the app by selecting a *Space* and *Environment*.
+
+3. You'll be redirected to a new page, now click on the "Install" button to proceed.
+
+4. You'll be redirected to a new page, now enter your previously saved Commerce Layer `CLIENT ID`, `CLIENT SECRET`, and `ENDPOINT` credentials to complete the installation.
+
+5. Now you can begin using the Commerce Layer contentful app.
+
+## Usage Guide
+
+Kindly follow the steps below to use the [Commerce Layer contentful app](https://contentful.com/marketplace/app/commercelayer).
+
+1. Select one or more resources to show in the field editor
+
+2. Save installation config
+
+3. Click on the content model tab and create a content type e.g, Products).
+
+4. Add a new `Text` field, enter a name (e.g, Product SKU) and select the type `Short text, exact search`.
+
+5. Click on the "Create and configure" button.
+
+6. Click on the "Appearance" tab, select the Commerce Layer app, select the right resource you want to fetch (either SKUs, SKU Lists, Bundles, or Markets), and click on the "Confirm" button.
+
+7. Use the same steps above to create all the fields you want and click on the "Save" button to save the content type.
+
+8. Create new content to test for each resource based on the created content types.
+
+9. Search, select, and link the right resource from Commerce Layer to the content field.
+
+10. Done!
+
+![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-01.png)
+
+![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-02.png)
+
+![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-03.png)
+
+![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-04.png)
+
+![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-05.png)
 
 ## Contributors guide
 
-This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app) and uses [Reactjs](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/), [App SDK](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/), and [Forma36](https://github.com/contentful/forma-36) design system. In the project directory, you can run perform the following actions using the attached commands:
+This project was bootstrapped with [Create Contentful App](https://github.com/contentful/create-contentful-app) and uses [Reactjs](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/), [App SDK](https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/), and [Forma36](https://github.com/contentful/forma-36) design system. In the project directory, you can perform the following actions using these commands:
 
 1. Create or update your app definition in Contentful, and run the app in development mode in the browser. The page will reload if you make edits and you will also see any lint errors in the console.
 
@@ -91,9 +123,9 @@ npm run upload
 npm run upload-ci
 ```
 
---- 
+---
 
-To contribue to this project, kindly follow the steps below:
+To contribute to this project, kindly follow the steps below:
 
 1. Fork [this repository](https://github.com/commercelayer/contentful-app) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
 
