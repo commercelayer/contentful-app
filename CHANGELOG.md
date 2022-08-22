@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/commercelayer/contentful-app/compare/v1.0.1...v1.0.2) (2022-08-22)
+
+
+### Bug Fixes
+
+* Show default image and remove comma issue. Resolve [#15](https://github.com/commercelayer/contentful-app/issues/15) ([97a6742](https://github.com/commercelayer/contentful-app/commit/97a6742196464cb8c58165b055f22e1d7c63085a))
+
 ## [1.0.1](https://github.com/commercelayer/contentful-app/compare/v1.0.0...v1.0.1) (2022-08-16)
 
 

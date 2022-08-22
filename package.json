@@ -1,6 +1,6 @@
 {
   "name": "commercelayer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "dependencies": {
     "@commercelayer/js-auth": "^2.3.0",
