@@ -39,8 +39,6 @@ The current version of this app, allows you to:
 
 4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application, with the name: `Contentful` and role: `Read only`. Upon successful creation, you'll get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT`. Kindly remember to save these credentials as you'll need them later.
 
-![A screenshot of the Commerce Layer dashboard](./public/assets/screenshots/cl-integration.png)
-
 ## Installation Guide
 
 Kindly follow the steps below to install and configure the [Commerce Layer app](https://contentful.com/marketplace/app/commercelayer) from the contentful marketplace.
