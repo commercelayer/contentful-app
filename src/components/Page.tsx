@@ -8,7 +8,7 @@ interface PageProps {
   cma: PlainClientAPI
 }
 
-const Page = (props: PageProps) => {
+const Page = (props: PageProps): JSX.Element => {
   return <Paragraph>Hello Page Component</Paragraph>
 }
 

@@ -6,7 +6,7 @@ import {
   Form,
   Paragraph,
   TextInput,
-  FormControl,
+  FormControl
 } from '@contentful/f36-components'
 import { styles } from './ConfigScreen.styles'
 import { checkCredentials, validateParameters } from '../utils'
@@ -23,7 +23,7 @@ interface ConfigScreenProps {
   cma: PlainClientAPI
 }
 
-const ConfigScreen = (props: ConfigScreenProps) => {
+const ConfigScreen = (props: ConfigScreenProps): JSX.Element => {
   const [parameters, setParameters] = useState<AppInstallationParameters>({})
 
   const onConfigure = useCallback(async () => {
@@ -31,13 +31,13 @@ const ConfigScreen = (props: ConfigScreenProps) => {
     // or "Save" in the configuration screen.
     // for more details see https://www.contentful.com/developers/docs/extensibility/ui-extensions/sdk-reference/#register-an-app-configuration-hook
     const error = validateParameters(parameters)
-    if (error) {
+    if (error != null) {
       props.sdk.notifier.error(error)
       return false
     }
     const credentialsError = await checkCredentials(parameters as Credentials)
-    if (credentialsError) {
-      props.sdk.notifier.error(credentialsError as any)
+    if (credentialsError != null) {
+      props.sdk.notifier.error(credentialsError)
       return false
     }
     // Get current the state of EditorInterface and other entities
@@ -49,7 +49,7 @@ const ConfigScreen = (props: ConfigScreenProps) => {
       parameters,
       // In case you don't want to submit any update to app
       // locations, you can just pass the currentState as is
-      targetState: currentState,
+      targetState: currentState
     }
   }, [parameters, props.sdk])
 
@@ -57,31 +57,30 @@ const ConfigScreen = (props: ConfigScreenProps) => {
     // `onConfigure` allows to configure a callback to be
     // invoked when a user attempts to install the app or update
     // its configuration.
-    props.sdk.app.onConfigure(() => onConfigure())
+    props.sdk.app.onConfigure(async () => await onConfigure())
   }, [props.sdk, onConfigure])
 
   useEffect(() => {
-    ;(async () => {
+    void (async () => {
       // Get current parameters of the app.
       // If the app is not installed yet, `parameters` will be `null`.
       const currentParameters: AppInstallationParameters | null =
         await props.sdk.app.getParameters()
-      if (currentParameters) {
+      if (currentParameters != null) {
         setParameters(currentParameters)
       }
 
       // Once preparation has finished, call `setReady` to hide
       // the loading screen and present the app to a user.
-      props.sdk.app.setReady()
+      void props.sdk.app.setReady()
     })()
   }, [props.sdk])
-  console.log('parameters', parameters)
   return (
     <div className={styles.background}>
       <div className={styles.body}>
         <Heading>About Commerce Layer</Heading>
         <Paragraph>
-          <a href="https://commercelayer.io/" target="_blank" rel="noreferrer">
+          <a href='https://commercelayer.io/' target='_blank' rel='noreferrer'>
             Commerce Layer
           </a>{' '}
           is a multi-market commerce API and order management system that lets
@@ -99,13 +98,12 @@ const ConfigScreen = (props: ConfigScreenProps) => {
           <FormControl isRequired isInvalid={parameters?.clientId === ''}>
             <FormControl.Label>Client ID</FormControl.Label>
             <TextInput
-              name="clientId"
-              id="clientId"
-              placeholder="IdL901bQHhAX....."
+              name='clientId'
+              id='clientId'
+              placeholder='IdL901bQHhAX.....'
               value={parameters?.clientId}
               onChange={(e) =>
-                setParameters({ ...parameters, clientId: e.target.value })
-              }
+                setParameters({ ...parameters, clientId: e.target.value })}
             />
             <FormControl.HelpText>
               Provide your application Client ID
@@ -114,16 +112,15 @@ const ConfigScreen = (props: ConfigScreenProps) => {
           <FormControl isRequired isInvalid={parameters?.clientSecret === ''}>
             <FormControl.Label>Client Secret</FormControl.Label>
             <TextInput
-              name="clientSecret"
-              id="clientSecret"
-              placeholder="TWRrof0VCwZ......"
+              name='clientSecret'
+              id='clientSecret'
+              placeholder='TWRrof0VCwZ......'
               value={parameters?.clientSecret}
               onChange={(e) =>
                 setParameters({
                   ...parameters,
-                  clientSecret: e.target.value,
-                })
-              }
+                  clientSecret: e.target.value
+                })}
             />
             <FormControl.HelpText>
               Provide your application Client Secret
@@ -132,13 +129,12 @@ const ConfigScreen = (props: ConfigScreenProps) => {
           <FormControl isRequired isInvalid={parameters?.endpoint === ''}>
             <FormControl.Label>Endpoint</FormControl.Label>
             <TextInput
-              name="endpoint"
-              id="endpoint"
-              placeholder="https://your-domain.commercelayer.io"
+              name='endpoint'
+              id='endpoint'
+              placeholder='https://your-domain.commercelayer.io'
               value={parameters?.endpoint}
               onChange={(e) =>
-                setParameters({ ...parameters, endpoint: e.target.value })
-              }
+                setParameters({ ...parameters, endpoint: e.target.value })}
             />
             <FormControl.HelpText>
               Provide your application endpoint
@@ -147,7 +143,7 @@ const ConfigScreen = (props: ConfigScreenProps) => {
         </Form>
       </div>
       <div className={styles.icon}>
-        <img src="assets/commercelayer-glyph-black.png" alt="App logo" />
+        <img src='assets/commercelayer-glyph-black.png' alt='App logo' />
       </div>
     </div>
   )
