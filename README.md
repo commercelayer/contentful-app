@@ -72,15 +72,15 @@ Kindly follow the steps below to set up the [Commerce Layer contentful app](http
 
 8. Done!
 
-![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-01.png)
+![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-01.png)
 
-![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-02.png)
+![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-02.png)
 
-![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-03.png)
+![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-03.png)
 
-![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-04.png)
+![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-04.png)
 
-![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-05.png)
+![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-05.png)
 
 ## Contributors guide
 
