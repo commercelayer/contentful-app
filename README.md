@@ -1,6 +1,8 @@
 # Commerce Layer Contentful App
 
-The Commerce Layer app lets content editors easily link Commerce Layer resources to content data in the Contentful dashboard.
+The Commerce Layer app lets content editors easily link Commerce Layer resources to content data in the Contentful dashboard. Products that are linked from Commerce Layer can be easily previewed via the Contentful web app, making it easier for content editors to use the most recently uploaded products across catalogs and sites.
+
+[![Install to Contentful](https://www.ctfstatic.com/button/install-small.svg)](https://app.contentful.com/deeplink?link=apps&id=commercelayer&referrer=commercelayer)
 
 ![Commerce Layer Contentful App GIF demo](./public/assets/demo.gif)
 
