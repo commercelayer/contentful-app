@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/commercelayer/contentful-app/compare/v1.0.2...v1.1.0) (2022-08-23)
+
+
+### Features
+
+* Add placeholder image with CL logo and rewrite code following TS standard guide ([061758c](https://github.com/commercelayer/contentful-app/commit/061758c45556e2f14a209676c310e21092613f31))
+
 ## [1.0.2](https://github.com/commercelayer/contentful-app/compare/v1.0.1...v1.0.2) (2022-08-22)
 
 
