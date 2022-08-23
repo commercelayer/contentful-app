@@ -11,9 +11,8 @@ The Commerce Layer app lets content editors easily link Commerce Layer resources
 ## Table of contents
 
 - [App Features](#features)
-- [Getting started](#getting-started)
 - [Installation Guide](#installation-guide)
-- [Usage Guide](#usage-guide)
+- [Getting started](#getting-started)
 - [Contributors guide](#contributors-guide)
 - [Help and support](#need-help)
 - [License](#license)
@@ -29,57 +28,47 @@ The current version of this app allows you to:
 - Link one or more markets inside Contentful
 - Link one or more bundles inside Contentful
 
-## Getting Started
+## Installation Guide
 
-1. Create a [Contentful account](https://www.contentful.com) if you haven't yet and set up a new space for your project.
+1. Create a [Contentful account](https://www.contentful.com/sign-up) if you haven't yet and set up a new space for your project.
 
 2. Create a [Commerce Layer account](https://dashboard.commercelayer.io/sign_up) if you haven't already.
 
-3. If you haven't already, kindly follow this [onboarding guide](https://docs.commercelayer.io/developers) to learn how to set up your Commerce Layer organization, seed with demo data, and get your API credentials.
+3. If you haven't already, kindly follow this [onboarding guide](https://docs.commercelayer.io/developers) to learn how to set up your Commerce Layer organization and seed with demo data.
 
 4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application with the name: `Contentful` and role: `Read only`.
 
-5. Upon successful creation, you'll get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT`. Kindly remember to save these credentials, as you'll need them later.
+5. Upon successful creation, you will get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT` credentials. Kindly remember to save these, as you'll need them later.
 
-## Installation Guide
+6. Visit [this page](https://contentful.com/marketplace/app/commercelayer) and click on the "Install now" button.
 
-Kindly follow the steps below to install and configure the [Commerce Layer app](https://contentful.com/marketplace/app/commercelayer) from the contentful marketplace.
+7. Choose where to install the app by selecting a **Space** and **Environment**.
 
-![A screenshot of the Commerce Layer app](./public/assets/screenshots/cl-contentful-app.png)
+8. You will be redirected to a new page; now click on the "Install" button to proceed.
 
-1. Visit [this page](https://contentful.com/marketplace/app/commercelayer) and click on the "Install now" button.
+9. You will be redirected to a new page; now enter your previously saved Commerce Layer `CLIENT ID`, `CLIENT SECRET`, and `ENDPOINT` credentials to complete the installation.
 
-2. Choose where to install the app by selecting a **Space** and **Environment**.
+10. Now, you can begin using the Commerce Layer contentful app!
 
-3. You will be redirected to a new page; now click on the "Install" button to proceed.
+## Getting Started
 
-4. You will be redirected to a new page; now enter your previously saved Commerce Layer `CLIENT ID`, `CLIENT SECRET`, and `ENDPOINT` credentials to complete the installation.
+Kindly follow the steps below to set up the [Commerce Layer contentful app](https://contentful.com/marketplace/app/commercelayer).
 
-5. Now, you can begin using the Commerce Layer contentful app.
+1. Click on the "Content model" tab and add a new content type (e.g., Product or Category).
 
-## Usage Guide
+2. Add a new `Text` field, enter a name (e.g., Product SKU) and select the type `Short text, exact search`.
 
-Kindly follow the steps below to use the [Commerce Layer contentful app](https://contentful.com/marketplace/app/commercelayer).
+3. Click on the "Create and configure" button.
 
-1. Select one or more resources to show in the field editor
+4. Click on the "Appearance" tab, select the Commerce Layer app, select the right resource you want to fetch (either SKUs, SKU Lists, Bundles, or Markets), and click on the "Confirm" button.
 
-2. Save installation config
+5. Use the same steps above to create all the fields you want, and click on the "Save" button to save the content type.
 
-3. Click on the content model tab and create a content type e.g, Products).
+6. Create new content to test for each resource based on the created content types.
 
-4. Add a new `Text` field, enter a name (e.g., Product SKU) and select the type `Short text, exact search`.
+7. Search, select, and link the right resource from Commerce Layer to the content field.
 
-5. Click on the "Create and configure" button.
-
-6. Click on the "Appearance" tab, select the Commerce Layer app, select the right resource you want to fetch (either SKUs, SKU Lists, Bundles, or Markets), and click on the "Confirm" button.
-
-7. Use the same steps above to create all the fields you want, and click on the "Save" button to save the content type.
-
-8. Create new content to test for each resource based on the created content types.
-
-9. Search, select, and link the right resource from Commerce Layer to the content field.
-
-10. Done!
+8. Done!
 
 ![A screenshot of the Commerce Layer contentful app settings](./public/assets/screenshots/cl-app-01.png)
 
