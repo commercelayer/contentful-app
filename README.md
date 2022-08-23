@@ -4,8 +4,6 @@ The Commerce Layer app lets content editors easily link Commerce Layer resources
 
 [![Install to Contentful](https://www.ctfstatic.com/button/install-small.svg)](https://app.contentful.com/deeplink?link=apps&id=commercelayer&referrer=commercelayer)
 
-![Commerce Layer Contentful App GIF demo](./public/assets/demo.gif)
-
 ## What is Commerce Layer?
 
 [Commerce Layer](https://commercelayer.io) is a multi-market commerce API and order management system that lets you add global shopping capabilities to any website, mobile app, chatbot, wearable, voice, or IoT device, with ease. Compose your stack with the best-of-breed tools you already mastered and love. Make any experience shoppable, anywhere, through a blazing-fast, enterprise-grade, and secure API.
@@ -29,6 +27,8 @@ The current version of this app allows you to:
 - Link one or more SKU lists inside Contentful
 - Link one or more markets inside Contentful
 - Link one or more bundles inside Contentful
+
+![Commerce Layer Contentful App GIF demo](./public/assets/demo.gif)
 
 ## Installation Guide
 
