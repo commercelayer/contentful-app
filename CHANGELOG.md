@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/commercelayer/contentful-app/compare/v1.1.0...v1.1.1) (2022-08-24)
+
+
+### Bug Fixes
+
+* Show default image ([dda9017](https://github.com/commercelayer/contentful-app/commit/dda901724d656e7bad54f8b8ff28430393a0a221))
+
 # [1.1.0](https://github.com/commercelayer/contentful-app/compare/v1.0.2...v1.1.0) (2022-08-23)
 
 
