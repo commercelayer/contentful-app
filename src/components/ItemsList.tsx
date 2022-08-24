@@ -89,7 +89,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
                       <div className={styles.DefaultCardImage}>
                         <img
                           alt='Default'
-                          src='https://raw.githubusercontent.com/commercelayer/commercelayer-data/5470abe4ece45614203d1e91ce0d962f6582b33f/dist/assets/logos/glyph/black/commercelayer_glyph_black.svg?token=GHSAT0AAAAAABWXFWG7E42NGKMBC4PQNHTGYYFASHA'
+                          src='https://data.commercelayer.app/assets/logos/glyph/black/commercelayer_glyph_black.svg'
                           width={50}
                           height={50}
                         />
