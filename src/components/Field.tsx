@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
-import { FieldExtensionSDK } from '@contentful/app-sdk'
+import { FieldAppSDK } from '@contentful/app-sdk'
 import {
   Card,
   Asset,
@@ -24,21 +24,21 @@ import clSdk from '@commercelayer/sdk'
 import tokens from '@contentful/forma-36-tokens'
 
 interface FieldProps {
-  sdk: FieldExtensionSDK
+  sdk: FieldAppSDK
   cma: PlainClientAPI
 }
 
 const Field = ({ sdk }: FieldProps): JSX.Element => {
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials = sdk.parameters.installation as Credentials
-  const accessToken = useGetToken({ ...credentials })
+  const accessToken = useGetToken(credentials)
   const { endpoint } = credentials
-  const org = getOrganizationSlug(endpoint)
+  const org = endpoint != null ? getOrganizationSlug(endpoint) : null
   const { resource: type } = sdk.parameters.instance as { resource: Resource }
   const [resource] = resources.filter((resource) => resource.value === type)
   useEffect(() => {
     const value = sdk.field.getValue()
-    if ((currentItem == null) && accessToken !== '' && value !== '') {
+    if ((currentItem == null) && accessToken !== '' && value != null && org != null) {
       const cl = clSdk({ accessToken, ...org })
       const include =
         type === 'markets'
@@ -75,7 +75,9 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
           const value = getValue(itemSelected)
           void sdk.field.setValue(value)
         }
-        sdk.field.onValueChanged(() => {})
+        sdk.field.onValueChanged(() => { })
+      }).catch((e) => {
+        console.error('error', e)
       })
   }
   const condition = (currentItem != null) && ['skus'].includes(currentItem?.type)
@@ -84,7 +86,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
       <Text fontColor='gray900' fontWeight='fontWeightMedium'>
         {currentItem?.name}
       </Text>
-      )
+    )
     : (
       <Text fontColor='gray900' fontWeight='fontWeightMedium'>
         {currentItem?.name}{' '}
@@ -96,7 +98,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
           )
         </Text>
       </Text>
-      )
+    )
   const content = condition
     ? (
       <Text
@@ -106,7 +108,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
       >
         {currentItem?.code}
       </Text>
-      )
+    )
     : (
       <Text
         fontColor='gray500'
@@ -127,7 +129,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
           .filter((i) => i !== '' && i != null)
           .join(', ')}
       </Text>
-      )
+    )
   return (currentItem != null)
     ? (
       <Card>
@@ -144,7 +146,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
                   src={currentItem?.image_url}
                   type='image'
                 />
-                )
+              )
               : null}
             <Stack flexDirection='column' alignItems='flex-start'>
               {title}
@@ -156,9 +158,8 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
               className={styles.CardIcon}
               title='External link'
               target='_blank'
-              href={`${endpoint}/admin/${
-              currentItem.type === 'markets' ? 'settings/' : ''
-            }${currentItem.type}/${currentItem.id}/edit`}
+              href={`${endpoint}/admin/${currentItem.type === 'markets' ? 'settings/' : ''
+                }${currentItem.type}/${currentItem.id}/edit`}
               rel='noreferrer'
             >
               <ExternalLinkIcon cursor='pointer' variant='muted' />
@@ -169,13 +170,13 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
               onClick={() => {
                 setCurrentItem(undefined)
                 void sdk.field.setValue(undefined)
-                sdk.field.onValueChanged(() => {})
+                sdk.field.onValueChanged(() => { })
               }}
             />
           </div>
         </Flex>
       </Card>
-      )
+    )
     : (
       <Card
         style={{
@@ -191,12 +192,12 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
           <Button onClick={() => handleClick(type)}>
             <Stack>
               <PlusIcon variant='muted' />
-              <Text fontWeight='fontWeightDemiBold'>Add {resource.text}</Text>
+              <Text fontWeight='fontWeightDemiBold'>Add {resource?.text ?? ''}</Text>
             </Stack>
           </Button>
         </Stack>
       </Card>
-      )
+    )
 }
 
 export default Field

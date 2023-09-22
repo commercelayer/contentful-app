@@ -3,16 +3,10 @@ import { render } from 'react-dom'
 import { createClient } from 'contentful-management'
 
 import {
-  AppExtensionSDK,
-  FieldExtensionSDK,
-  SidebarExtensionSDK,
-  DialogExtensionSDK,
-  EditorExtensionSDK,
-  PageExtensionSDK,
   init,
   locations,
 } from '@contentful/app-sdk'
-import type { KnownSDK } from '@contentful/app-sdk'
+import type { ConfigAppSDK, DialogAppSDK, EditorAppSDK, FieldAppSDK, KnownAppSDK, PageAppSDK, SidebarAppSDK } from '@contentful/app-sdk'
 import '@contentful/forma-36-fcss/dist/styles.css'
 import '@contentful/forma-36-tokens/dist/css/index.css'
 import './index.css'
@@ -31,7 +25,7 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
 
   render(<LocalhostWarning />, root)
 } else {
-  init((sdk: KnownSDK) => {
+  init((sdk: KnownAppSDK) => {
     const root = document.getElementById('root')
     // Creating a CMA client allows you to use the contentful-management library
     // within your app. See the contentful-management documentation at https://contentful.github.io/contentful-management.js/contentful-management/latest/
@@ -53,27 +47,27 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
     const ComponentLocationSettings = [
       {
         location: locations.LOCATION_APP_CONFIG,
-        component: <ConfigScreen cma={cma} sdk={sdk as AppExtensionSDK} />,
+        component: <ConfigScreen cma={cma} sdk={sdk as ConfigAppSDK} />,
       },
       {
         location: locations.LOCATION_ENTRY_FIELD,
-        component: <Field cma={cma} sdk={sdk as FieldExtensionSDK} />,
+        component: <Field cma={cma} sdk={sdk as FieldAppSDK} />,
       },
       {
         location: locations.LOCATION_ENTRY_EDITOR,
-        component: <EntryEditor cma={cma} sdk={sdk as EditorExtensionSDK} />,
+        component: <EntryEditor cma={cma} sdk={sdk as EditorAppSDK} />,
       },
       {
         location: locations.LOCATION_DIALOG,
-        component: <Dialog cma={cma} sdk={sdk as DialogExtensionSDK} />,
+        component: <Dialog cma={cma} sdk={sdk as DialogAppSDK} />,
       },
       {
         location: locations.LOCATION_ENTRY_SIDEBAR,
-        component: <Sidebar cma={cma} sdk={sdk as SidebarExtensionSDK} />,
+        component: <Sidebar cma={cma} sdk={sdk as SidebarAppSDK} />,
       },
       {
         location: locations.LOCATION_PAGE,
-        component: <Page cma={cma} sdk={sdk as PageExtensionSDK} />,
+        component: <Page cma={cma} sdk={sdk as PageAppSDK} />,
       },
     ]
 

@@ -10,7 +10,7 @@ import {
   Stack,
   Text
 } from '@contentful/f36-components'
-import { DialogExtensionSDK } from '@contentful/app-sdk'
+import { DialogAppSDK } from '@contentful/app-sdk'
 import clSdk, { QueryParamsList } from '@commercelayer/sdk'
 import { getOrganizationSlug, Resource } from '../utils'
 import ItemsList, { Item } from './ItemsList'
@@ -24,7 +24,7 @@ import {
 import { Workbench } from '@contentful/f36-workbench'
 
 interface DialogProps {
-  sdk: DialogExtensionSDK
+  sdk: DialogAppSDK
   cma: PlainClientAPI
 }
 
@@ -81,7 +81,7 @@ const Dialog = ({ sdk }: DialogProps): JSX.Element => {
           <SkeletonBodyText numberOfLines={5} />
         </SkeletonContainer>
       </div>
-      )
+    )
     : (
       <Workbench>
         <Workbench.Content>
@@ -167,7 +167,7 @@ const Dialog = ({ sdk }: DialogProps): JSX.Element => {
           </div>
         </Workbench.Content>
       </Workbench>
-      )
+    )
 }
 
 export default Dialog

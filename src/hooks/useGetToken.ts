@@ -1,30 +1,33 @@
 import { useEffect, useState } from 'react'
-import { getIntegrationToken } from '@commercelayer/js-auth'
+import { authentication } from '@commercelayer/js-auth'
 import Cookies from 'js-cookie'
 
 export type Credentials = {
   clientId: string
   clientSecret: string
-  endpoint: string
+  slug: string
   scope?: string
+  endpoint?: string
 }
 
 export default function useGetToken({
   clientId,
-  endpoint,
   clientSecret,
   scope = 'market:all',
+  endpoint
 }: Credentials) {
   const [token, setToken] = useState('')
+  const [slug, ...domain] = endpoint != null ? new URL(endpoint as string).hostname.split('.') : []
   useEffect(() => {
     const getCookieToken = Cookies.get(`clAccessToken`)
-    if (!getCookieToken && clientId && clientSecret && endpoint) {
+    if (!getCookieToken && clientId != null && clientSecret != null && slug != null) {
       const getToken = async () => {
-        const auth = await getIntegrationToken({
+        const auth = await authentication('client_credentials', {
           clientId,
           clientSecret,
-          endpoint,
+          slug,
           scope,
+          domain: domain.join('.'),
         })
         Cookies.set(`clAccessToken`, auth?.accessToken as string, {
           // @ts-ignore
@@ -32,10 +35,10 @@ export default function useGetToken({
         })
         setToken(auth?.accessToken as string)
       }
-      getToken()
+      void getToken()
     } else {
       setToken(getCookieToken || '')
     }
-  }, [clientId, endpoint, scope, clientSecret])
+  }, [clientId, slug, scope, clientSecret, domain])
   return token
 }
