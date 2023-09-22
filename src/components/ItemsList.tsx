@@ -1,15 +1,16 @@
-import { Sku, Market, Bundle, SkuList } from '@commercelayer/sdk'
+// import { Sku, Market, Bundle, SkuList } from '@commercelayer/sdk'
 import { Asset, Card, Flex, Stack, Text } from '@contentful/f36-components'
 import styles from './ItemsList.module.css'
 
-export type Item = Sku & Market & Bundle & SkuList
+// export type Item = Sku | Market | Bundle | SkuList
+export type Item = any
 
 interface Props {
   items?: Item[]
   onClick?: (item: Item) => void
   itemSelected?: Item
 }
-export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX.Element | null {
+export default function ItemsList({ items, onClick, itemSelected }: Props): JSX.Element | null {
   return items?.length === 0
     ? null
     : (
@@ -28,7 +29,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
               <Text fontColor='gray900' fontWeight='fontWeightMedium'>
                 {item?.name}
               </Text>
-              )
+            )
             : (
               <Text fontColor='gray900' fontWeight='fontWeightMedium'>
                 {item?.name}{' '}
@@ -36,7 +37,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
                   ({item.type.slice(0, item.type.length - 1).replace('_', ' ')})
                 </Text>
               </Text>
-              )
+            )
           const content = condition
             ? (
               <Text
@@ -46,7 +47,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
               >
                 {item?.code}
               </Text>
-              )
+            )
             : (
               <Text
                 fontColor='gray500'
@@ -65,7 +66,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
                   .filter((i) => i !== '' && i != null)
                   .join(', ')}
               </Text>
-              )
+            )
           return (
             <div className={styles.ItemContainer} key={i}>
               <Card
@@ -84,7 +85,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
                         src={item?.image_url}
                         type='image'
                       />
-                      )
+                    )
                     : (
                       <div className={styles.DefaultCardImage}>
                         <img
@@ -94,7 +95,7 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
                           height={50}
                         />
                       </div>
-                      )}
+                    )}
                   <Stack flexDirection='column' alignItems='flex-start'>
                     {title}
                     {content}
@@ -105,5 +106,5 @@ export default function ItemsList ({ items, onClick, itemSelected }: Props): JSX
           )
         })}
       </Flex>
-      )
+    )
 }

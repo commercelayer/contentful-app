@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react'
-import { AppExtensionSDK } from '@contentful/app-sdk'
+import { ConfigAppSDK } from '@contentful/app-sdk'
 import { PlainClientAPI } from 'contentful-management'
 import {
   Heading,
@@ -19,7 +19,7 @@ export interface AppInstallationParameters {
 }
 
 interface ConfigScreenProps {
-  sdk: AppExtensionSDK
+  sdk: ConfigAppSDK
   cma: PlainClientAPI
 }
 
@@ -35,7 +35,11 @@ const ConfigScreen = (props: ConfigScreenProps): JSX.Element => {
       props.sdk.notifier.error(error)
       return false
     }
-    const credentialsError = await checkCredentials(parameters as Credentials)
+    const [slug] = parameters?.endpoint != null ? new URL(parameters?.endpoint).hostname?.split('.') : ['']
+    const credentialsError = await checkCredentials({
+      ...parameters,
+      slug
+    } as Credentials)
     if (credentialsError != null) {
       props.sdk.notifier.error(credentialsError)
       return false

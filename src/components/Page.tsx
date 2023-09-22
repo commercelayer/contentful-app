@@ -1,10 +1,10 @@
 import React from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { Paragraph } from '@contentful/f36-components'
-import { PageExtensionSDK } from '@contentful/app-sdk'
+import { PageAppSDK } from '@contentful/app-sdk'
 
 interface PageProps {
-  sdk: PageExtensionSDK
+  sdk: PageAppSDK
   cma: PlainClientAPI
 }
 

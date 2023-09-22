@@ -1,10 +1,10 @@
 import React from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { Paragraph } from '@contentful/f36-components'
-import { SidebarExtensionSDK } from '@contentful/app-sdk'
+import { SidebarAppSDK } from '@contentful/app-sdk'
 
 interface SidebarProps {
-  sdk: SidebarExtensionSDK
+  sdk: SidebarAppSDK
   cma: PlainClientAPI
 }
 

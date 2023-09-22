@@ -1,4 +1,4 @@
-import { getIntegrationToken } from '@commercelayer/js-auth'
+import { authentication } from '@commercelayer/js-auth'
 import type { AppInstallationParameters } from '../components/ConfigScreen'
 import type { Credentials } from '../hooks/useGetToken'
 
@@ -93,7 +93,7 @@ export function getFilters<I extends { type: Resource; value: string }>(
 
 export async function checkCredentials(credentials: Credentials) {
   try {
-    await getIntegrationToken(credentials)
+    await authentication('client_credentials', credentials)
     return null
   } catch (error: any) {
     return error.message
