@@ -20,7 +20,7 @@ import {
 import { Item } from './ItemsList'
 import styles from './Field.module.css'
 import useGetToken, { Credentials } from '../hooks/useGetToken'
-import clSdk from '@commercelayer/sdk'
+import clSdk, { Market } from '@commercelayer/sdk'
 import tokens from '@contentful/forma-36-tokens'
 
 interface FieldProps {
@@ -48,7 +48,15 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
             : []
       const filters = getFilters({ type, value })
       void cl[type].list({ include, filters }).then((res) => {
-        setCurrentItem(res.first())
+        if (type === 'markets') {
+          // @ts-expect-error Force type Market
+          const [item] = res.filter((i: Market) => i.number === Number(value))
+          if (item != null) {
+            setCurrentItem(item)
+          }
+        } else {
+          setCurrentItem(res.first())
+        }
       })
     }
   }, [sdk.field, type, currentItem, accessToken, org])
