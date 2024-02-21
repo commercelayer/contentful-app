@@ -1,0 +1,18 @@
+0 silly argv {
+0 silly argv   _: [ 'version' ],
+0 silly argv   private: false,
+0 silly argv   'force-publish': true,
+0 silly argv   forcePublish: true,
+0 silly argv   lernaVersion: '8.1.2',
+0 silly argv   '$0': 'node_modules/lerna/dist/cli.js',
+0 silly argv   bump: '1.1.2'
+0 silly argv }
+1 notice cli v8.1.2
+2 verbose packageConfigs Package manager "pnpm" detected. Resolving packages using `pnpm-workspace.yaml`.
+3 verbose rootPath /Users/alessandro/Documents/code/contentful-app
+4 error SyntaxError: /Users/alessandro/Documents/code/contentful-app/packages/app/package.json: Expected double-quoted property name in JSON at position 1164 (line 30 column 3)
+4 error     at JSON.parse (<anonymous>)
+4 error     at _readFile (/Users/alessandro/Documents/code/contentful-app/node_modules/.pnpm/jsonfile@6.1.0/node_modules/jsonfile/index.js:25:16)
+4 error     at async Promise.all (index 0)
+4 error     at async createProjectGraphWithPackages (/Users/alessandro/Documents/code/contentful-app/node_modules/.pnpm/lerna@8.1.2/node_modules/lerna/dist/index.js:1445:18)
+4 error     at async detectProjects (/Users/alessandro/Documents/code/contentful-app/node_modules/.pnpm/lerna@8.1.2/node_modules/lerna/dist/index.js:1565:24)
