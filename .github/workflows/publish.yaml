@@ -32,7 +32,7 @@ jobs:
       - name: Publish 🚀 PRODUCTION
         if: '!github.event.release.prerelease'
         run: |
-          run: pnpm upload-ci
+          pnpm upload-ci
         env:
           CONTENTFUL_ORG_ID: ${{ secrets.CONTENTFUL_ORG_ID }}
           CONTENTFUL_APP_DEF_ID: ${{ secrets.CONTENTFUL_APP_DEF_ID }}
