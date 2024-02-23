@@ -8,10 +8,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "pnpm -r build",
-    "upload-ci": "pnpm -r upload-ci",
+    "upload-ci": "pnpm --filter commercelayer upload-ci",
     "prepare": "husky install",
     "test": "pnpm -r test",
-    "app:dev": "pnpm --filter app start",
+    "app:dev": "pnpm --filter commercelayer start",
     "make:version": "lerna version --no-private",
     "make:version:force": "lerna version --no-private --force-publish"
   },
