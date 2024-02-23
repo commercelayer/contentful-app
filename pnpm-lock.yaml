@@ -21,7 +21,7 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  packages/app:
+  packages/commercelayer:
     dependencies:
       '@commercelayer/js-auth':
         specifier: ^4.2.1
@@ -54,8 +54,8 @@ importers:
         specifier: ^11.11.2
         version: 11.11.2
       contentful-management:
-        specifier: ^11.16.0
-        version: 11.16.0
+        specifier: ^11.18.0
+        version: 11.18.0
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -1654,7 +1654,7 @@ packages:
   /@contentful/app-sdk@4.24.0:
     resolution: {integrity: sha512-5J0DunyRRMB2B37AWnfyEW6rqCSfaNOhkSDPPWhhRR+ymZ7u6j4TI6JxFP7rAKHhb6Zg7Ml46V+uVEvL9OT2FA==}
     dependencies:
-      contentful-management: 11.16.0
+      contentful-management: 11.18.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -6332,6 +6332,22 @@ packages:
       type-fest: 4.10.2
     transitivePeerDependencies:
       - debug
+    dev: true
+
+  /contentful-management@11.18.0:
+    resolution: {integrity: sha512-UqH2DTcIIWIdLfGPWa6Pwyd86LekQB7weH4GyFhdZZJ1pEGe19qMTauCUbTKRcce6fgvsoQyzRredf7trfmjfg==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@contentful/rich-text-types': 16.3.4
+      '@types/json-patch': 0.0.30
+      axios: 1.6.7
+      contentful-sdk-core: 8.1.2
+      fast-copy: 3.0.1
+      lodash.isplainobject: 4.0.6
+      type-fest: 4.10.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /contentful-sdk-core@8.1.2:
     resolution: {integrity: sha512-XZvX2JMJF4YiICXLrHFv59KBHaQJ6ElqAP8gSNgnCu4x+pPG7Y1bC2JMNOiyAgJuGQGVUOcNZ5PmK+tsNEayYw==}
