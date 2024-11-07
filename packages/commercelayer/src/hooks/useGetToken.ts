@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { authentication } from '@commercelayer/js-auth'
+import { authenticate } from '@commercelayer/js-auth'
 import Cookies from 'js-cookie'
 
 export type Credentials = {
@@ -12,25 +12,20 @@ export type Credentials = {
 
 export default function useGetToken({
   clientId,
-  clientSecret,
-  scope = 'market:all',
-  endpoint
+  clientSecret
 }: Credentials) {
   const [token, setToken] = useState('')
-  const [slug, ...domain] = endpoint != null ? new URL(endpoint as string).hostname.split('.') : []
   useEffect(() => {
-    const getCookieToken = Cookies.get(`clAccessToken`)
-    if (!getCookieToken && clientId != null && clientSecret != null && slug != null) {
+    const getCookieToken = Cookies.get(`clAuthAccessToken`)
+    if (!getCookieToken && clientId != null && clientSecret != null) {
+      const domain = process.env.NODE_ENV === 'development' ? 'commercelayer.io' : 'commercelayer.co'
       const getToken = async () => {
-        const auth = await authentication('client_credentials', {
+        const auth = await authenticate('client_credentials', {
           clientId,
           clientSecret,
-          slug,
-          scope,
-          domain: domain.join('.'),
+          domain,
         })
-        Cookies.set(`clAccessToken`, auth?.accessToken as string, {
-          // @ts-ignore
+        Cookies.set(`clAuthAccessToken`, auth?.accessToken as string, {
           expires: auth?.expires,
         })
         setToken(auth?.accessToken as string)
@@ -39,6 +34,6 @@ export default function useGetToken({
     } else {
       setToken(getCookieToken || '')
     }
-  }, [clientId, slug, scope, clientSecret, domain])
+  }, [clientId, clientSecret])
   return token
 }

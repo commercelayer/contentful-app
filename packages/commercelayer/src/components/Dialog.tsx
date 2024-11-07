@@ -11,11 +11,10 @@ import {
   Text
 } from '@contentful/f36-components'
 import { DialogAppSDK } from '@contentful/app-sdk'
-import clSdk, { QueryParamsList } from '@commercelayer/sdk'
+import clSdk, { ListResponse, QueryParamsList } from '@commercelayer/sdk'
 import { getOrganizationSlug, Resource } from '../utils'
 import ItemsList, { Item } from './ItemsList'
 import styles from './Dialog.module.css'
-import { ListResponse } from '@commercelayer/sdk/lib/cjs/resource'
 import {
   SearchIcon,
   ChevronLeftIcon,
