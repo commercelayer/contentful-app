@@ -9,9 +9,6 @@ export function validateParameters(parameters: AppInstallationParameters) {
   if (!parameters?.clientSecret || parameters?.clientSecret.length < 1) {
     return 'Provide your Commerce Layer Client Secret.'
   }
-  if (!parameters?.endpoint || parameters?.endpoint.length < 1) {
-    return 'Provide the Commerce Layer API endpoint.'
-  }
   return null
 }
 

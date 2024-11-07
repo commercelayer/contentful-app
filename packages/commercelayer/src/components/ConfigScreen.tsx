@@ -15,7 +15,6 @@ import type { Credentials } from '../hooks/useGetToken'
 export interface AppInstallationParameters {
   clientId?: string
   clientSecret?: string
-  endpoint?: string
 }
 
 interface ConfigScreenProps {
@@ -35,10 +34,8 @@ const ConfigScreen = (props: ConfigScreenProps): JSX.Element => {
       props.sdk.notifier.error(error)
       return false
     }
-    const [slug] = parameters?.endpoint != null ? new URL(parameters?.endpoint).hostname?.split('.') : ['']
     const credentialsError = await checkCredentials({
-      ...parameters,
-      slug
+      ...parameters
     } as Credentials)
     if (credentialsError != null) {
       props.sdk.notifier.error(credentialsError)
@@ -128,20 +125,6 @@ const ConfigScreen = (props: ConfigScreenProps): JSX.Element => {
             />
             <FormControl.HelpText>
               Provide your application Client Secret
-            </FormControl.HelpText>
-          </FormControl>
-          <FormControl isRequired isInvalid={parameters?.endpoint === ''}>
-            <FormControl.Label>Endpoint</FormControl.Label>
-            <TextInput
-              name='endpoint'
-              id='endpoint'
-              placeholder='https://your-domain.commercelayer.io'
-              value={parameters?.endpoint}
-              onChange={(e) =>
-                setParameters({ ...parameters, endpoint: e.target.value })}
-            />
-            <FormControl.HelpText>
-              Provide your application endpoint
             </FormControl.HelpText>
           </FormControl>
         </Form>
