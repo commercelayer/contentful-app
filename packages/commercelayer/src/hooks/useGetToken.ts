@@ -18,7 +18,7 @@ export default function useGetToken({
   useEffect(() => {
     const getCookieToken = Cookies.get(`clAuthAccessToken`)
     if (!getCookieToken && clientId != null && clientSecret != null) {
-      const domain = process.env.NODE_ENV === 'development' ? 'commercelayer.io' : 'commercelayer.co'
+      const domain = process.env.NODE_ENV !== 'development' ? 'commercelayer.io' : 'commercelayer.co'
       const getToken = async () => {
         const auth = await authenticate('client_credentials', {
           clientId,
