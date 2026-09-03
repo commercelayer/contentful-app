@@ -36,24 +36,6 @@ export const resources: ResourceObject[] = [
   { value: 'sku_lists', text: 'SKU list' },
 ]
 
-type ReturnObj = {
-  organization: string
-  domain: string
-}
-
-export function getOrganizationSlug<E extends string>(endpoint: E): ReturnObj {
-  const org = {
-    organization: '',
-    domain: 'commercelayer.io',
-  }
-  if (endpoint.search('commercelayer.io') === -1)
-    org.domain = 'commercelayer.co'
-  org.organization = endpoint
-    .replace('https://', '')
-    .replace(`.${org.domain}`, '')
-  return org
-}
-
 export function getValue<I extends Record<string, any>>(item: I): string {
   switch (item.type) {
     case 'skus':

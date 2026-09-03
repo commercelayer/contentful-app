@@ -12,7 +12,7 @@ import {
 } from '@contentful/f36-components'
 import { DialogAppSDK } from '@contentful/app-sdk'
 import clSdk, { ListResponse, QueryParamsList } from '@commercelayer/sdk'
-import { getOrganizationSlug, Resource } from '../utils'
+import { Resource } from '../utils'
 import ItemsList, { Item } from './ItemsList'
 import styles from './Dialog.module.css'
 import {
@@ -33,15 +33,13 @@ const Dialog = ({ sdk }: DialogProps): JSX.Element => {
   const [search, setSearch] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemSelected, setItemSelected] = useState<Item | undefined>()
-  const credentials: any = sdk.parameters.installation
-  const { accessToken, resource } = sdk.parameters?.invocation as {
+  const { accessToken, resource } = sdk.parameters.invocation as {
     accessToken: string
     resource: Resource
   }
-  const org = getOrganizationSlug(credentials?.endpoint)
   useEffect(() => {
-    if (accessToken !== '' && resource != null && org != null) {
-      const cl = clSdk({ accessToken, ...org })
+    if (accessToken !== '' && resource != null) {
+      const cl = clSdk({ accessToken })
       const include =
         resource === 'markets'
           ? ['price_list', 'inventory_model', 'merchant']
