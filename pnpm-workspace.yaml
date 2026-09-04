@@ -1,2 +1,18 @@
 packages:
   - "packages/*"
+allowBuilds:
+  core-js: true
+  core-js-pure: true
+  esbuild: true
+  nx: true
+overrides:
+  postcss@<8.4.31: ">=8.4.31"
+  nth-check@<2.0.1: ">=2.0.1"
+  webpack-dev-middleware@<=5.3.3: ">=5.3.4"
+  express@<4.19.2: ">=4.19.2"
+  follow-redirects@<=1.15.5: ">=1.15.6"
+  tar@<6.2.1: ">=6.2.1"
+  ejs@<3.1.10: ">=3.1.10"
+  braces@<3.0.3: ">=3.0.3"
+  ws@>=8.0.0 <8.17.1: ">=8.17.1"
+  ws@>=7.0.0 <7.5.10: ">=7.5.10"

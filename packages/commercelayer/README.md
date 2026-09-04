@@ -36,19 +36,19 @@ The current version of this app allows you to:
 
 2. Create a [Commerce Layer account](https://dashboard.commercelayer.io/sign_up) if you haven't already.
 
-3. If you haven't already, kindly follow this [onboarding guide](https://docs.commercelayer.io/developers) to learn how to set up your Commerce Layer organization and seed with demo data.
+3. If you haven't already, kindly follow this [onboarding guide](https://docs.commercelayer.io/core/onboarding/guided-setup) to learn how to set up your Commerce Layer organization.
 
-4. In the Commerce Layer dashboard, click on the **Integrations** tab and create an application with the name: `Contentful` and role: `Read only`.
+4. In the Commerce Layer dashboard, click on the **Developers > API credentials** menu and create an API Credential of type **Integration** with the name: `Contentful` and role: `Read only`.
 
-5. Upon successful creation, you will get a `CLIENT ID`, `CLIENT SECRET`, and `BASE ENDPOINT` credentials. Kindly remember to save these, as you'll need them later.
+5. Upon successful creation, you will get a `CLIENT ID` and a `CLIENT SECRET` credentials. Kindly remember to save these, as you'll need them later.
 
-6. Visit [this page](https://contentful.com/marketplace/app/commercelayer) and click on the "Install now" button.
+6. Visit [this page](https://contentful.com/marketplace/commercelayer/) and click on the "Get the app" button.
 
 7. Choose where to install the app by selecting a **Space** and **Environment**.
 
 8. You will be redirected to a new page; now click on the "Install" button to proceed.
 
-9. You will be redirected to a new page; now enter your previously saved Commerce Layer `CLIENT ID`, `CLIENT SECRET`, and `ENDPOINT` credentials to complete the installation.
+9. You will be redirected to a new page; now enter your previously saved Commerce Layer `CLIENT ID` and `CLIENT SECRET` credentials to complete the installation.
 
 10. Now, you can begin using the Commerce Layer contentful app!
 

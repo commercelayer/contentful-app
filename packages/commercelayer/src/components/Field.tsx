@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { FieldAppSDK } from '@contentful/app-sdk'
 import {
@@ -12,7 +12,7 @@ import {
 import { ExternalLinkIcon, CloseIcon, PlusIcon } from '@contentful/f36-icons'
 import {
   getFilters,
-  getOrganizationSlug,
+  getDashboardLink,
   getValue,
   Resource,
   resources
@@ -28,18 +28,22 @@ interface FieldProps {
   cma: PlainClientAPI
 }
 
-const Field = ({ sdk }: FieldProps): JSX.Element => {
+const Field = ({ sdk }: FieldProps): React.JSX.Element => {
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials = sdk.parameters.installation as Credentials
   const accessToken = useGetToken(credentials)
-  const { endpoint } = credentials
-  const org = endpoint != null ? getOrganizationSlug(endpoint) : null
+  const dashboardLink = useMemo(() => {
+    if (accessToken != null && currentItem != null) {
+      return getDashboardLink(accessToken, currentItem)
+    }
+    return null
+  }, [accessToken, currentItem])
   const { resource: type } = sdk.parameters.instance as { resource: Resource }
   const [resource] = resources.filter((resource) => resource.value === type)
   useEffect(() => {
     const value = sdk.field.getValue()
-    if ((currentItem == null) && accessToken !== '' && value != null && org != null) {
-      const cl = clSdk({ accessToken, ...org })
+    if ((currentItem == null) && accessToken !== '' && value != null) {
+      const cl = clSdk({ accessToken })
       const include =
         type === 'markets'
           ? ['price_list', 'inventory_model', 'merchant']
@@ -59,7 +63,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
         }
       })
     }
-  }, [sdk.field, type, currentItem, accessToken, org])
+  }, [sdk.field, type, currentItem, accessToken])
   // If you only want to extend Contentful's default editing experience
   // reuse Contentful's editor components
   // -> https://www.contentful.com/developers/docs/extensibility/field-editors/
@@ -153,6 +157,7 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
                   className={styles.CardImage}
                   src={currentItem?.image_url}
                   type='image'
+                  style={{ height: '110px' }}
                 />
               )
               : null}
@@ -162,16 +167,17 @@ const Field = ({ sdk }: FieldProps): JSX.Element => {
             </Stack>
           </Stack>
           <div>
-            <a
-              className={styles.CardIcon}
-              title='External link'
-              target='_blank'
-              href={`${endpoint}/admin/${currentItem.type === 'markets' ? 'settings/' : ''
-                }${currentItem.type}/${currentItem.id}/edit`}
-              rel='noreferrer'
-            >
-              <ExternalLinkIcon cursor='pointer' variant='muted' />
-            </a>
+            {dashboardLink && (
+              <a
+                className={styles.CardIcon}
+                title='Manage in Commerce Layer'
+                target='_blank'
+                href={dashboardLink}
+                rel='noreferrer'
+              >
+                <ExternalLinkIcon cursor='pointer' variant='muted' />
+              </a>
+            )}
             <CloseIcon
               cursor='pointer'
               variant='muted'

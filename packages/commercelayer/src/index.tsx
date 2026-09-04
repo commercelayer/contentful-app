@@ -1,5 +1,5 @@
-import React, { StrictMode } from 'react'
-import { render } from 'react-dom'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
 import { createClient } from 'contentful-management'
 
 import {
@@ -19,11 +19,11 @@ import Field from './components/Field'
 import Dialog from './components/Dialog'
 import LocalhostWarning from './components/LocalhostWarning'
 
-if (process.env.NODE_ENV === 'development' && window.self === window.top) {
+if (import.meta.env.NODE_ENV === 'development' && window.self === window.top) {
   // You can remove this if block before deploying your app
   const root = document.getElementById('root')
 
-  render(<LocalhostWarning />, root)
+  createRoot(root!).render(<LocalhostWarning />)
 } else {
   init((sdk: KnownAppSDK) => {
     const root = document.getElementById('root')
@@ -74,12 +74,11 @@ if (process.env.NODE_ENV === 'development' && window.self === window.top) {
     // Select a component depending on a location in which the app is rendered.
     ComponentLocationSettings.forEach((componentLocationSetting) => {
       if (sdk.location.is(componentLocationSetting.location)) {
-        render(
+        createRoot(root!).render(
           <StrictMode>
             <GlobalStyles />
             {componentLocationSetting.component}
-          </StrictMode>,
-          root
+          </StrictMode>
         )
       }
     })

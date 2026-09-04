@@ -8,7 +8,7 @@ interface SidebarProps {
   cma: PlainClientAPI
 }
 
-const Sidebar = (props: SidebarProps): JSX.Element => {
+const Sidebar = (props: SidebarProps): React.JSX.Element => {
   return <Paragraph>Hello Sidebar Component</Paragraph>
 }
 
