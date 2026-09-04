@@ -1,6 +1,7 @@
-import { authenticate } from '@commercelayer/js-auth'
+import { authenticate, jwtDecode } from '@commercelayer/js-auth'
 import type { AppInstallationParameters } from '../components/ConfigScreen'
 import type { Credentials } from '../hooks/useGetToken'
+import { Item } from '../components/ItemsList'
 
 export function validateParameters(parameters: AppInstallationParameters) {
   if (!parameters?.clientId || parameters?.clientId.length < 1) {
@@ -77,4 +78,27 @@ export async function checkCredentials(credentials: Credentials) {
   } catch (error: any) {
     return error.message
   }
+}
+
+export function getDashboardLink(accessToken: string, item: Item | undefined): string | null {
+  console.log(accessToken)
+  const { payload } = jwtDecode(accessToken)
+  if (!('organization' in payload)) {
+    throw new Error('Invalid access token: missing organization data.')
+  }
+  if (!item) {
+    return null
+  }
+  const { hostname } = new URL(payload.iss)
+  const slug = payload.organization.slug
+  const environment = payload.test ? 'test' : 'live'
+  const domain = hostname.split('.').slice(-2).join('.')
+
+  let dashboardLink = `https://dashboard.${domain}/`
+  if (item.type === 'markets') {
+    dashboardLink += `organizations/${slug}/settings/${item.type}/${item.id}`
+  } else {
+    dashboardLink += `${environment}/${slug}/apps/${item.type}/list/${item.id}`
+  }
+  return dashboardLink
 }

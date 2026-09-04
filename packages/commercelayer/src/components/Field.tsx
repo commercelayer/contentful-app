@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { FieldAppSDK } from '@contentful/app-sdk'
 import {
@@ -12,6 +12,7 @@ import {
 import { ExternalLinkIcon, CloseIcon, PlusIcon } from '@contentful/f36-icons'
 import {
   getFilters,
+  getDashboardLink,
   getValue,
   Resource,
   resources
@@ -31,6 +32,12 @@ const Field = ({ sdk }: FieldProps): React.JSX.Element => {
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials = sdk.parameters.installation as Credentials
   const accessToken = useGetToken(credentials)
+  const dashboardLink = useMemo(() => {
+    if (accessToken != null && currentItem != null) {
+      return getDashboardLink(accessToken, currentItem)
+    }
+    return null
+  }, [accessToken, currentItem])
   const { resource: type } = sdk.parameters.instance as { resource: Resource }
   const [resource] = resources.filter((resource) => resource.value === type)
   useEffect(() => {
@@ -160,6 +167,17 @@ const Field = ({ sdk }: FieldProps): React.JSX.Element => {
             </Stack>
           </Stack>
           <div>
+            {dashboardLink && (
+              <a
+                className={styles.CardIcon}
+                title='Manage in Commerce Layer'
+                target='_blank'
+                href={dashboardLink}
+                rel='noreferrer'
+              >
+                <ExternalLinkIcon cursor='pointer' variant='muted' />
+              </a>
+            )}
             <CloseIcon
               cursor='pointer'
               variant='muted'
