@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { ConfigAppSDK } from '@contentful/app-sdk'
 import { PlainClientAPI } from 'contentful-management'
 import {
@@ -22,7 +22,7 @@ interface ConfigScreenProps {
   cma: PlainClientAPI
 }
 
-const ConfigScreen = (props: ConfigScreenProps): JSX.Element => {
+const ConfigScreen = (props: ConfigScreenProps): React.JSX.Element => {
   const [parameters, setParameters] = useState<AppInstallationParameters>({})
 
   const onConfigure = useCallback(async () => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import { FieldAppSDK } from '@contentful/app-sdk'
 import {
@@ -27,7 +27,7 @@ interface FieldProps {
   cma: PlainClientAPI
 }
 
-const Field = ({ sdk }: FieldProps): JSX.Element => {
+const Field = ({ sdk }: FieldProps): React.JSX.Element => {
   const [currentItem, setCurrentItem] = useState<Item | undefined>()
   const credentials = sdk.parameters.installation as Credentials
   const accessToken = useGetToken(credentials)

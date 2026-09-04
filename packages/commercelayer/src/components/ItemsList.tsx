@@ -1,3 +1,4 @@
+import React from 'react'
 // import { Sku, Market, Bundle, SkuList } from '@commercelayer/sdk'
 import { Asset, Card, Flex, Stack, Text } from '@contentful/f36-components'
 import styles from './ItemsList.module.css'
@@ -10,7 +11,7 @@ interface Props {
   onClick?: (item: Item) => void
   itemSelected?: Item
 }
-export default function ItemsList({ items, onClick, itemSelected }: Props): JSX.Element | null {
+export default function ItemsList({ items, onClick, itemSelected }: Props): React.JSX.Element | null {
   return items?.length === 0
     ? null
     : (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlainClientAPI } from 'contentful-management'
 import {
   Button,
@@ -27,7 +27,7 @@ interface DialogProps {
   cma: PlainClientAPI
 }
 
-const Dialog = ({ sdk }: DialogProps): JSX.Element => {
+const Dialog = ({ sdk }: DialogProps): React.JSX.Element => {
   const [items, setItems] = useState<ListResponse<Item>>()
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')

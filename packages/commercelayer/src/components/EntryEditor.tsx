@@ -8,7 +8,7 @@ interface EditorProps {
   cma: PlainClientAPI
 }
 
-const Entry = (props: EditorProps): JSX.Element => {
+const Entry = (props: EditorProps): React.JSX.Element => {
   return <Paragraph>Hello Entry Editor Component</Paragraph>
 }
 
