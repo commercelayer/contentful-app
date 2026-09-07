@@ -28,7 +28,7 @@ The current version of this app allows you to:
 - Link one or more markets inside Contentful
 - Link one or more bundles inside Contentful
 
-![Commerce Layer Contentful App GIF demo](./public/assets/demo.gif)
+![Commerce Layer Contentful App GIF demo](packages/commercelayer/public/assets/demo.gif)
 
 ## Installation Guide
 
@@ -72,15 +72,17 @@ Kindly follow the steps below to set up the [Commerce Layer contentful app](http
 
 8. Done!
 
-![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-01.png)
+![A screenshot of the Commerce Layer contentful app in use](packages/commercelayer/public/assets/screenshots/cl-app-01.png)
 
-![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-02.png)
+![A screenshot of the Commerce Layer contentful app in use](packages/commercelayer/public/assets/screenshots/cl-app-02.png)
 
-![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-03.png)
+![A screenshot of the Commerce Layer contentful app in use](packages/commercelayer/public/assets/screenshots/cl-app-03.png)
 
-![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-04.png)
+![A screenshot of the Commerce Layer contentful app in use](packages/commercelayer/public/assets/screenshots/cl-app-04.png)
 
-![A screenshot of the Commerce Layer contentful app in use](./public/assets/screenshots/cl-app-05.png)
+![A screenshot of the Commerce Layer contentful app in use](packages/commercelayer/public/assets/screenshots/cl-app-05.png)
+
+![A screenshot of the Commerce Layer contentful app in use](packages/commercelayer/public/assets/screenshots/cl-app-06.png)
 
 ## Contributors guide
 
@@ -89,19 +91,19 @@ This project was bootstrapped with [Create Contentful App](https://github.com/co
 1. Create or update your app definition in Contentful, and run the app in development mode in the browser. The page will reload if you make edits, and you will see any lint errors in the console.
 
 ```bash
-npm start
+pnpm start
 ```
 
 2. Build the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 3. Upload the build folder to Contentful and create a bundle that is automatically activated. The command guides you through the [deployment process](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/#deploy-with-contentful) and asks for all required arguments.
 
 ```bash
-npm run upload
+pnpm run upload
 ```
 
 4. Similar to `npm run upload`, it will upload your app to Contentful and activate it. The only difference is that with this command all required arguments are read from the environment variables. For this command to work, the following environment variables must be set: 
@@ -111,7 +113,7 @@ npm run upload
 - `CONTENTFUL_ACCESS_TOKEN` - A personal [access token](https://www.contentful.com/developers/docs/references/content-management-api/#/reference/personal-access-tokens)
 
 ```bash
-npm run upload-ci
+pnpm run upload-ci
 ```
 
 ---
