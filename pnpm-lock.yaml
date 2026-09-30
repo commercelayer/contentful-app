@@ -48,8 +48,8 @@ importers:
         specifier: ^11.13.5
         version: 11.13.5
       contentful-management:
-        specifier: ^12.18.2
-        version: 12.18.2(debug@4.4.3)
+        specifier: ^12.19.0
+        version: 12.19.0(debug@4.4.3)
       js-cookie:
         specifier: ^3.0.8
         version: 3.0.8
@@ -62,7 +62,7 @@ importers:
     devDependencies:
       '@contentful/app-scripts':
         specifier: ^4.1.12
-        version: 4.1.12(@types/node@22.20.4)(debug@4.4.3)
+        version: 4.1.12(@types/node@22.20.4)
       '@testing-library/jest-dom':
         specifier: ^6.10.0
         version: 6.10.0(@testing-library/dom@10.4.2)
@@ -83,7 +83,7 @@ importers:
         version: 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react':
         specifier: ^4.7.0
-        version: 4.7.0(vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0))
+        version: 4.7.0(vite@6.4.3(@types/node@22.20.4))
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
@@ -92,10 +92,10 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^6.4.3
-        version: 6.4.3(@types/node@22.20.4)(yaml@2.9.0)
+        version: 6.4.3(@types/node@22.20.4)
       vitest:
         specifier: ^4.1.11
-        version: 4.1.11(@types/node@22.20.4)(jsdom@25.0.1)(vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0))
+        version: 4.1.11(@types/node@22.20.4)(jsdom@25.0.1)(vite@6.4.3(@types/node@22.20.4))
 
 packages:
 
@@ -1454,8 +1454,8 @@ packages:
   bottleneck@2.19.5:
     resolution: {integrity: sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==}
 
-  browserslist@4.29.1:
-    resolution: {integrity: sha512-AUdjuRyCNGUYtqpqfTmWyM4fXay8yIQhmLnvYe/THMGfT9B/34X7xQd3ifKxwyNPPpowVBjLb+64BN9Rn1mizw==}
+  browserslist@4.29.2:
+    resolution: {integrity: sha512-/u9r8k8ue4ZhHCw9ovDtltpWdXeXzjhdxCGj6vm1RGLPXb8lu33EMdoCHF5Sx8oYBS+Q/FYYNmAqlHncxR3RmA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -1488,8 +1488,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001812:
-    resolution: {integrity: sha512-qN+QNNBr93TCmFrmte0bBCjSDMuRvt78VlHT99qIGPszm4QsqCX8lnyWUFkHi8B7ZBAPq8SH+UqyXNy/odMdng==}
+  caniuse-lite@1.0.30001813:
+    resolution: {integrity: sha512-zfjJo4rM0+fUomGDBW/xcDjhIwz/210DGvip2MAMDZ8KHcRPnOHmEgHPZP0UHlZoxr8fYKVJOqcORhYQcG4FKQ==}
 
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
@@ -1539,8 +1539,8 @@ packages:
   compute-scroll-into-view@1.0.20:
     resolution: {integrity: sha512-UCB0ioiyj8CRjtrvaceBLqqhZCVP+1B8+NWQhmdsm0VXOJtobBCf1dBQmebCCo34qZmUwZfIH2MZLqNHazrfjg==}
 
-  contentful-management@12.18.2:
-    resolution: {integrity: sha512-a2D1YB2Zd/VR8voTEH8fjG/JckezaBnsYrmYHBhoeOcdo3iA61NuDWry+DWEewDbRi5BrtVqby1tck8PUI16uA==}
+  contentful-management@12.19.0:
+    resolution: {integrity: sha512-8jDEAlmMcRJrF190EFWBQNmA4x7b9JDAkiHGdJTMscUnFVqJhZrrR7XCo5G3vS4hk6YNxMKpu329ixm5OB3peg==}
     engines: {node: '>=20'}
 
   contentful-sdk-core@10.0.0:
@@ -1652,8 +1652,8 @@ packages:
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
 
-  electron-to-chromium@1.5.439:
-    resolution: {integrity: sha512-qu6QIPXhsb+CRcAiTMNjR4A1y/7tCYKkKjr5CZXRVih6qkDf79peZ2BpEU3qoDBNCRrcy3Mra3X9nG5oruuA7Q==}
+  electron-to-chromium@1.5.440:
+    resolution: {integrity: sha512-SghDzqdJokdz8zP8YNlvS74+CwLRoUPDGvP/gFA+HrKVw+pOshUAgx8pXR37xl/u16zGae746rFNWvZ/22kU2Q==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -1682,8 +1682,8 @@ packages:
   es-module-lexer@2.3.2:
     resolution: {integrity: sha512-poHGpORABojJJucnV9KbOavETW8lBVnphkW77ER5/BQ5Fz7oXSoCNek7IH3vR5nRjdsEz926ibFYX8KtLQmdyw==}
 
-  es-object-atoms@1.1.1:
-    resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==}
+  es-object-atoms@1.1.2:
+    resolution: {integrity: sha512-HWcBoN6NileqtSydK2FqHbS/LoDd2pqrnQHLyJzBj4kOp/ky2MWMN694xOfkK8/SnUsW2DH7EfyVlydKCsm1Zw==}
     engines: {node: '>= 0.4'}
 
   es-set-tostringtag@2.1.0:
@@ -2598,11 +2598,6 @@ packages:
     resolution: {integrity: sha512-vIYeF1u3CjlhAFekPPAk2h/Kv4T3mAkMox5OymRiJQB0spDP10LHvt+K7G9Ny6NuuMAb25/6n1qyUjAcGNf/AA==}
     engines: {node: '>= 6'}
 
-  yaml@2.9.0:
-    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==}
-    engines: {node: '>= 14.6'}
-    hasBin: true
-
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
@@ -2658,7 +2653,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      browserslist: 4.29.1
+      browserslist: 4.29.2
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -2736,7 +2731,7 @@ snapshots:
 
   '@commercelayer/sdk@6.58.0': {}
 
-  '@contentful/app-scripts@4.1.12(@types/node@22.20.4)(debug@4.4.3)':
+  '@contentful/app-scripts@4.1.12(@types/node@22.20.4)':
     dependencies:
       '@contentful/node-apps-toolkit': 4.1.0
       '@esbuild-plugins/node-globals-polyfill': 0.2.3(esbuild@0.28.2)
@@ -2747,7 +2742,7 @@ snapshots:
       bottleneck: 2.19.5
       chalk: 4.1.2
       commander: 12.1.0
-      contentful-management: 12.18.2(debug@4.4.3)
+      contentful-management: 12.19.0(debug@4.4.3)
       dotenv: 17.4.2
       esbuild: 0.28.2
       ignore: 7.0.9
@@ -2764,7 +2759,7 @@ snapshots:
 
   '@contentful/app-sdk@4.70.0':
     dependencies:
-      contentful-management: 12.18.2(debug@4.4.3)
+      contentful-management: 12.19.0(debug@4.4.3)
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -3350,7 +3345,7 @@ snapshots:
   '@contentful/node-apps-toolkit@4.1.0':
     dependencies:
       '@types/debug': 4.1.13
-      contentful-management: 12.18.2(debug@4.4.3)
+      contentful-management: 12.19.0(debug@4.4.3)
       debug: 4.4.3
       got: 11.8.6
       jsonwebtoken: 9.0.3
@@ -4035,7 +4030,7 @@ snapshots:
     dependencies:
       '@types/node': 22.20.4
 
-  '@vitejs/plugin-react@4.7.0(vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0))':
+  '@vitejs/plugin-react@4.7.0(vite@6.4.3(@types/node@22.20.4))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-transform-react-jsx-self': 7.29.7(@babel/core@7.29.7)
@@ -4043,7 +4038,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.4.3(@types/node@22.20.4)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.20.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -4056,13 +4051,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.11(vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0))':
+  '@vitest/mocker@4.1.11(vite@6.4.3(@types/node@22.20.4))':
     dependencies:
       '@vitest/spy': 4.1.11
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 6.4.3(@types/node@22.20.4)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.20.4)
 
   '@vitest/pretty-format@4.1.11':
     dependencies:
@@ -4171,13 +4166,13 @@ snapshots:
 
   bottleneck@2.19.5: {}
 
-  browserslist@4.29.1:
+  browserslist@4.29.2:
     dependencies:
       baseline-browser-mapping: 2.11.26
-      caniuse-lite: 1.0.30001812
-      electron-to-chromium: 1.5.439
+      caniuse-lite: 1.0.30001813
+      electron-to-chromium: 1.5.440
       node-releases: 2.0.57
-      update-browserslist-db: 1.3.3(browserslist@4.29.1)
+      update-browserslist-db: 1.3.3(browserslist@4.29.2)
 
   buffer-equal-constant-time@1.0.1: {}
 
@@ -4215,7 +4210,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001812: {}
+  caniuse-lite@1.0.30001813: {}
 
   chai@6.2.2: {}
 
@@ -4254,7 +4249,7 @@ snapshots:
 
   compute-scroll-into-view@1.0.20: {}
 
-  contentful-management@12.18.2(debug@4.4.3):
+  contentful-management@12.19.0(debug@4.4.3):
     dependencies:
       '@contentful/rich-text-types': 17.2.7
       axios: 1.20.0(debug@4.4.3)
@@ -4375,7 +4370,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  electron-to-chromium@1.5.439: {}
+  electron-to-chromium@1.5.440: {}
 
   emoji-regex@8.0.0: {}
 
@@ -4402,7 +4397,7 @@ snapshots:
 
   es-module-lexer@2.3.2: {}
 
-  es-object-atoms@1.1.1:
+  es-object-atoms@1.1.2:
     dependencies:
       es-errors: 1.3.0
 
@@ -4529,7 +4524,7 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       es-define-property: 1.0.1
       es-errors: 1.3.0
-      es-object-atoms: 1.1.1
+      es-object-atoms: 1.1.2
       function-bind: 1.1.2
       get-proto: 1.0.1
       gopd: 1.2.0
@@ -4540,7 +4535,7 @@ snapshots:
   get-proto@1.0.1:
     dependencies:
       dunder-proto: 1.0.1
-      es-object-atoms: 1.1.1
+      es-object-atoms: 1.1.2
 
   get-stream@5.2.0:
     dependencies:
@@ -5186,9 +5181,9 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  update-browserslist-db@1.3.3(browserslist@4.29.1):
+  update-browserslist-db@1.3.3(browserslist@4.29.2):
     dependencies:
-      browserslist: 4.29.1
+      browserslist: 4.29.2
       escalade: 3.2.0
       picocolors: 1.1.1
 
@@ -5209,7 +5204,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0):
+  vite@6.4.3(@types/node@22.20.4):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.7)
@@ -5220,12 +5215,11 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.20.4
       fsevents: 2.3.3
-      yaml: 2.9.0
 
-  vitest@4.1.11(@types/node@22.20.4)(jsdom@25.0.1)(vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0)):
+  vitest@4.1.11(@types/node@22.20.4)(jsdom@25.0.1)(vite@6.4.3(@types/node@22.20.4)):
     dependencies:
       '@vitest/expect': 4.1.11
-      '@vitest/mocker': 4.1.11(vite@6.4.3(@types/node@22.20.4)(yaml@2.9.0))
+      '@vitest/mocker': 4.1.11(vite@6.4.3(@types/node@22.20.4))
       '@vitest/pretty-format': 4.1.11
       '@vitest/runner': 4.1.11
       '@vitest/snapshot': 4.1.11
@@ -5242,7 +5236,7 @@ snapshots:
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vite: 6.4.3(@types/node@22.20.4)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.20.4)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.20.4
@@ -5297,8 +5291,5 @@ snapshots:
   yallist@3.1.1: {}
 
   yaml@1.10.3: {}
-
-  yaml@2.9.0:
-    optional: true
 
   zod@3.25.76: {}
